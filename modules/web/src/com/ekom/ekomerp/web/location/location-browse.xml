@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://caption"
+        class="com.ekom.ekomerp.web.location.LocationBrowse"
+        focusComponent="locationsTable"
+        lookupComponent="locationsTable"
+        messagesPack="com.ekom.ekomerp.web.location">
+    <dsContext>
+        <datasource id="locationDs"
+                    class="com.ekom.ekomerp.entity.Location"
+                    view="locationWithStockman"/>
+        <groupDatasource id="locationsDs"
+                         class="com.ekom.ekomerp.entity.Location"
+                         view="locationWithStockman">
+            <query>
+                <![CDATA[select e from ekomerp$Location e]]>
+            </query>
+        </groupDatasource>
+        <collectionDatasource id="stockmenDs"
+                              class="com.haulmont.cuba.security.entity.User"
+                              view="_minimal">
+            <query>
+                <![CDATA[select e from sec$User e]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <actions>
+        <action id="save"
+                caption="mainMsg://actions.Ok"
+                icon="icons/ok.png"
+                invoke="save"
+                shortcut="CTRL-ENTER"/>
+        <action id="cancel"
+                caption="mainMsg://actions.Cancel"
+                icon="icons/cancel.png"
+                invoke="cancel"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout>
+        <split id="split"
+               height="100%"
+               orientation="horizontal"
+               reversePosition="true"
+               width="100%">
+            <vbox id="lookupBox"
+                  expand="locationsTable"
+                  height="100%"
+                  margin="false,true,false,false"
+                  spacing="true">
+                <filter id="filter"
+                        applyTo="locationsTable"
+                        datasource="locationsDs">
+                    <properties include=".*"/>
+                </filter>
+                <groupTable id="locationsTable"
+                            width="100%">
+                    <actions>
+                        <action id="create"/>
+                        <action id="edit"/>
+                        <action id="remove"/>
+                    </actions>
+                    <columns>
+                        <column id="code"/>
+                        <column id="name"/>
+                        <column id="stockman"/>
+                        <column id="address"/>
+                    </columns>
+                    <rows datasource="locationsDs"/>
+                    <rowsCount/>
+                    <buttonsPanel id="buttonsPanel"
+                                  alwaysVisible="true">
+                        <button id="createBtn"
+                                action="locationsTable.create"/>
+                        <button id="editBtn"
+                                action="locationsTable.edit"/>
+                        <button id="removeBtn"
+                                action="locationsTable.remove"/>
+                    </buttonsPanel>
+                </groupTable>
+            </vbox>
+            <vbox id="editBox"
+                  expand="fieldGroupBox"
+                  height="100%"
+                  margin="false,false,false,true"
+                  spacing="true">
+                <vbox id="fieldGroupBox">
+                    <fieldGroup id="fieldGroup"
+                                datasource="locationDs">
+                        <column width="250px">
+                            <field id="code"/>
+                            <field id="name"/>
+                            <field id="stockman"
+                                   optionsDatasource="stockmenDs"/>
+                            <field id="address"
+                                   rows="5"/>
+                        </column>
+                    </fieldGroup>
+                </vbox>
+                <hbox id="actionsPane"
+                      spacing="true"
+                      visible="false">
+                    <button id="saveBtn"
+                            action="save"/>
+                    <button id="cancelBtn"
+                            action="cancel"/>
+                </hbox>
+            </vbox>
+        </split>
+    </layout>
+</window>

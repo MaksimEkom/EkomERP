@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
+    <view class="com.ekom.ekomerp.entity.Consumption"
+          extends="_local"
+          name="consumption-edit">
+        <property name="consumableProduct"
+                  view="_minimal">
+            <property name="code"/>
+            <property name="unit"
+                      view="_minimal"/>
+        </property>
+    </view>
+    <view class="com.ekom.ekomerp.entity.Laboriousness"
+          extends="_local"
+          name="laboriousness-edit">
+        <property name="operation"
+                  view="_minimal">
+            <property name="name"/>
+        </property>
+    </view>
+    <view class="com.ekom.ekomerp.entity.Category"
+          extends="_local"
+          name="categoryWithParent">
+        <property name="parentCategory"
+                  view="_minimal">
+            <property name="code"/>
+        </property>
+    </view>
+    <view class="com.ekom.ekomerp.entity.Product"
+          extends="_local"
+          name="productWithCategoryAndUnitAndLaboriousnessAndConsumption">
+        <property name="unit"
+                  view="_minimal"/>
+        <property name="category"
+                  view="_minimal"/>
+        <property name="laboriousness"
+                  view="_minimal">
+            <property name="operation"
+                      view="_minimal">
+            </property>
+            <property name="value"/>
+        </property>
+        <property name="consumption"
+                  view="_minimal">
+            <property name="consumableProduct"
+                      view="_minimal">
+                <property name="unit"
+                          view="_minimal"/>
+            </property>
+            <property name="quantity"/>
+        </property>
+        <property name="image"
+                  view="_minimal"/>
+    </view>
+    <view class="com.ekom.ekomerp.entity.Location"
+          extends="_local"
+          name="locationWithStockman">
+        <property name="stockman"
+                  view="_minimal"/>
+    </view>
+    <view class="com.ekom.ekomerp.entity.StockMovement"
+          extends="_local"
+          name="stockMovement-edit">
+        <property name="location"
+                  view="_minimal"/>
+        <property name="stockMovementLine"
+                  view="_minimal">
+            <property name="product"
+                      view="_minimal">
+                <property name="unit"
+                          view="_minimal"/>
+            </property>
+            <property name="quantity"/>
+        </property>
+    </view>
+    <view class="com.ekom.ekomerp.entity.StockMovementLine"
+          extends="_local"
+          name="stockMovementLine-edit">
+        <property name="product"
+                  view="_minimal">
+            <property name="unit"
+                      view="_minimal"/>
+        </property>
+    </view>
+    <view class="com.ekom.ekomerp.entity.Product"
+          extends="_local"
+          name="productWithUnit">
+        <property name="unit"
+                  view="_minimal"/>
+    </view>
+    <view class="com.ekom.ekomerp.entity.StockMovement"
+          extends="_local"
+          name="stockMovementWithLocation">
+        <property name="location"
+                  view="_minimal">
+            <property name="stockman"
+                      view="_minimal"/>
+        </property>
+    </view>
+</views>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="com.ekom.ekomerp.web.stockmovementline.StockMovementLineEdit"
+        datasource="stockMovementLineDs"
+        focusComponent="fieldGroup"
+        messagesPack="com.ekom.ekomerp.web.stockmovementline">
+    <dsContext>
+        <datasource id="stockMovementLineDs"
+                    class="com.ekom.ekomerp.entity.StockMovementLine"
+                    view="stockMovementLine-edit"/>
+        <collectionDatasource id="productsDs"
+                              class="com.ekom.ekomerp.entity.Product"
+                              view="productWithUnit">
+            <query>
+                <![CDATA[select e from ekomerp$Product e]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <dialogMode forceDialog="true"
+                height="200"
+                width="400"/>
+    <layout expand="windowActions"
+            spacing="true">
+        <fieldGroup id="fieldGroup"
+                    datasource="stockMovementLineDs">
+            <column width="250px">
+                <field id="product"
+                       optionsDatasource="productsDs"/>
+                <field id="quantity"/>
+            </column>
+        </fieldGroup>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>

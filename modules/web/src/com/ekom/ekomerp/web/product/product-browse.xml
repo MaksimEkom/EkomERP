@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.ekom.ekomerp.web.product.ProductBrowse"
+        focusComponent="productsTable"
+        lookupComponent="productsTable"
+        messagesPack="com.ekom.ekomerp.web.product">
+    <dsContext>
+        <groupDatasource id="productsDs"
+                         class="com.ekom.ekomerp.entity.Product"
+                         view="productWithCategoryAndUnitAndLaboriousnessAndConsumption">
+            <query>
+                <![CDATA[select e from ekomerp$Product e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="productsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="productsTable"
+                datasource="productsDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="productsTable"
+                    presentations="true"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+                <action id="excel"/>
+            </actions>
+            <columns>
+                <column id="code"/>
+                <column id="name"/>
+                <column id="unit"/>
+                <column id="fullName"/>
+                <column id="docName"/>
+                <column id="notes"/>
+                <column id="category"/>
+                <column id="active"/>
+                <column id="analog"/>
+            </columns>
+            <rows datasource="productsDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="productsTable.create"/>
+                <button id="editBtn"
+                        action="productsTable.edit"/>
+                <button id="removeBtn"
+                        action="productsTable.remove"/>
+                <button id="excelBtn"
+                        action="productsTable.excel"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

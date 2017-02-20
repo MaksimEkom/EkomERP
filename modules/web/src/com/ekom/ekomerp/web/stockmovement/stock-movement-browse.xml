@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.ekom.ekomerp.web.stockmovement.StockMovementBrowse"
+        focusComponent="stockMovementsTable"
+        lookupComponent="stockMovementsTable"
+        messagesPack="com.ekom.ekomerp.web.stockmovement">
+    <dsContext>
+        <groupDatasource id="stockMovementsDs"
+                         class="com.ekom.ekomerp.entity.StockMovement"
+                         view="stockMovementWithLocation">
+            <query>
+                <![CDATA[select e from ekomerp$StockMovement e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="stockMovementsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="stockMovementsTable"
+                datasource="stockMovementsDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="stockMovementsTable"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+            </actions>
+            <columns>
+                <column id="consignment"/>
+                <column id="date"/>
+                <column id="stockMovementType"/>
+                <column id="location"/>
+            </columns>
+            <rows datasource="stockMovementsDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="stockMovementsTable.create"/>
+                <button id="editBtn"
+                        action="stockMovementsTable.edit"/>
+                <button id="removeBtn"
+                        action="stockMovementsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

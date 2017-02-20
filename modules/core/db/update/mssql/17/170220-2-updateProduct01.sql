@@ -1,0 +1,2 @@
+alter table EKOMERP_PRODUCT add constraint FK_EKOMERP_PRODUCT_IMAGE foreign key (IMAGE_ID) references SYS_FILE(ID);
+create index IDX_EKOMERP_PRODUCT_IMAGE on EKOMERP_PRODUCT (IMAGE_ID);

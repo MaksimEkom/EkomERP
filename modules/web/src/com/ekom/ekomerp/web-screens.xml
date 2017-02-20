@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<screen-config xmlns="http://schemas.haulmont.com/cuba/screens.xsd">
+    <include file="com/ekom/ekomerp/screens.xml"/>
+    <screen id="ekomerp$Unit.browse"
+            template="com/ekom/ekomerp/web/unit/unit-browse.xml"/>
+    <screen id="ekomerp$Operation.browse"
+            template="com/ekom/ekomerp/web/operation/operation-browse.xml"/>
+    <screen id="ekomerp$Consumption.edit"
+            template="com/ekom/ekomerp/web/consumption/consumption-edit.xml"/>
+    <screen id="ekomerp$Laboriousness.edit"
+            template="com/ekom/ekomerp/web/laboriousness/laboriousness-edit.xml"/>
+    <screen id="ekomerp$Category.browse"
+            template="com/ekom/ekomerp/web/category/category-browse.xml"/>
+    <screen id="ekomerp$Product.browse"
+            template="com/ekom/ekomerp/web/product/product-browse.xml"/>
+    <screen id="ekomerp$Product.edit"
+            template="com/ekom/ekomerp/web/product/product-edit.xml"/>
+    <screen id="ekomerp$Location.browse"
+            template="com/ekom/ekomerp/web/location/location-browse.xml"/>
+    <screen id="ekomerp$StockMovement.browse"
+            template="com/ekom/ekomerp/web/stockmovement/stock-movement-browse.xml"/>
+    <screen id="ekomerp$StockMovement.edit"
+            template="com/ekom/ekomerp/web/stockmovement/stock-movement-edit.xml"/>
+    <screen id="ekomerp$StockMovementLine.edit"
+            template="com/ekom/ekomerp/web/stockmovementline/stock-movement-line-edit.xml"/>
+</screen-config>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://caption"
+        class="com.ekom.ekomerp.web.category.CategoryBrowse"
+        focusComponent="categoriesTable"
+        lookupComponent="categoriesTable"
+        messagesPack="com.ekom.ekomerp.web.category">
+    <dsContext>
+        <datasource id="categoryDs"
+                    class="com.ekom.ekomerp.entity.Category"
+                    view="categoryWithParent"/>
+        <hierarchicalDatasource id="categoriesDs"
+                                class="com.ekom.ekomerp.entity.Category"
+                                hierarchyProperty="parentCategory"
+                                view="categoryWithParent">
+            <query>
+                <![CDATA[select e from ekomerp$Category e]]>
+            </query>
+        </hierarchicalDatasource>
+        <collectionDatasource id="parentCategoriesDs"
+                              class="com.ekom.ekomerp.entity.Category"
+                              view="_minimal">
+            <query>
+                <![CDATA[select e from ekomerp$Category e]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <actions>
+        <action id="save"
+                caption="mainMsg://actions.Ok"
+                icon="icons/ok.png"
+                invoke="save"
+                shortcut="CTRL-ENTER"/>
+        <action id="cancel"
+                caption="mainMsg://actions.Cancel"
+                icon="icons/cancel.png"
+                invoke="cancel"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout>
+        <split id="split"
+               height="100%"
+               orientation="horizontal"
+               reversePosition="true"
+               width="100%">
+            <vbox id="lookupBox"
+                  expand="categoriesTable"
+                  height="100%"
+                  margin="false,true,false,false"
+                  spacing="true">
+                <filter id="filter"
+                        applyTo="categoriesTable"
+                        datasource="categoriesDs">
+                    <properties include=".*"/>
+                </filter>
+                <treeTable id="categoriesTable"
+                           width="100%">
+                    <actions>
+                        <action id="create"/>
+                        <action id="edit"/>
+                        <action id="remove"/>
+                    </actions>
+                    <columns>
+                        <column id="code"/>
+                        <column id="name"/>
+                    </columns>
+                    <rows datasource="categoriesDs"/>
+                    <rowsCount/>
+                    <buttonsPanel id="buttonsPanel"
+                                  alwaysVisible="true">
+                        <button id="createBtn"
+                                action="categoriesTable.create"/>
+                        <button id="editBtn"
+                                action="categoriesTable.edit"/>
+                        <button id="removeBtn"
+                                action="categoriesTable.remove"/>
+                    </buttonsPanel>
+                </treeTable>
+            </vbox>
+            <vbox id="editBox"
+                  expand="fieldGroupBox"
+                  height="100%"
+                  margin="false,false,false,true"
+                  spacing="true">
+                <vbox id="fieldGroupBox">
+                    <fieldGroup id="fieldGroup"
+                                datasource="categoryDs">
+                        <column width="250px">
+                            <field id="code"/>
+                            <field id="name"/>
+                            <field id="parentCategory"
+                                   optionsDatasource="parentCategoriesDs"/>
+                        </column>
+                    </fieldGroup>
+                </vbox>
+                <hbox id="actionsPane"
+                      spacing="true"
+                      visible="false">
+                    <button id="saveBtn"
+                            action="save"/>
+                    <button id="cancelBtn"
+                            action="cancel"/>
+                </hbox>
+            </vbox>
+        </split>
+    </layout>
+</window>

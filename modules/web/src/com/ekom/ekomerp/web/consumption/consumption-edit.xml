@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="com.ekom.ekomerp.web.consumption.ConsumptionEdit"
+        datasource="consumptionDs"
+        focusComponent="fieldGroup"
+        messagesPack="com.ekom.ekomerp.web.consumption">
+    <dsContext>
+        <datasource id="consumptionDs"
+                    class="com.ekom.ekomerp.entity.Consumption"
+                    view="consumption-edit"/>
+        <collectionDatasource id="consumableProductsDs"
+                              class="com.ekom.ekomerp.entity.Product"
+                              view="_minimal">
+            <query>
+                <![CDATA[select e from ekomerp$Product e]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <dialogMode forceDialog="true"
+                height="200"
+                width="400"/>
+    <layout expand="windowActions"
+            spacing="true">
+        <fieldGroup id="fieldGroup"
+                    datasource="consumptionDs">
+            <column width="250px">
+                <field id="consumableProduct"
+                       optionsDatasource="consumableProductsDs"/>
+                <field id="quantity"/>
+            </column>
+        </fieldGroup>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>

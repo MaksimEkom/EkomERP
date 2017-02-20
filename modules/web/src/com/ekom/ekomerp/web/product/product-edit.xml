@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="com.ekom.ekomerp.web.product.ProductEdit"
+        datasource="productDs"
+        focusComponent="fieldGroup"
+        messagesPack="com.ekom.ekomerp.web.product">
+    <dsContext>
+        <datasource id="productDs"
+                    class="com.ekom.ekomerp.entity.Product"
+                    view="productWithCategoryAndUnitAndLaboriousnessAndConsumption">
+            <collectionDatasource id="laboriousnessDs"
+                                  property="laboriousness"/>
+            <collectionDatasource id="consumptionDs"
+                                  property="consumption"/>
+        </datasource>
+        <collectionDatasource id="unitsDs"
+                              class="com.ekom.ekomerp.entity.Unit"
+                              view="_minimal">
+            <query>
+                <![CDATA[select e from ekomerp$Unit e]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="scrollBox"
+            spacing="true">
+        <scrollBox id="scrollBox"
+                   spacing="true">
+            <hbox spacing="true">
+                <vbox spacing="true">
+                    <groupBox id="productImageBox"
+                              caption="msg://Image"
+                              height="300px"
+                              spacing="true"
+                              width="AUTO">
+                        <embedded id="productImage"
+                                  align="MIDDLE_CENTER"
+                                  height="100%"/>
+                    </groupBox>
+                    <upload id="productImageUpload"
+                            align="TOP_CENTER"/>
+                </vbox>
+                <fieldGroup id="fieldGroup"
+                            datasource="productDs">
+                    <column width="250px">
+                        <field id="code"/>
+                        <field id="name"/>
+                        <field id="category"/>
+                        <field id="active"/>
+                        <field id="notes"
+                               rows="5"/>
+                    </column>
+                    <column>
+                        <field id="unit"
+                               optionsDatasource="unitsDs"
+                               width="250px"/>
+                        <field id="fullName"
+                               width="250px"/>
+                        <field id="docName"
+                               width="250px"/>
+                        <field id="analog"
+                               width="250px"/>
+                    </column>
+                    <column>
+                        <field id="for_sale"/>
+                        <field id="for_purchase"/>
+                    </column>
+                </fieldGroup>
+            </hbox>
+            <tabSheet>
+                <tab caption="msg://Characteristics "
+                     spacing="true">
+                    <fieldGroup datasource="productDs">
+                        <column width="250px">
+                            <field id="height"/>
+                            <field id="width"/>
+                            <field id="depth"/>
+                            <field id="weight"/>
+                        </column>
+                    </fieldGroup>
+                </tab>
+                <tab caption="msg://Laboriousness"
+                     spacing="true">
+                    <table id="laboriousnessTable"
+                           height="200px"
+                           width="100%">
+                        <actions>
+                            <action id="create"/>
+                            <action id="edit"/>
+                            <action id="remove"/>
+                        </actions>
+                        <columns>
+                            <column id="operation"/>
+                            <column id="value"/>
+                        </columns>
+                        <rows datasource="laboriousnessDs"/>
+                        <buttonsPanel>
+                            <button action="laboriousnessTable.create"/>
+                            <button action="laboriousnessTable.edit"/>
+                            <button action="laboriousnessTable.remove"/>
+                        </buttonsPanel>
+                    </table>
+                    <hbox spacing="true">
+                        <label value="msg://Total laboriousness"/>
+                        <label id="label1"/>
+                    </hbox>
+                </tab>
+                <tab caption="msg://Consumption"
+                     spacing="true">
+                    <table id="consumptionTable"
+                           height="200px"
+                           width="100%">
+                        <actions>
+                            <action id="create"/>
+                            <action id="edit"/>
+                            <action id="remove"/>
+                        </actions>
+                        <columns>
+                            <column id="consumableProduct"/>
+                            <column id="consumableProduct.unit.name"/>
+                            <column id="quantity"/>
+                        </columns>
+                        <rows datasource="consumptionDs"/>
+                        <buttonsPanel>
+                            <button action="consumptionTable.create"/>
+                            <button action="consumptionTable.edit"/>
+                            <button action="consumptionTable.remove"/>
+                        </buttonsPanel>
+                    </table>
+                </tab>
+            </tabSheet>
+        </scrollBox>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>

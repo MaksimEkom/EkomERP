@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             version="2.0">
+    <persistence-unit name="EkomERP"
+                      transaction-type="RESOURCE_LOCAL">
+        <class>com.ekom.ekomerp.entity.Product</class>
+        <class>com.ekom.ekomerp.entity.Category</class>
+        <class>com.ekom.ekomerp.entity.Unit</class>
+        <class>com.ekom.ekomerp.entity.Operation</class>
+        <class>com.ekom.ekomerp.entity.Laboriousness</class>
+        <class>com.ekom.ekomerp.entity.Consumption</class>
+        <class>com.ekom.ekomerp.entity.Location</class>
+        <class>com.ekom.ekomerp.entity.StockMovement</class>
+        <class>com.ekom.ekomerp.entity.StockMovementLine</class>
+        <class>com.ekom.ekomerp.entity.InventoryQuantity</class>
+    </persistence-unit>
+</persistence>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fts-config xmlns="http://schemas.haulmont.com/cuba/fts.xsd">
+    <entities>
+        <entity class="com.ekom.ekomerp.entity.Product">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.Category">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.Unit">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.Operation">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.Laboriousness">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.Consumption">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.Location">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.StockMovement">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.StockMovementLine">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.InventoryQuantity">
+            <include re=".*"/>
+        </entity>
+    </entities>
+</fts-config>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://schemas.haulmont.com/cuba/menu.xsd">
+    <menu id="registers"
+          insertBefore="administration">
+        <item id="ekomerp$Unit.browse"/>
+        <item id="ekomerp$Operation.browse"/>
+        <item id="ekomerp$Category.browse"/>
+        <item id="ekomerp$Product.browse"/>
+        <item id="ekomerp$Location.browse"/>
+    </menu>
+    <menu id="inventory"
+          insertBefore="administration">
+        <item id="ekomerp$StockMovement.browse"/>
+    </menu>
+    <menu id="application"
+          insertBefore="administration">
+    </menu>
+</menu-config>
