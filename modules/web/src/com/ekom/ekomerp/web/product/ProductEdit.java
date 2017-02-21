@@ -17,6 +17,8 @@ import com.haulmont.cuba.gui.upload.FileUploadingAPI;
 import javax.inject.Inject;
 import java.util.Map;
 import java.util.UUID;
+import com.haulmont.cuba.gui.components.Component;
+import com.haulmont.cuba.gui.data.Datasource;
 
 public class ProductEdit extends AbstractEditor<Product> {
 
@@ -83,4 +85,8 @@ public class ProductEdit extends AbstractEditor<Product> {
         label1.setValue(totalLaboriousness);
     }
 
+
+    public Component generateUnitField(Datasource datasource, String fieldId) {
+		return null;
+    }
 }
