@@ -84,7 +84,7 @@
                         <column>
                             <field id="analog"
                                    width="250px"/>
-                            <field id="notes"
+                            <field id="description"
                                    rows="5"
                                    width="250px"/>
                         </column>

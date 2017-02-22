@@ -14,7 +14,7 @@ create table EKOMERP_PRODUCT (
     UNIT_ID uniqueidentifier,
     FULL_NAME varchar(255),
     DOC_NAME varchar(255),
-    NOTES varchar(max),
+    DESCRIPTION varchar(max),
     HEIGHT integer,
     WIDTH integer,
     DEPTH integer,
@@ -169,6 +169,8 @@ create table EKOMERP_STOCK_MOVEMENT_LINE (
     PRODUCT_ID uniqueidentifier not null,
     QUANTITY double precision not null,
     STOCK_MOVEMENT_ID uniqueidentifier,
+    QUANTITY_BEFORE double precision,
+    QUANTITY_AFTER double precision,
     --
     primary key nonclustered (ID)
 )^

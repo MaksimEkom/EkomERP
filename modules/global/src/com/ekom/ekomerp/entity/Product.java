@@ -42,8 +42,8 @@ public class Product extends StandardEntity {
     protected String docName;
 
     @Lob
-    @Column(name = "NOTES")
-    protected String notes;
+    @Column(name = "DESCRIPTION")
+    protected String description;
 
     @Column(name = "HEIGHT")
     protected Integer height;
@@ -86,6 +86,15 @@ public class Product extends StandardEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IMAGE_ID")
     protected FileDescriptor image;
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
 
     public void setImage(FileDescriptor image) {
         this.image = image;
@@ -170,14 +179,6 @@ public class Product extends StandardEntity {
 
     public String getDocName() {
         return docName;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-    public String getNotes() {
-        return notes;
     }
 
     public void setHeight(Integer height) {

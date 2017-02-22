@@ -7,7 +7,7 @@
               name="jdbc/CubaDS"
               password="SQLadmin.1"
               type="javax.sql.DataSource"
-              url="jdbc:jtds:sqlserver://SERVER1/EkomDB_copy"
+              url="jdbc:jtds:sqlserver://178.124.189.62/EkomDB_copy"
               username="sa"
               validationQuery="select 1"/>
     <!-- Switch off session serialization -->

@@ -38,7 +38,7 @@
                 <column id="unit"/>
                 <column id="fullName"/>
                 <column id="docName"/>
-                <column id="notes"/>
+                <column id="description"/>
                 <column id="category"/>
                 <column id="active"/>
                 <column id="analog"/>
