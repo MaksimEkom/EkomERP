@@ -97,4 +97,19 @@
                       view="_minimal"/>
         </property>
     </view>
+    <view class="com.ekom.ekomerp.entity.Inventory"
+          extends="_local"
+          name="inventory-view">
+        <property name="location"
+                  view="_local">
+            <property name="stockman"
+                      view="_minimal"/>
+        </property>
+        <property name="product"
+                  view="_minimal">
+            <property name="code"/>
+            <property name="unit"
+                      view="_minimal"/>
+        </property>
+    </view>
 </views>

@@ -19,7 +19,9 @@ import sun.util.calendar.BaseCalendar;
 
 import java.util.Set;
 import javax.persistence.OneToMany;
+import com.haulmont.cuba.core.entity.annotation.Listeners;
 
+@Listeners("ekomerp_StockMovementEntityListener")
 @Table(name = "EKOMERP_STOCK_MOVEMENT")
 @Entity(name = "ekomerp$StockMovement")
 public class StockMovement extends StandardEntity {

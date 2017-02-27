@@ -28,7 +28,7 @@
         <entity class="com.ekom.ekomerp.entity.StockMovementLine">
             <include re=".*"/>
         </entity>
-        <entity class="com.ekom.ekomerp.entity.InventoryQuantity">
+        <entity class="com.ekom.ekomerp.entity.Inventory">
             <include re=".*"/>
         </entity>
     </entities>

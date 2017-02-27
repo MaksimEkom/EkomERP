@@ -175,8 +175,9 @@ create table EKOMERP_STOCK_MOVEMENT_LINE (
     primary key nonclustered (ID)
 )^
 -- end EKOMERP_STOCK_MOVEMENT_LINE
--- begin EKOMERP_INVENTORY_QUANTITY
-create table EKOMERP_INVENTORY_QUANTITY (
+
+-- begin EKOMERP_INVENTORY
+create table EKOMERP_INVENTORY (
     ID uniqueidentifier,
     VERSION integer not null,
     CREATE_TS datetime2,
@@ -186,10 +187,10 @@ create table EKOMERP_INVENTORY_QUANTITY (
     DELETE_TS datetime2,
     DELETED_BY varchar(50),
     --
-    LOCATION_ID uniqueidentifier,
-    PRODUCT_ID uniqueidentifier,
-    QUANTITY varchar(255),
+    LOCATION_ID uniqueidentifier not null,
+    PRODUCT_ID uniqueidentifier not null,
+    QUANTITY double precision,
     --
     primary key nonclustered (ID)
 )^
--- end EKOMERP_INVENTORY_QUANTITY
+-- end EKOMERP_INVENTORY
