@@ -11,6 +11,7 @@
     <menu id="inventory"
           insertBefore="administration">
         <item id="ekomerp$StockMovement.browse"/>
+        <item id="ekomerp$Inventory.browse"/>
     </menu>
     <menu id="application"
           insertBefore="administration">

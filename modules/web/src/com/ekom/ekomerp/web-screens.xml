@@ -23,4 +23,6 @@
             template="com/ekom/ekomerp/web/stockmovement/stock-movement-edit.xml"/>
     <screen id="ekomerp$StockMovementLine.edit"
             template="com/ekom/ekomerp/web/stockmovementline/stock-movement-line-edit.xml"/>
+    <screen id="ekomerp$Inventory.browse"
+            template="com/ekom/ekomerp/web/inventory/inventory-browse.xml"/>
 </screen-config>

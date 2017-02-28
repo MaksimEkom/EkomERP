@@ -148,9 +148,9 @@ create table EKOMERP_STOCK_MOVEMENT (
     DELETED_BY varchar(50),
     --
     CONSIGNMENT varchar(255),
-    DATE_ datetime2,
-    LOCATION_ID uniqueidentifier,
-    STOCK_MOVEMENT_TYPE integer,
+    DATE_ datetime2 not null,
+    LOCATION_ID uniqueidentifier not null,
+    STOCK_MOVEMENT_TYPE integer not null,
     --
     primary key nonclustered (ID)
 )^

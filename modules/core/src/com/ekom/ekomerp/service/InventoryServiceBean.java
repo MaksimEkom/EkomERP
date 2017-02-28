@@ -29,5 +29,7 @@ public class InventoryServiceBean implements InventoryService {
     public void expenceInventoryLine(Inventory inventoryLine, double quantity){
         inventoryWorker.expenceInventoryLine(inventoryLine,quantity);
     }
-
+    public void reorderInventoryLine(Inventory inventoryLine, double oldQuantity, double newQuantity){
+        inventoryWorker.reorderInventoryLine(inventoryLine,oldQuantity,newQuantity);
+    }
 }

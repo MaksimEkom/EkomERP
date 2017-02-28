@@ -31,15 +31,15 @@ public class StockMovement extends StandardEntity {
     protected String consignment;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "DATE_")
+    @Column(name = "DATE_", nullable = false)
     protected Date date = new Date(System.currentTimeMillis());
 
     @Lookup(type = LookupType.DROPDOWN)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "LOCATION_ID")
     protected Location location;
 
-    @Column(name = "STOCK_MOVEMENT_TYPE")
+    @Column(name = "STOCK_MOVEMENT_TYPE", nullable = false)
     protected Integer stockMovementType;
 
     @Composition

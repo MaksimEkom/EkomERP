@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.ekom.ekomerp.web.inventory.InventoryBrowse"
+        focusComponent="inventoriesTable"
+        lookupComponent="inventoriesTable"
+        messagesPack="com.ekom.ekomerp.web.inventory">
+    <dsContext>
+        <groupDatasource id="inventoriesDs"
+                         class="com.ekom.ekomerp.entity.Inventory"
+                         view="inventory-view">
+            <query>
+                <![CDATA[select e from ekomerp$Inventory e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="inventoriesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="inventoriesTable"
+                datasource="inventoriesDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="inventoriesTable"
+                    width="100%">
+            <actions>
+                <action id="excel"/>
+                <action id="refresh"/>
+            </actions>
+            <columns>
+                <column id="location"/>
+                <column id="product"/>
+                <column id="quantity"/>
+            </columns>
+            <rows datasource="inventoriesDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="excelBtn"
+                        action="inventoriesTable.excel"/>
+                <button id="refreshBtn"
+                        action="inventoriesTable.refresh"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>
