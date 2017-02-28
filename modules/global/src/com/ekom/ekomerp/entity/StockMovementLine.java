@@ -10,7 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.cuba.core.entity.annotation.Listeners;
+import com.haulmont.chile.core.annotations.NamePattern;
 
+@NamePattern("%s|id")
 @Listeners("ekomerp_StockMovementLineEntityListener")
 @Table(name = "EKOMERP_STOCK_MOVEMENT_LINE")
 @Entity(name = "ekomerp$StockMovementLine")

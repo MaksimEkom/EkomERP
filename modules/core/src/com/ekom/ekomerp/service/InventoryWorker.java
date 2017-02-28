@@ -27,6 +27,9 @@ public class InventoryWorker {
     @Inject
     protected Persistence persistence;
 
+    /**
+     * Поиск строки по коду места хранения и коду продукта.
+     */
     public Inventory findInventoryLine(UUID productId, UUID locationId) {
 
         try (Transaction tx = persistence.createTransaction()) {
@@ -45,8 +48,10 @@ public class InventoryWorker {
             return line;
         }
     }
-
-    public void addInventoryLine(Product product, Location location, double quantity){
+    /**
+     * Вставка новой строки в Inventory.
+     */
+    public void insertInventoryLine(Product product, Location location, double quantity){
         try (Transaction tx = persistence.createTransaction()) {
             EntityManager em = persistence.getEntityManager();
             Inventory inv = new Inventory();
@@ -57,7 +62,11 @@ public class InventoryWorker {
             tx.commit();
         }
     }
-    public void incomeInventoryLine(Inventory inventoryLine, double quantity){
+
+    /**
+     * Увеличение значения количества
+     */
+    public void increaseInventoryLine(Inventory inventoryLine, double quantity){
         try (Transaction tx = persistence.createTransaction()) {
             EntityManager em = persistence.getEntityManager();
             inventoryLine.setQuantity(inventoryLine.getQuantity()+quantity);
@@ -66,7 +75,10 @@ public class InventoryWorker {
         }
     }
 
-    public void expenceInventoryLine(Inventory inventoryLine, double quantity){
+    /**
+     * Уменьшение значения количества
+     */
+    public void reduceInventoryLine(Inventory inventoryLine, double quantity){
         try (Transaction tx = persistence.createTransaction()) {
             EntityManager em = persistence.getEntityManager();
             inventoryLine.setQuantity(inventoryLine.getQuantity()-quantity);
