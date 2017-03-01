@@ -32,7 +32,7 @@ public class StockMovementEntityListener implements BeforeDeleteEntityListener<S
 
     @Override
     public void onBeforeInsert(StockMovement entity, EntityManager entityManager) {
-        insertOrUpdateInventoryLines(entity,entityManager);
+//        insertOrUpdateInventoryLines(entity,entityManager);
     }
 
 
@@ -91,20 +91,18 @@ public class StockMovementEntityListener implements BeforeDeleteEntityListener<S
         Set<StockMovementLine> newLines = entity.getStockMovementLine();
         List<StockMovementLine> linesList;
         Inventory inventoryLine;
-        try (Transaction tx = persistence.createTransaction()) {
-            entityManager = persistence.getEntityManager();
-            TypedQuery<StockMovementLine> balQuery = entityManager.createQuery(
-                    "select s from ekomerp$StockMovementLine where s.stockMovement.id = ?1",
-                    StockMovementLine.class);
-            balQuery.setParameter(1, entity.getId());
-            if (balQuery == null)
-                linesList = null;
-            else
-                linesList = balQuery.getResultList();
-        }
+        entityManager = persistence.getEntityManager();
+        TypedQuery<StockMovementLine> balQuery = entityManager.createQuery(
+                "select s from ekomerp$StockMovementLine s where s.stockMovement.id = ?1",
+                StockMovementLine.class);
+        balQuery.setParameter(1, entity.getId());
+        if (balQuery == null)
+            linesList = null;
+        else
+            linesList = balQuery.getResultList();
         Set<StockMovementLine> oldLines = new HashSet(linesList);
-        for (StockMovementLine line : oldLines) {
-            inventoryLine = inventoryWorker.findInventoryLine(line.getProduct()), entity.getLocation().getId());
+        for (StockMovementLine line : linesList) {
+            inventoryLine = inventoryWorker.findInventoryLine(line.getProduct().getId(), entity.getLocation().getId());
             if (inventoryLine != null) {
                 switch (entity.getStockMovementType()) {
                     case in:
@@ -115,7 +113,6 @@ public class StockMovementEntityListener implements BeforeDeleteEntityListener<S
                         break;
                 }
             }
-
         }
         for (StockMovementLine line : newLines) {
             inventoryLine = inventoryWorker.findInventoryLine(line.getProduct().getId(), entity.getLocation().getId());

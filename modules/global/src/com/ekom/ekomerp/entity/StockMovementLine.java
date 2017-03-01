@@ -20,7 +20,7 @@ public class StockMovementLine extends StandardEntity {
     private static final long serialVersionUID = 8540208460866882433L;
 
     @Lookup(type = LookupType.SCREEN, actions = {"lookup", "open"})
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "PRODUCT_ID")
     protected Product product;
 
