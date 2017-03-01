@@ -29,7 +29,7 @@ public class StockMovementLineEntityListener implements BeforeDeleteEntityListen
 
     @Override
     public void onBeforeUpdate(StockMovementLine entity, EntityManager entityManager) {
-        stockMovementEntityListener.onBeforeUpdate(entity.getStockMovement(),entityManager);
+       stockMovementEntityListener.onBeforeUpdate(entity.getStockMovement(),entityManager);
     }
 
 

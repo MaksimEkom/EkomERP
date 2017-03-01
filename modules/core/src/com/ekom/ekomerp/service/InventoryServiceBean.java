@@ -19,9 +19,9 @@ public class InventoryServiceBean implements InventoryService {
         inventoryWorker.insertInventoryLine(product,location,quantity);
     }
 
-    public Inventory findInventoryLine(UUID productId, UUID locationId){
+    public Inventory findInventoryLine(Product product, Location location){
 
-        return inventoryWorker.findInventoryLine(productId,locationId);
+        return inventoryWorker.findInventoryLine(product,location);
     }
     public void increaseInventoryLine(Inventory inventoryLine, double quantity){
         inventoryWorker.increaseInventoryLine(inventoryLine,quantity);

@@ -30,23 +30,15 @@ public class InventoryWorker {
     /**
      * Поиск строки по коду места хранения и коду продукта.
      */
-    public Inventory findInventoryLine(UUID productId, UUID locationId) {
-
-        try (Transaction tx = persistence.createTransaction()) {
+    public Inventory findInventoryLine(Product product, Location location) {
             EntityManager em = persistence.getEntityManager();
-            Inventory line;
-            TypedQuery<Inventory> balQuery = em.createQuery(
-                    "select i from ekomerp$Inventory i where i.product.id = ?1 and i.location.id = ?2",
+            TypedQuery<Inventory> invQuery = em.createQuery("select i from ekomerp$Inventory i where i.product.id = ?1 and i.location.id = ?2",
                     Inventory.class);
-            balQuery.setParameter(1, productId);
-            balQuery.setParameter(2, locationId);
-            balQuery.setMaxResults(1);
-            if (balQuery == null)
-                line = null;
-            else
-                line = balQuery.getFirstResult();
-            return line;
-        }
+            invQuery.setParameter(1, product.getId());
+            invQuery.setParameter(2, location.getId());
+            invQuery.setMaxResults(1);
+            Inventory inventoryLine = invQuery.getFirstResult();
+            return inventoryLine;
     }
     /**
      * Вставка новой строки в Inventory.
@@ -96,6 +88,5 @@ public class InventoryWorker {
             tx.commit();
         }
     }
-
 
 }
