@@ -35,7 +35,7 @@ public class StockMovement extends StandardEntity {
     protected Date date = new Date(System.currentTimeMillis());
 
     @Lookup(type = LookupType.DROPDOWN)
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "LOCATION_ID")
     protected Location location;
 

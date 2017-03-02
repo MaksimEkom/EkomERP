@@ -79,14 +79,5 @@ public class InventoryWorker {
         }
     }
 
-    public void reorderInventoryLine(Inventory inventoryLine, double oldQuantity, double newQuantity){
-        try (Transaction tx = persistence.createTransaction()) {
-            EntityManager em = persistence.getEntityManager();
-            double difference = newQuantity-oldQuantity;
-            inventoryLine.setQuantity(inventoryLine.getQuantity()+difference);
-            em.merge(inventoryLine);
-            tx.commit();
-        }
-    }
 
 }

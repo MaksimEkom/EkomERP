@@ -29,7 +29,5 @@ public class InventoryServiceBean implements InventoryService {
     public void reduceInventoryLine(Inventory inventoryLine, double quantity){
         inventoryWorker.reduceInventoryLine(inventoryLine,quantity);
     }
-    public void reorderInventoryLine(Inventory inventoryLine, double oldQuantity, double newQuantity){
-        inventoryWorker.reorderInventoryLine(inventoryLine,oldQuantity,newQuantity);
-    }
+
 }

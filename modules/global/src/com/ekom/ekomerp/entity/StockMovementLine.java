@@ -27,7 +27,7 @@ public class StockMovementLine extends StandardEntity {
     @Column(name = "QUANTITY", nullable = false)
     protected Double quantity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "STOCK_MOVEMENT_ID")
     protected StockMovement stockMovement;
 

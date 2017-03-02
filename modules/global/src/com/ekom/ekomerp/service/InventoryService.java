@@ -14,6 +14,5 @@ public interface InventoryService {
     public Inventory findInventoryLine(Product product, Location location);
     public void increaseInventoryLine(Inventory inventoryLine, double quantity);
     public void reduceInventoryLine(Inventory inventoryLine, double quantity);
-    public void reorderInventoryLine(Inventory inventoryLine, double oldQuantity, double newQuantity);
 
 }
