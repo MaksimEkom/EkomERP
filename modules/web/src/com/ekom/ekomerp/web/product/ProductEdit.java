@@ -41,9 +41,6 @@ public class ProductEdit extends AbstractEditor<Product> {
 
     public void init(Map<String, Object> params) {
         laboriousnessDs.addCollectionChangeListener(e -> calculateTotalLaboriousness());
-
-
-
         productImageUpload.addFileUploadSucceedListener(event -> {
             FileDescriptor fd = productImageUpload.getFileDescriptor();
             try {

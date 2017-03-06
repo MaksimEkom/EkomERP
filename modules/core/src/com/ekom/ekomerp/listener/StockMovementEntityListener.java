@@ -19,21 +19,11 @@ import java.util.List;
 import java.util.Set;
 
 @Component("ekomerp_StockMovementEntityListener")
-public class StockMovementEntityListener implements BeforeDeleteEntityListener<StockMovement>, BeforeInsertEntityListener<StockMovement>, BeforeUpdateEntityListener<StockMovement> {
+public class StockMovementEntityListener implements BeforeUpdateEntityListener<StockMovement> {
     @Inject
     protected InventoryWorker inventoryWorker;
     @Inject
     protected Persistence persistence;
-    @Override
-    public void onBeforeDelete(StockMovement entity, EntityManager entityManager) {
-
-    }
-
-    @Override
-    public void onBeforeInsert(StockMovement entity, EntityManager entityManager) {
-
-    }
-
     @Override
     public void onBeforeUpdate(StockMovement entity, EntityManager entityManager) {
        removeOldStockMovementLines(entity,entityManager);
