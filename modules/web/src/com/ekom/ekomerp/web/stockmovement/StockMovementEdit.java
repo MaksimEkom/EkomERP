@@ -18,21 +18,21 @@ public class StockMovementEdit extends AbstractEditor<StockMovement> {
     @Override
     public void init(Map<String, Object> params) {
 
-        stockMovementLineDs.addCollectionChangeListener(e -> checkNegativeInventory(stockMovementLineDs.getItem().getStockMovement()));
+//        stockMovementLineDs.addCollectionChangeListener(e -> checkNegativeInventory(stockMovementLineDs.getItem().getStockMovement()));
     }
 
-    private void checkNegativeInventory(StockMovement stockMovement) {
-        Inventory inventory = new Inventory();
-
-        switch(stockMovement.getStockMovementType()){
-            case in:
-                if(inventory.getProduct()){
-
-                }
-                break;
-            case out:
-                break;
-        }
-
-    }
+//    private void checkNegativeInventory(StockMovement stockMovement) {
+//        Inventory inventory = new Inventory();
+//
+//        switch(stockMovement.getStockMovementType()){
+//            case in:
+//                if(inventory.getProduct()){
+//
+//                }
+//                break;
+//            case out:
+//                break;
+//        }
+//
+//    }
 }
