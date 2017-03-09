@@ -1,38 +1,83 @@
 package com.ekom.ekomerp.web.stockmovement;
 
-import com.ekom.ekomerp.entity.Inventory;
-import com.ekom.ekomerp.entity.StockMovementLine;
+import com.ekom.ekomerp.entity.*;
+import com.haulmont.cuba.core.global.DataManager;
+import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.gui.components.AbstractEditor;
-import com.ekom.ekomerp.entity.StockMovement;
 import com.haulmont.cuba.gui.data.CollectionDatasource;
+import com.haulmont.cuba.gui.data.Datasource;
 
 import javax.inject.Inject;
-import java.util.Map;
-import java.util.UUID;
+import javax.management.Notification;
+import java.util.*;
 
 public class StockMovementEdit extends AbstractEditor<StockMovement> {
     @Inject
     private CollectionDatasource<StockMovementLine, UUID> stockMovementLineDs;
 
+    @Inject
+    private DataManager dataManager;
 
     @Override
     public void init(Map<String, Object> params) {
-
-//        stockMovementLineDs.addCollectionChangeListener(e -> checkNegativeInventory(stockMovementLineDs.getItem().getStockMovement()));
+        stockMovementLineDs.addItemPropertyChangeListener(e
+                -> checkNegativeInventoryAfterUpdate(e.getItem(),e.getProperty(),e.getValue(),e.getPrevValue()));
+        stockMovementLineDs.addCollectionChangeListener(e -> {
+            if(e.getOperation()== CollectionDatasource.Operation.ADD){
+                showNotification("Недостаточно 1");
+            }else if(e.getOperation()== CollectionDatasource.Operation.REMOVE){
+                showNotification("Недостаточно 2");
+            }
+        });
+        super.init(params);
     }
 
-//    private void checkNegativeInventory(StockMovement stockMovement) {
-//        Inventory inventory = new Inventory();
+   private void checkNegativeInventoryAfterUpdate(StockMovementLine stockMovementLine, String property, Object value, Object oldValue) {
+       showNotification(property);
+       List<Inventory> inventory = findInventoryByProductAndLocation(stockMovementLine.getProduct(),stockMovementLine.getStockMovement().getLocation());
+       if(property.equals("quantity")){
+           showNotification("dfdghjhgfds");
+           switch(stockMovementLine.getStockMovement().getStockMovementType()){
+                case in:
+                    if ((inventory.get(0).getQuantity()-((double)oldValue-(double)value))<0){
+                        showNotification("Недостаточно "+stockMovementLine.getProduct().toString()
+                                +" на складе "+stockMovementLine.getStockMovement().getLocation());
+                    }
+                    break;
+                case out:
+                    if ((inventory.get(0).getQuantity()+((double)oldValue-(double)value))<0){
+                        showNotification("Недостаточно "+stockMovementLine.getProduct().toString()
+                                +" на складе "+stockMovementLine.getStockMovement().getLocation());
+                    }
+                    break;
+            }
+       }
+//        StockMovement stockMovement = stockMovementLineDs.getItem().getStockMovement();
+//       Inventory inventory = new Inventory();
+//           Set<StockMovementLine> stockMovementLines = stockMovement.getStockMovementLine();
+//        for (StockMovementLine line : stockMovementLines) {
+//            inventory=findInventoryByProductAndLocation(line.getProduct(),stockMovement.getLocation()).get(0);
+//            switch(stockMovement.getStockMovementType()){
+//                case in:
+//                    showNotification("Недостаточно "+line.getProduct().toString()+" на складе "+line.getStockMovement().getLocation());
+//                    break;
+//                case out:
+//                    showNotification("Недостаточно "+line.getProduct().toString()+" на складе "+line.getStockMovement().getLocation());
+//                    break;
+//            }
+//   }
 //
-//        switch(stockMovement.getStockMovementType()){
-//            case in:
-//                if(inventory.getProduct()){
 //
-//                }
-//                break;
-//            case out:
-//                break;
-//        }
-//
-//    }
+
+   }
+
+    private List<Inventory> findInventoryByProductAndLocation(Product product, Location location){
+        LoadContext loadContext = LoadContext.create(Inventory.class).setQuery(LoadContext
+                .createQuery("select i from ekomerp$Inventory i where i.product.id = :productId and i.location.id = :locationId")
+                    .setParameter("productId",product.getId())
+                    .setParameter("locationId",location.getId()))
+                .setView("inventory-view");
+        return dataManager.loadList(loadContext);
+
+    }
 }
