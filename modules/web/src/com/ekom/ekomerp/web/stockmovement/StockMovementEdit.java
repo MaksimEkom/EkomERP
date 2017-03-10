@@ -4,22 +4,37 @@ import com.ekom.ekomerp.entity.*;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.gui.components.AbstractEditor;
+import com.haulmont.cuba.gui.components.LookupPickerField;
 import com.haulmont.cuba.gui.data.CollectionDatasource;
 import com.haulmont.cuba.gui.data.Datasource;
+import com.haulmont.cuba.security.entity.UserRole;
+import com.haulmont.cuba.security.global.UserSession;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.management.Notification;
 import java.util.*;
 
 public class StockMovementEdit extends AbstractEditor<StockMovement> {
     @Inject
     private CollectionDatasource<StockMovementLine, UUID> stockMovementLineDs;
-
+    @Inject
+    private UserSession userSession;
     @Inject
     private DataManager dataManager;
+    @Named("fieldGroup.location")
+    private LookupPickerField locationField;
+    @Inject
+    private CollectionDatasource<Location, UUID> locationsDs;
+    @Inject
+    private CollectionDatasource<Location, UUID> locationsFilteredDs;
 
     @Override
     public void init(Map<String, Object> params) {
+        if(isUserAdmin()){
+            locationField.setOptionsDatasource(locationsDs);
+        }else locationField.setOptionsDatasource(locationsFilteredDs);
+
         stockMovementLineDs.addItemPropertyChangeListener(e
                 -> checkNegativeInventoryAfterUpdate(e.getItem(),e.getProperty(),e.getValue(),e.getPrevValue()));
         stockMovementLineDs.addCollectionChangeListener(e -> {
@@ -29,6 +44,7 @@ public class StockMovementEdit extends AbstractEditor<StockMovement> {
                 showNotification("Недостаточно 2");
             }
         });
+
         super.init(params);
     }
 
@@ -79,5 +95,17 @@ public class StockMovementEdit extends AbstractEditor<StockMovement> {
                 .setView("inventory-view");
         return dataManager.loadList(loadContext);
 
+    }
+
+    public boolean isUserAdmin(){
+        Collection <UserRole> userRoles = userSession.getUser().getUserRoles();
+        boolean isAdmin = false;
+        for (UserRole userRole:userRoles){
+            if(userRole.getRole().getType().getId()==10){
+                isAdmin = true;
+                break;
+            }
+        }
+        return isAdmin;
     }
 }

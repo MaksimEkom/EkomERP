@@ -19,6 +19,14 @@
                 <![CDATA[select e from ekomerp$Location e]]>
             </query>
         </collectionDatasource>
+        <collectionDatasource id="locationsFilteredDs"
+                              class="com.ekom.ekomerp.entity.Location"
+                              view="_minimal">
+            <query>
+                <![CDATA[select e from ekomerp$Location e
+where e.stockman.id = :session$userId]]>
+            </query>
+        </collectionDatasource>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>

@@ -1,6 +1,6 @@
 Hello, ${user.name}.
 
-The password for your Ekom ERP account has been reset by administrator.
+The password for your Ekom ERP account ${user.login} has been reset by administrator.
 
 Please login with the following temporary password:
 ${password}
