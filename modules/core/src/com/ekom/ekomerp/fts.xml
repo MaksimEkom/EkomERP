@@ -31,5 +31,11 @@
         <entity class="com.ekom.ekomerp.entity.Inventory">
             <include re=".*"/>
         </entity>
+        <entity class="com.ekom.ekomerp.entity.Partner">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.Address">
+            <include re=".*"/>
+        </entity>
     </entities>
 </fts-config>

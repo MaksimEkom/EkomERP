@@ -25,4 +25,8 @@
             template="com/ekom/ekomerp/web/stockmovementline/stock-movement-line-edit.xml"/>
     <screen id="ekomerp$Inventory.browse"
             template="com/ekom/ekomerp/web/inventory/inventory-browse.xml"/>
+    <screen id="ekomerp$Partner.browse"
+            template="com/ekom/ekomerp/web/partner/partner-browse.xml"/>
+    <screen id="ekomerp$Partner.edit"
+            template="com/ekom/ekomerp/web/partner/partner-edit.xml"/>
 </screen-config>

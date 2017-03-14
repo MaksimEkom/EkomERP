@@ -194,3 +194,64 @@ create table EKOMERP_INVENTORY (
     primary key nonclustered (ID)
 )^
 -- end EKOMERP_INVENTORY
+-- begin EKOMERP_PARTNER
+create table EKOMERP_PARTNER (
+    ID uniqueidentifier,
+    VERSION integer not null,
+    CREATE_TS datetime2,
+    CREATED_BY varchar(50),
+    UPDATE_TS datetime2,
+    UPDATED_BY varchar(50),
+    DELETE_TS datetime2,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255) not null,
+    PARTNER_TYPE integer,
+    CUSTOMER tinyint,
+    VENDOR tinyint,
+    IMAGE_ID uniqueidentifier,
+    EMAIL varchar(255),
+    WEBSITE varchar(255),
+    ACTIVE tinyint,
+    POSITION_ varchar(255),
+    PHONE varchar(255),
+    MOBILE varchar(255),
+    FAX varchar(255),
+    PARENT_ID uniqueidentifier,
+    STREET varchar(255),
+    CITY varchar(255),
+    REGION varchar(255),
+    COUNTRY varchar(255),
+    ZIP varchar(255),
+    ADDRESSES varchar(255),
+    --
+    primary key nonclustered (ID)
+)^
+-- end EKOMERP_PARTNER
+-- begin EKOMERP_ADDRESS
+create table EKOMERP_ADDRESS (
+    ID uniqueidentifier,
+    VERSION integer not null,
+    CREATE_TS datetime2,
+    CREATED_BY varchar(50),
+    UPDATE_TS datetime2,
+    UPDATED_BY varchar(50),
+    DELETE_TS datetime2,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255),
+    TYPE_ integer not null,
+    POSITION_ varchar(255),
+    EMAIL varchar(255),
+    PHONE varchar(255),
+    MOBILE varchar(255),
+    NOTES varchar(max),
+    STREET varchar(255),
+    CITY varchar(255),
+    REGION varchar(255),
+    ZIP varchar(255),
+    COUNTRY varchar(255),
+    --
+    primary key nonclustered (ID)
+)^
+-- end EKOMERP_ADDRESS

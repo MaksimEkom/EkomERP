@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="com.ekom.ekomerp.web.partner.PartnerEdit"
+        datasource="partnerDs"
+        focusComponent="fieldGroup"
+        messagesPack="com.ekom.ekomerp.web.partner">
+    <dsContext>
+        <datasource id="partnerDs"
+                    class="com.ekom.ekomerp.entity.Partner"
+                    view="partnerWithParentView"/>
+        <collectionDatasource id="parentsDs"
+                              class="com.ekom.ekomerp.entity.Partner"
+                              view="_minimal">
+            <query>
+                <![CDATA[select e from ekomerp$Partner e]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="scrollBox"
+            spacing="true">
+        <scrollBox id="scrollBox"
+                   spacing="true">
+            <groupBox spacing="true">
+                <grid spacing="true">
+                    <columns count="2"/>
+                    <rows>
+                        <row>
+                            <vbox spacing="true">
+                                <groupBox id="partnerImageBox"
+                                          caption="msg://Image"
+                                          height="150px"
+                                          spacing="true">
+                                    <embedded id="partnerImage"
+                                              align="MIDDLE_CENTER"
+                                              height="100%"/>
+                                </groupBox>
+                                <upload id="partnerImageUpload"
+                                        align="TOP_CENTER"/>
+                            </vbox>
+                            <vbox spacing="true">
+                                <optionsGroup orientation="horizontal"/>
+                                <fieldGroup id="fieldGroup"
+                                            datasource="partnerDs">
+                                    <column width="250px">
+                                        <field id="name"/>
+                                        <field id="partnerType"/>
+                                        <field id="customer"/>
+                                        <field id="vendor"/>
+                                        <field id="email"/>
+                                        <field id="website"/>
+                                        <field id="active"/>
+                                        <field id="position"/>
+                                        <field id="phone"/>
+                                        <field id="mobile"/>
+                                        <field id="fax"/>
+                                        <field id="parent"
+                                               optionsDatasource="parentsDs"/>
+                                        <field id="street"/>
+                                        <field id="city"/>
+                                        <field id="region"/>
+                                        <field id="country"/>
+                                        <field id="zip"/>
+                                        <field id="addresses"/>
+                                    </column>
+                                </fieldGroup>
+                            </vbox>
+                        </row>
+                    </rows>
+                </grid>
+            </groupBox>
+        </scrollBox>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>

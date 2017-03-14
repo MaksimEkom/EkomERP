@@ -112,4 +112,10 @@
                       view="_minimal"/>
         </property>
     </view>
+    <view class="com.ekom.ekomerp.entity.Partner"
+          extends="_local"
+          name="partnerWithParentView">
+        <property name="parent"
+                  view="_minimal"/>
+    </view>
 </views>

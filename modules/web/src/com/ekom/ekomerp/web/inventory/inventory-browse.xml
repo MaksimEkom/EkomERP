@@ -24,6 +24,8 @@
             <properties include=".*"/>
         </filter>
         <groupTable id="inventoriesTable"
+                    aggregatable="true"
+                    aggregationStyle="BOTTOM"
                     width="100%">
             <actions>
                 <action id="excel"/>
@@ -31,8 +33,12 @@
             </actions>
             <columns>
                 <column id="location"/>
-                <column id="product"/>
-                <column id="quantity"/>
+                <group>
+                    <column id="product"/>
+                </group>
+                <column id="quantity">
+                    <aggregation type="SUM"/>
+                </column>
             </columns>
             <rows datasource="inventoriesDs"/>
             <rowsCount/>

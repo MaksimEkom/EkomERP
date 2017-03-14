@@ -7,6 +7,7 @@
         <item id="ekomerp$Category.browse"/>
         <item id="ekomerp$Product.browse"/>
         <item id="ekomerp$Location.browse"/>
+        <item id="ekomerp$Partner.browse"/>
     </menu>
     <menu id="inventory"
           insertBefore="administration">

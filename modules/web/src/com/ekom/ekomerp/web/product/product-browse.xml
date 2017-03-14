@@ -10,7 +10,8 @@
                          class="com.ekom.ekomerp.entity.Product"
                          view="productWithCategoryAndUnitAndLaboriousnessAndConsumption">
             <query>
-                <![CDATA[select e from ekomerp$Product e]]>
+                <![CDATA[select e from ekomerp$Product e
+order by e.for_purchase, e.name ]]>
             </query>
         </groupDatasource>
     </dsContext>
@@ -18,7 +19,7 @@
                 width="800"/>
     <layout expand="productsTable"
             spacing="true">
-        <filter id="filter"
+        <filter id="productFilter"
                 applyTo="productsTable"
                 datasource="productsDs">
             <properties include=".*"/>
@@ -55,6 +56,12 @@
                         action="productsTable.remove"/>
                 <button id="excelBtn"
                         action="productsTable.excel"/>
+                <button id="activateButton"
+                        caption="msg://Activate"
+                        invoke="onActivateButtonClick"/>
+                <button id="deactivateButton"
+                        caption="msg://Deactivate"
+                        invoke="onDeactivateButtonClick"/>
             </buttonsPanel>
         </groupTable>
     </layout>

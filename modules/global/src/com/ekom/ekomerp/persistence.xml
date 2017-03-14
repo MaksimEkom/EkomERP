@@ -13,5 +13,7 @@
         <class>com.ekom.ekomerp.entity.StockMovement</class>
         <class>com.ekom.ekomerp.entity.StockMovementLine</class>
         <class>com.ekom.ekomerp.entity.Inventory</class>
+        <class>com.ekom.ekomerp.entity.Partner</class>
+        <class>com.ekom.ekomerp.entity.Address</class>
     </persistence-unit>
 </persistence>
