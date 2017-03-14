@@ -31,19 +31,19 @@ public class StockMovementEdit extends AbstractEditor<StockMovement> {
 
     @Override
     public void init(Map<String, Object> params) {
-        if(isUserAdmin()){
-            locationField.setOptionsDatasource(locationsDs);
-        }else locationField.setOptionsDatasource(locationsFilteredDs);
-
-        stockMovementLineDs.addItemPropertyChangeListener(e
-                -> checkNegativeInventoryAfterUpdate(e.getItem(),e.getProperty(),e.getValue(),e.getPrevValue()));
-        stockMovementLineDs.addCollectionChangeListener(e -> {
-            if(e.getOperation()== CollectionDatasource.Operation.ADD){
-                showNotification("Недостаточно 1");
-            }else if(e.getOperation()== CollectionDatasource.Operation.REMOVE){
-                showNotification("Недостаточно 2");
-            }
-        });
+//        if(isUserAdmin()){
+//            locationField.setOptionsDatasource(locationsDs);
+//        }else locationField.setOptionsDatasource(locationsFilteredDs);
+//
+//        stockMovementLineDs.addItemPropertyChangeListener(e
+//                -> checkNegativeInventoryAfterUpdate(e.getItem(),e.getProperty(),e.getValue(),e.getPrevValue()));
+//        stockMovementLineDs.addCollectionChangeListener(e -> {
+//            if(e.getOperation()== CollectionDatasource.Operation.ADD){
+//                showNotification("Недостаточно 1");
+//            }else if(e.getOperation()== CollectionDatasource.Operation.REMOVE){
+//                showNotification("Недостаточно 2");
+//            }
+//        });
 
         super.init(params);
     }

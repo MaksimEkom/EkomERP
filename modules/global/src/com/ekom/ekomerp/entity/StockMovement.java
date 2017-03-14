@@ -20,6 +20,7 @@ import sun.util.calendar.BaseCalendar;
 import java.util.Set;
 import javax.persistence.OneToMany;
 import com.haulmont.cuba.core.entity.annotation.Listeners;
+import javax.persistence.Lob;
 
 @Listeners("ekomerp_StockMovementEntityListener")
 @Table(name = "EKOMERP_STOCK_MOVEMENT")
@@ -46,6 +47,19 @@ public class StockMovement extends StandardEntity {
     @OnDelete(DeletePolicy.CASCADE)
     @OneToMany(mappedBy = "stockMovement")
     protected Set<StockMovementLine> stockMovementLine;
+
+    @Lob
+    @Column(name = "NOTES")
+    protected String notes;
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
 
     public void setStockMovementLine(Set<StockMovementLine> stockMovementLine) {
         this.stockMovementLine = stockMovementLine;

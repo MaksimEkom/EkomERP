@@ -13,7 +13,8 @@
                               class="com.ekom.ekomerp.entity.Product"
                               view="productWithUnit">
             <query>
-                <![CDATA[select e from ekomerp$Product e]]>
+                <![CDATA[select e from ekomerp$Product e
+order by e.name]]>
             </query>
         </collectionDatasource>
     </dsContext>

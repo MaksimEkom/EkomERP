@@ -118,4 +118,18 @@
         <property name="parent"
                   view="_minimal"/>
     </view>
+    <view class="com.ekom.ekomerp.entity.StockMovementLine"
+          extends="_local"
+          name="stockMovementLine-view">
+        <property name="product"
+                  view="_minimal"/>
+        <property name="stockMovement"
+                  view="_minimal">
+            <property name="consignment"/>
+            <property name="date"/>
+            <property name="location"
+                      view="_minimal"/>
+            <property name="stockMovementType"/>
+        </property>
+    </view>
 </views>

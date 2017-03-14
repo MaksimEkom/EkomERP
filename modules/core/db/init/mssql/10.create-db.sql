@@ -1,5 +1,4 @@
--- begin EKOMERP_PRODUCT
-create table EKOMERP_PRODUCT (
+-- begin EKOMERP_PRODUCTcreate table EKOMERP_PRODUCT (
     ID uniqueidentifier,
     VERSION integer not null,
     CREATE_TS datetime2,
@@ -11,7 +10,7 @@ create table EKOMERP_PRODUCT (
     --
     CODE varchar(255) not null,
     NAME varchar(255) not null,
-    UNIT_ID uniqueidentifier,
+    UNIT_ID uniqueidentifier not null,
     FULL_NAME varchar(255),
     DOC_NAME varchar(255),
     DESCRIPTION varchar(max),
@@ -136,8 +135,7 @@ create table EKOMERP_LOCATION (
     primary key nonclustered (ID)
 )^
 -- end EKOMERP_LOCATION
--- begin EKOMERP_STOCK_MOVEMENT
-create table EKOMERP_STOCK_MOVEMENT (
+-- begin EKOMERP_STOCK_MOVEMENTcreate table EKOMERP_STOCK_MOVEMENT (
     ID uniqueidentifier,
     VERSION integer not null,
     CREATE_TS datetime2,
@@ -151,6 +149,7 @@ create table EKOMERP_STOCK_MOVEMENT (
     DATE_ datetime2 not null,
     LOCATION_ID uniqueidentifier not null,
     STOCK_MOVEMENT_TYPE integer not null,
+    NOTES varchar(max),
     --
     primary key nonclustered (ID)
 )^

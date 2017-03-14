@@ -39,6 +39,8 @@ where e.stockman.id = :session$userId]]>
                 <field id="date"/>
                 <field id="location"
                        optionsDatasource="locationsDs"/>
+                <field id="notes"
+                       rows="5"/>
             </column>
         </fieldGroup>
         <hbox spacing="true">
@@ -48,7 +50,6 @@ where e.stockman.id = :session$userId]]>
                           property="stockMovementType"/>
         </hbox>
         <table id="stockMovementLineTable"
-               editable="true"
                height="200px"
                width="100%">
             <actions>

@@ -10,7 +10,8 @@
                          class="com.ekom.ekomerp.entity.Inventory"
                          view="inventory-view">
             <query>
-                <![CDATA[select e from ekomerp$Inventory e]]>
+                <![CDATA[select e from ekomerp$Inventory e
+where e.quantity <> 0]]>
             </query>
         </groupDatasource>
     </dsContext>
@@ -30,12 +31,15 @@
             <actions>
                 <action id="excel"/>
                 <action id="refresh"/>
+                <action id="edit"
+                        caption="msg://Edit"
+                        openType="DIALOG"/>
             </actions>
             <columns>
-                <column id="location"/>
                 <group>
                     <column id="product"/>
                 </group>
+                <column id="location"/>
                 <column id="quantity">
                     <aggregation type="SUM"/>
                 </column>
@@ -44,6 +48,9 @@
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
+                <button id="editBtn"
+                        action="inventoriesTable.edit"
+                        caption="msg://Edit"/>
                 <button id="excelBtn"
                         action="inventoriesTable.excel"/>
                 <button id="refreshBtn"

@@ -43,6 +43,7 @@ where e.createdBy = :session$userLogin]]>
                 <column id="date"/>
                 <column id="stockMovementType"/>
                 <column id="location"/>
+                <column id="notes"/>
             </columns>
             <rows datasource="stockMovementsDs"/>
             <rowsCount/>

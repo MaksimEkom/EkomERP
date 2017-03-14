@@ -21,6 +21,15 @@
                 <![CDATA[select e from ekomerp$Unit e]]>
             </query>
         </collectionDatasource>
+        <collectionDatasource id="stockMovementLinesDs"
+                              class="com.ekom.ekomerp.entity.StockMovementLine"
+                              view="stockMovementLine-view">
+            <query>
+                <![CDATA[select e from ekomerp$StockMovementLine e
+where e.product.id = :ds$productDs
+order by e.stockMovement.date]]>
+            </query>
+        </collectionDatasource>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
@@ -51,8 +60,10 @@
                                 <column width="250px">
                                     <field id="name"/>
                                     <field id="code"/>
-                                    <field id="for_sale"/>
-                                    <field id="for_purchase"/>
+                                    <field id="for_sale"
+                                           description="msg://Check if product can be sold"/>
+                                    <field id="for_purchase"
+                                           description="msg://Check if product can be purchased"/>
                                 </column>
                             </fieldGroup>
                             <fieldGroup datasource="productDs">
@@ -148,6 +159,19 @@
                             <button action="consumptionTable.edit"/>
                             <button action="consumptionTable.remove"/>
                         </buttonsPanel>
+                    </table>
+                </tab>
+                <tab caption="msg://Movement history"
+                     spacing="true">
+                    <table height="400px"
+                           width="100%">
+                        <columns>
+                            <column id="stockMovement.stockMovementType"/>
+                            <column id="stockMovement.consignment"/>
+                            <column id="stockMovement.date"/>
+                            <column id="quantity"/>
+                        </columns>
+                        <rows datasource="stockMovementLinesDs"/>
                     </table>
                 </tab>
             </tabSheet>
