@@ -101,7 +101,7 @@ order by e.stockMovement.date]]>
                         </column>
                     </fieldGroup>
                 </tab>
-                <tab caption="msg://Characteristics "
+                <tab caption="msg://Characteristics"
                      spacing="true">
                     <fieldGroup datasource="productDs">
                         <column width="250px">
@@ -163,8 +163,13 @@ order by e.stockMovement.date]]>
                 </tab>
                 <tab caption="msg://Movement history"
                      spacing="true">
-                    <table height="400px"
+                    <table id="stockMovementLinesTable"
+                           height="400px"
                            width="100%">
+                        <actions>
+                            <action id="edit"
+                                    openType="THIS_TAB"/>
+                        </actions>
                         <columns>
                             <column id="stockMovement.stockMovementType"/>
                             <column id="stockMovement.consignment"/>

@@ -13,6 +13,7 @@
           insertBefore="administration">
         <item id="ekomerp$StockMovement.browse"/>
         <item id="ekomerp$Inventory.browse"/>
+        <item id="ekomerp$Inventory.browseEdit"/>
     </menu>
     <menu id="application"
           insertBefore="administration">

@@ -48,9 +48,6 @@ where e.quantity <> 0]]>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="editBtn"
-                        action="inventoriesTable.edit"
-                        caption="msg://Edit"/>
                 <button id="excelBtn"
                         action="inventoriesTable.excel"/>
                 <button id="refreshBtn"

@@ -29,6 +29,6 @@
             template="com/ekom/ekomerp/web/partner/partner-browse.xml"/>
     <screen id="ekomerp$Partner.edit"
             template="com/ekom/ekomerp/web/partner/partner-edit.xml"/>
-    <screen id="ekomerp$Inventory.edit"
-            template="com/ekom/ekomerp/web/inventory/inventory-edit.xml"/>
+    <screen id="ekomerp$Inventory.browseEdit"
+            template="com/ekom/ekomerp/web/inventory/inventory-browse-edit.xml"/>
 </screen-config>
