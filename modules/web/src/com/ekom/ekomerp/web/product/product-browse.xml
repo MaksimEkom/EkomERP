@@ -58,10 +58,12 @@ order by e.for_purchase, e.name ]]>
                         action="productsTable.excel"/>
                 <button id="activateButton"
                         caption="msg://Activate"
-                        invoke="onActivateButtonClick"/>
+                        invoke="onActivateButtonClick"
+                        visible="false"/>
                 <button id="deactivateButton"
                         caption="msg://Deactivate"
-                        invoke="onDeactivateButtonClick"/>
+                        invoke="onDeactivateButtonClick"
+                        visible="false"/>
             </buttonsPanel>
         </groupTable>
     </layout>

@@ -31,20 +31,6 @@ public class StockMovementEdit extends AbstractEditor<StockMovement> {
 
     @Override
     public void init(Map<String, Object> params) {
-//        if(isUserAdmin()){
-//            locationField.setOptionsDatasource(locationsDs);
-//        }else locationField.setOptionsDatasource(locationsFilteredDs);
-//
-//        stockMovementLineDs.addItemPropertyChangeListener(e
-//                -> checkNegativeInventoryAfterUpdate(e.getItem(),e.getProperty(),e.getValue(),e.getPrevValue()));
-//        stockMovementLineDs.addCollectionChangeListener(e -> {
-//            if(e.getOperation()== CollectionDatasource.Operation.ADD){
-//                showNotification("Недостаточно 1");
-//            }else if(e.getOperation()== CollectionDatasource.Operation.REMOVE){
-//                showNotification("Недостаточно 2");
-//            }
-//        });
-
         super.init(params);
     }
 
@@ -68,22 +54,7 @@ public class StockMovementEdit extends AbstractEditor<StockMovement> {
                     break;
             }
        }
-//        StockMovement stockMovement = stockMovementLineDs.getItem().getStockMovement();
-//       Inventory inventory = new Inventory();
-//           Set<StockMovementLine> stockMovementLines = stockMovement.getStockMovementLine();
-//        for (StockMovementLine line : stockMovementLines) {
-//            inventory=findInventoryByProductAndLocation(line.getProduct(),stockMovement.getLocation()).get(0);
-//            switch(stockMovement.getStockMovementType()){
-//                case in:
-//                    showNotification("Недостаточно "+line.getProduct().toString()+" на складе "+line.getStockMovement().getLocation());
-//                    break;
-//                case out:
-//                    showNotification("Недостаточно "+line.getProduct().toString()+" на складе "+line.getStockMovement().getLocation());
-//                    break;
-//            }
-//   }
-//
-//
+
 
    }
 

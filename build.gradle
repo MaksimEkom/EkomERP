@@ -116,8 +116,8 @@ configure(coreModule) {
     task createDb(dependsOn: assembleDbScripts, description: 'Creates local database', type: CubaDbCreation) {
         dbms = 'mssql'
         dbmsVersion = '2012'
-        host = '178.124.189.62'
-        dbName = 'EkomDB_copy'
+        host = '192.168.0.205'
+        dbName = 'EkomDB'
         dbUser = 'sa'
         dbPassword = 'SQLadmin.1'
     }
@@ -125,8 +125,8 @@ configure(coreModule) {
     task updateDb(dependsOn: assembleDbScripts, description: 'Updates local database', type: CubaDbUpdate) {
         dbms = 'mssql'
         dbmsVersion = '2012'
-        host = '178.124.189.62'
-        dbName = 'EkomDB_copy'
+        host = '192.168.0.205'
+        dbName = 'EkomDB'
         dbUser = 'sa'
         dbPassword = 'SQLadmin.1'
     }
