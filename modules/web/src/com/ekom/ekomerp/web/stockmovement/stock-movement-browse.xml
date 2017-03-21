@@ -10,7 +10,8 @@
                          class="com.ekom.ekomerp.entity.StockMovement"
                          view="stockMovementWithLocation">
             <query>
-                <![CDATA[select e from ekomerp$StockMovement e ]]>
+                <![CDATA[select e from ekomerp$StockMovement e 
+order by e.date desc]]>
             </query>
         </groupDatasource>
         <groupDatasource id="stockMovementsFilteredDs"
@@ -18,7 +19,8 @@
                          view="stockMovementWithLocation">
             <query>
                 <![CDATA[select e from ekomerp$StockMovement e
-where e.createdBy = :session$userLogin]]>
+where e.createdBy = :session$userLogin
+order by e.date desc]]>
             </query>
         </groupDatasource>
     </dsContext>

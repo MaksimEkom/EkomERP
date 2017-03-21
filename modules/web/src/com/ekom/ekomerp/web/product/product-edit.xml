@@ -163,13 +163,14 @@ order by e.stockMovement.date]]>
                 </tab>
                 <tab caption="msg://Movement history"
                      spacing="true">
+                    <relatedEntities id="relatedEntities"
+                                     caption="msg://Open"
+                                     exclude="product"
+                                     for="stockMovementLinesTable"
+                                     openType="DIALOG"/>
                     <table id="stockMovementLinesTable"
                            height="400px"
                            width="100%">
-                        <actions>
-                            <action id="edit"
-                                    openType="THIS_TAB"/>
-                        </actions>
                         <columns>
                             <column id="stockMovement.stockMovementType"/>
                             <column id="stockMovement.consignment"/>
