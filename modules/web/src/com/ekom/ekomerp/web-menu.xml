@@ -8,6 +8,8 @@
         <item id="ekomerp$Product.browse"/>
         <item id="ekomerp$Location.browse"/>
         <item id="ekomerp$Partner.browse"/>
+        <item id="ekomerp$Country.browse"/>
+        <item id="ekomerp$Region.browse"/>
     </menu>
     <menu id="inventory"
           insertBefore="administration">

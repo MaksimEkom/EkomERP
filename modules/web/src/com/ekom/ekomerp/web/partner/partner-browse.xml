@@ -48,7 +48,7 @@
                 <column id="region"/>
                 <column id="country"/>
                 <column id="zip"/>
-                <column id="addresses"/>
+                <column id="addressType"/>
             </columns>
             <rows datasource="partnersDs"/>
             <rowsCount/>

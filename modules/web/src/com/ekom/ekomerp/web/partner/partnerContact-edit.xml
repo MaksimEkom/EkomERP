@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="com.ekom.ekomerp.web.partner.PartnercontactEdit"
+        datasource="partnerDs"
+        focusComponent="fieldGroup"
+        messagesPack="com.ekom.ekomerp.web.partner">
+    <dsContext>
+        <datasource id="partnerDs"
+                    class="com.ekom.ekomerp.entity.Partner"
+                    view="partnerWithParentView"/>
+        <collectionDatasource id="parentsDs"
+                              class="com.ekom.ekomerp.entity.Partner"
+                              view="_minimal">
+            <query>
+                <![CDATA[select e from ekomerp$Partner e]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="scrollBox"
+            spacing="true">
+        <scrollBox id="scrollBox"
+                   spacing="true">
+            <fieldGroup id="fieldGroup"
+                        datasource="partnerDs">
+                <column width="250px">
+                    <field id="name"/>
+                    <field id="partnerType"/>
+                    <field id="customer"/>
+                    <field id="vendor"/>
+                    <field id="email"/>
+                    <field id="website"/>
+                    <field id="active"/>
+                    <field id="position"/>
+                    <field id="phone"/>
+                    <field id="mobile"/>
+                    <field id="fax"/>
+                    <field id="parent"
+                           optionsDatasource="parentsDs"/>
+                    <field id="street"/>
+                    <field id="city"/>
+                    <field id="zip"/>
+                    <field id="addressType"/>
+                    <field id="notes"
+                           rows="5"/>
+                </column>
+            </fieldGroup>
+        </scrollBox>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>

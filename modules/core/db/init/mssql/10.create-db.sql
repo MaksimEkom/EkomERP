@@ -10,7 +10,7 @@
     --
     CODE varchar(255) not null,
     NAME varchar(255) not null,
-    UNIT_ID uniqueidentifier not null,
+    UNIT_ID uniqueidentifier,
     FULL_NAME varchar(255),
     DOC_NAME varchar(255),
     DESCRIPTION varchar(max),
@@ -24,6 +24,7 @@
     FOR_SALE tinyint,
     FOR_PURCHASE tinyint,
     IMAGE_ID uniqueidentifier,
+    NOTES varchar(max),
     --
     primary key nonclustered (ID)
 )^
@@ -193,8 +194,7 @@ create table EKOMERP_INVENTORY (
     primary key nonclustered (ID)
 )^
 -- end EKOMERP_INVENTORY
--- begin EKOMERP_PARTNER
-create table EKOMERP_PARTNER (
+-- begin EKOMERP_PARTNERcreate table EKOMERP_PARTNER (
     ID uniqueidentifier,
     VERSION integer not null,
     CREATE_TS datetime2,
@@ -219,16 +219,17 @@ create table EKOMERP_PARTNER (
     PARENT_ID uniqueidentifier,
     STREET varchar(255),
     CITY varchar(255),
-    REGION varchar(255),
-    COUNTRY varchar(255),
+    REGION_ID uniqueidentifier,
+    COUNTRY_ID uniqueidentifier,
     ZIP varchar(255),
-    ADDRESSES varchar(255),
+    ADDRESS_TYPE integer,
+    NOTES varchar(max),
     --
     primary key nonclustered (ID)
 )^
 -- end EKOMERP_PARTNER
--- begin EKOMERP_ADDRESS
-create table EKOMERP_ADDRESS (
+-- begin EKOMERP_COUNTRY
+create table EKOMERP_COUNTRY (
     ID uniqueidentifier,
     VERSION integer not null,
     CREATE_TS datetime2,
@@ -238,19 +239,27 @@ create table EKOMERP_ADDRESS (
     DELETE_TS datetime2,
     DELETED_BY varchar(50),
     --
+    CODE varchar(255) not null,
     NAME varchar(255),
-    TYPE_ integer not null,
-    POSITION_ varchar(255),
-    EMAIL varchar(255),
-    PHONE varchar(255),
-    MOBILE varchar(255),
-    NOTES varchar(max),
-    STREET varchar(255),
-    CITY varchar(255),
-    REGION varchar(255),
-    ZIP varchar(255),
-    COUNTRY varchar(255),
     --
     primary key nonclustered (ID)
 )^
--- end EKOMERP_ADDRESS
+-- end EKOMERP_COUNTRY
+-- begin EKOMERP_REGION
+create table EKOMERP_REGION (
+    ID uniqueidentifier,
+    VERSION integer not null,
+    CREATE_TS datetime2,
+    CREATED_BY varchar(50),
+    UPDATE_TS datetime2,
+    UPDATED_BY varchar(50),
+    DELETE_TS datetime2,
+    DELETED_BY varchar(50),
+    --
+    CODE varchar(255),
+    NAME varchar(255) not null,
+    COUNTRY_ID uniqueidentifier,
+    --
+    primary key nonclustered (ID)
+)^
+-- end EKOMERP_REGION

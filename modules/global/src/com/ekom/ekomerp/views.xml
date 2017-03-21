@@ -132,4 +132,13 @@
             <property name="stockMovementType"/>
         </property>
     </view>
+    <view class="com.ekom.ekomerp.entity.Region"
+          extends="_local"
+          name="regionWithCountryview">
+        <property name="country"
+                  view="_minimal">
+            <property name="code"/>
+            <property name="name"/>
+        </property>
+    </view>
 </views>

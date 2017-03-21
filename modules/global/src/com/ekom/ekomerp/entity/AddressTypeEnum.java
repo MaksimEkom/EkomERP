@@ -5,7 +5,7 @@ import com.haulmont.chile.core.datatypes.impl.EnumClass;
 import javax.annotation.Nullable;
 
 
-public enum AddressEnum implements EnumClass<Integer> {
+public enum AddressTypeEnum implements EnumClass<Integer> {
 
     contact(1),
     invoice(2),
@@ -14,7 +14,7 @@ public enum AddressEnum implements EnumClass<Integer> {
 
     private Integer id;
 
-    AddressEnum(Integer value) {
+    AddressTypeEnum(Integer value) {
         this.id = value;
     }
 
@@ -23,8 +23,8 @@ public enum AddressEnum implements EnumClass<Integer> {
     }
 
     @Nullable
-    public static AddressEnum fromId(Integer id) {
-        for (AddressEnum at : AddressEnum.values()) {
+    public static AddressTypeEnum fromId(Integer id) {
+        for (AddressTypeEnum at : AddressTypeEnum.values()) {
             if (at.getId().equals(id)) {
                 return at;
             }

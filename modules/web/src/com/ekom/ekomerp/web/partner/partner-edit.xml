@@ -3,7 +3,6 @@
         caption="msg://editorCaption"
         class="com.ekom.ekomerp.web.partner.PartnerEdit"
         datasource="partnerDs"
-        focusComponent="fieldGroup"
         messagesPack="com.ekom.ekomerp.web.partner">
     <dsContext>
         <datasource id="partnerDs"
@@ -11,9 +10,17 @@
                     view="partnerWithParentView"/>
         <collectionDatasource id="parentsDs"
                               class="com.ekom.ekomerp.entity.Partner"
-                              view="_minimal">
+                              view="_local">
             <query>
                 <![CDATA[select e from ekomerp$Partner e]]>
+            </query>
+        </collectionDatasource>
+        <collectionDatasource id="partnerFilteredByParentDs"
+                              class="com.ekom.ekomerp.entity.Partner"
+                              view="partnerWithParentView">
+            <query>
+                <![CDATA[select e from ekomerp$Partner e
+where e.parent = :ds$partnerDs]]>
             </query>
         </collectionDatasource>
     </dsContext>
@@ -25,7 +32,7 @@
                    spacing="true">
             <groupBox spacing="true">
                 <grid spacing="true">
-                    <columns count="2"/>
+                    <columns count="3"/>
                     <rows>
                         <row>
                             <vbox spacing="true">
@@ -37,33 +44,75 @@
                                               align="MIDDLE_CENTER"
                                               height="100%"/>
                                 </groupBox>
+                            </vbox>
+                            <vbox colspan="2"
+                                  spacing="true">
+                                <optionsGroup id="partnerTypeGroup"
+                                              datasource="partnerDs"
+                                              orientation="horizontal"
+                                              property="partnerType"/>
+                                <textField datasource="partnerDs"
+                                           height="40px"
+                                           inputPrompt="msg://Name"
+                                           property="name"
+                                           textChangeTimeout="400"
+                                           width="410px"/>
+                                <lookupPickerField id="parentPickerField"
+                                                   datasource="partnerDs"
+                                                   inputPrompt="msg://Company"
+                                                   optionsDatasource="parentsDs"
+                                                   property="parent"
+                                                   width="410px"/>
+                            </vbox>
+                        </row>
+                        <row>
+                            <vbox align="TOP_CENTER"
+                                  spacing="true">
                                 <upload id="partnerImageUpload"
                                         align="TOP_CENTER"/>
                             </vbox>
                             <vbox spacing="true">
-                                <optionsGroup orientation="horizontal"/>
-                                <fieldGroup id="fieldGroup"
+                                <groupBox caption="msg://Address"
+                                          spacing="true">
+                                    <textField datasource="partnerDs"
+                                               inputPrompt="msg://street"
+                                               property="street"
+                                               textChangeTimeout="400"
+                                               width="400px"/>
+                                    <hbox spacing="true">
+                                        <textField datasource="partnerDs"
+                                                   inputPrompt="msg://city"
+                                                   property="city"
+                                                   textChangeTimeout="400"
+                                                   width="195px"/>
+                                        <textField datasource="partnerDs"
+                                                   inputPrompt="msg://zip"
+                                                   property="zip"
+                                                   textChangeTimeout="400"
+                                                   width="195px"/>
+                                    </hbox>
+                                    <lookupPickerField id="regionPickerField"
+                                                       datasource="partnerDs"
+                                                       inputPrompt="msg://region"
+                                                       property="region"
+                                                       width="400px"/>
+                                    <lookupPickerField id="countryPickerField"
+                                                       datasource="partnerDs"
+                                                       inputPrompt="msg://country"
+                                                       property="country"
+                                                       width="400px"/>
+                                </groupBox>
+                            </vbox>
+                            <vbox spacing="true">
+                                <fieldGroup id="partnerFieldGroup"
                                             datasource="partnerDs">
                                     <column width="250px">
-                                        <field id="name"/>
-                                        <field id="partnerType"/>
-                                        <field id="customer"/>
-                                        <field id="vendor"/>
-                                        <field id="email"/>
-                                        <field id="website"/>
-                                        <field id="active"/>
                                         <field id="position"/>
                                         <field id="phone"/>
-                                        <field id="mobile"/>
                                         <field id="fax"/>
-                                        <field id="parent"
-                                               optionsDatasource="parentsDs"/>
-                                        <field id="street"/>
-                                        <field id="city"/>
-                                        <field id="region"/>
-                                        <field id="country"/>
-                                        <field id="zip"/>
-                                        <field id="addresses"/>
+                                        <field id="mobile"/>
+                                        <field id="email"/>
+                                        <field id="website"/>
                                     </column>
                                 </fieldGroup>
                             </vbox>
@@ -71,6 +120,59 @@
                     </rows>
                 </grid>
             </groupBox>
+            <tabSheet height="100%">
+                <tab caption="msg://Contacts and addresses"
+                     spacing="true">
+                    <tokenList id="partnerFilteredByParentTokenList"
+                               datasource="partnerFilteredByParentDs"
+                               simple="true"
+                               width="100%">
+                        <addButton caption="msg://Create"
+                                   icon="icons/insert-to-set.png"/>
+                        <lookup lookup="true"
+                                lookupScreen="ekomerp$PartnerContact.edit"/>
+                    </tokenList>
+                </tab>
+                <tab caption="msg://Notes"
+                     spacing="true">
+                    <textArea datasource="partnerDs"
+                              inputPrompt="msg://Notes"
+                              property="notes"
+                              textChangeTimeout="400"
+                              width="100%"/>
+                </tab>
+                <tab caption="msg://Sell and Purchase"
+                     spacing="true">
+                    <grid spacing="true"
+                          width="100%">
+                        <columns count="2"/>
+                        <rows>
+                            <row>
+                                <vbox spacing="true"
+                                      width="200px">
+                                    <label stylename="h2"
+                                           value="msg://Sell"/>
+                                    <hbox spacing="true">
+                                        <label value="msg://Customer"/>
+                                        <checkBox datasource="partnerDs"
+                                                  property="customer"/>
+                                    </hbox>
+                                </vbox>
+                                <vbox spacing="true"
+                                      width="200px">
+                                    <label stylename="h2"
+                                           value="msg://Purchase"/>
+                                    <hbox spacing="true">
+                                        <label value="msg://Vendor"/>
+                                        <checkBox datasource="partnerDs"
+                                                  property="vendor"/>
+                                    </hbox>
+                                </vbox>
+                            </row>
+                        </rows>
+                    </grid>
+                </tab>
+            </tabSheet>
         </scrollBox>
         <frame id="windowActions"
                screen="editWindowActions"/>

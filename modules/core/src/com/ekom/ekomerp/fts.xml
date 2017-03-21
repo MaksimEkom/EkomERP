@@ -34,7 +34,10 @@
         <entity class="com.ekom.ekomerp.entity.Partner">
             <include re=".*"/>
         </entity>
-        <entity class="com.ekom.ekomerp.entity.Address">
+        <entity class="com.ekom.ekomerp.entity.Country">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.Region">
             <include re=".*"/>
         </entity>
     </entities>

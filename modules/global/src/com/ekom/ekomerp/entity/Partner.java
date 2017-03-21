@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import com.haulmont.cuba.core.entity.annotation.Lookup;
 import com.haulmont.cuba.core.entity.annotation.LookupType;
 import com.haulmont.chile.core.annotations.NamePattern;
+import javax.persistence.Lob;
 
 @NamePattern("%s|name")
 @Table(name = "EKOMERP_PARTNER")
@@ -22,7 +23,7 @@ public class Partner extends StandardEntity {
     protected String name;
 
     @Column(name = "PARTNER_TYPE")
-    protected Integer partnerType;
+    protected Integer partnerType = 1;
 
     @Column(name = "CUSTOMER")
     protected Boolean customer;
@@ -41,7 +42,7 @@ public class Partner extends StandardEntity {
     protected String website;
 
     @Column(name = "ACTIVE")
-    protected Boolean active;
+    protected Boolean active = true;
 
     @Column(name = "POSITION_")
     protected String position;
@@ -66,25 +67,75 @@ public class Partner extends StandardEntity {
     @Column(name = "CITY")
     protected String city;
 
-    @Column(name = "REGION")
-    protected String region;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "REGION_ID")
+    protected Region region;
 
-    @Column(name = "COUNTRY")
-    protected String country;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COUNTRY_ID")
+    protected Country country;
 
     @Column(name = "ZIP")
     protected String zip;
 
-    @Column(name = "ADDRESSES")
-    protected String addresses;
+
+
+
+    @Column(name = "ADDRESS_TYPE")
+    protected Integer addressType = 1;
+
+
+    @Lob
+    @Column(name = "NOTES")
+    protected String notes;
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+
+    public AddressTypeEnum getAddressType() {
+        return addressType == null ? null : AddressTypeEnum.fromId(addressType);
+    }
+
+    public void setAddressType(AddressTypeEnum addressType) {
+        this.addressType = addressType == null ? null : addressType.getId();
+    }
+
+
+    public PartnerTypeEnum getPartnerType() {
+        return partnerType == null ? null : PartnerTypeEnum.fromId(partnerType);
+    }
 
     public void setPartnerType(PartnerTypeEnum partnerType) {
         this.partnerType = partnerType == null ? null : partnerType.getId();
     }
 
-    public PartnerTypeEnum getPartnerType() {
-        return partnerType == null ? null : PartnerTypeEnum.fromId(partnerType);
-    }
+
+
+
 
 
     public void setEmail(String email) {
@@ -167,36 +218,12 @@ public class Partner extends StandardEntity {
         return city;
     }
 
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
     public void setZip(String zip) {
         this.zip = zip;
     }
 
     public String getZip() {
         return zip;
-    }
-
-    public void setAddresses(String addresses) {
-        this.addresses = addresses;
-    }
-
-    public String getAddresses() {
-        return addresses;
     }
 
 

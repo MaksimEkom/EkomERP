@@ -87,6 +87,19 @@ public class Product extends StandardEntity {
     @JoinColumn(name = "IMAGE_ID")
     protected FileDescriptor image;
 
+    @Lob
+    @Column(name = "NOTES")
+    protected String notes;
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+
     public void setDescription(String description) {
         this.description = description;
     }

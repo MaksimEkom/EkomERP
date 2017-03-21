@@ -31,4 +31,10 @@
             template="com/ekom/ekomerp/web/partner/partner-edit.xml"/>
     <screen id="ekomerp$Inventory.browseEdit"
             template="com/ekom/ekomerp/web/inventory/inventory-browse-edit.xml"/>
+    <screen id="ekomerp$Country.browse"
+            template="com/ekom/ekomerp/web/country/country-browse.xml"/>
+    <screen id="ekomerp$Region.browse"
+            template="com/ekom/ekomerp/web/region/region-browse.xml"/>
+    <screen id="ekomerp$PartnerContact.edit"
+            template="com/ekom/ekomerp/web/partner/partnerContact-edit.xml"/>
 </screen-config>
