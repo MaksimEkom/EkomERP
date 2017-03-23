@@ -155,8 +155,7 @@ create table EKOMERP_LOCATION (
     primary key nonclustered (ID)
 )^
 -- end EKOMERP_STOCK_MOVEMENT
--- begin EKOMERP_STOCK_MOVEMENT_LINE
-create table EKOMERP_STOCK_MOVEMENT_LINE (
+-- begin EKOMERP_STOCK_MOVEMENT_LINEcreate table EKOMERP_STOCK_MOVEMENT_LINE (
     ID uniqueidentifier,
     VERSION integer not null,
     CREATE_TS datetime2,
@@ -169,8 +168,6 @@ create table EKOMERP_STOCK_MOVEMENT_LINE (
     PRODUCT_ID uniqueidentifier not null,
     QUANTITY double precision not null,
     STOCK_MOVEMENT_ID uniqueidentifier,
-    QUANTITY_BEFORE double precision,
-    QUANTITY_AFTER double precision,
     --
     primary key nonclustered (ID)
 )^

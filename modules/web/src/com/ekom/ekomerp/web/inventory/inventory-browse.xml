@@ -21,7 +21,9 @@ where e.quantity <> 0]]>
             spacing="true">
         <filter id="filter"
                 applyTo="inventoriesTable"
-                datasource="inventoriesDs">
+                datasource="inventoriesDs"
+                 defaultMode="fts"
+                useMaxResults="false">
             <properties include=".*"/>
         </filter>
         <groupTable id="inventoriesTable"
@@ -39,6 +41,7 @@ where e.quantity <> 0]]>
                 <group>
                     <column id="product"/>
                 </group>
+                <column id="product.code"/>
                 <column id="location"/>
                 <column id="quantity">
                     <aggregation type="SUM"/>
