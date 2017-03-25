@@ -44,17 +44,26 @@ order by e.stockMovement.date]]>
                     <rows>
                         <row>
                             <vbox spacing="true">
-                                <groupBox id="productImageBox"
-                                          caption="msg://Image"
-                                          height="250px"
-                                          spacing="true"
-                                          width="AUTO">
-                                    <embedded id="productImage"
-                                              align="MIDDLE_CENTER"
-                                              height="100%"/>
-                                </groupBox>
+                                <vbox id="dropZone"
+                                      spacing="true">
+                                    <groupBox id="productImageBox"
+                                              caption="msg://Image"
+                                              height="250px"
+                                              spacing="true"
+                                              width="AUTO">
+                                        <embedded id="productImage"
+                                                  align="MIDDLE_CENTER"
+                                                  height="100%"/>
+                                    </groupBox>
+                                </vbox>
                                 <upload id="productImageUpload"
-                                        align="TOP_CENTER"/>
+                                        align="TOP_CENTER"
+                                        clearButtonDescription="msg://Clear Image"
+                                        clearButtonIcon="icons/clear.png"
+                                        dropZone="dropZone"
+                                        showClearButton="true"
+                                        uploadButtonDescription="msg://Upload image"
+                                        uploadButtonIcon="icons/upload.png"/>
                             </vbox>
                             <fieldGroup datasource="productDs">
                                 <column width="250px">

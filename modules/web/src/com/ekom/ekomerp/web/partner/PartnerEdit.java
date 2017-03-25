@@ -4,6 +4,8 @@ import com.haulmont.cuba.core.entity.FileDescriptor;
 import com.haulmont.cuba.core.global.FileStorageException;
 import com.haulmont.cuba.gui.components.*;
 import com.ekom.ekomerp.entity.Partner;
+import com.haulmont.cuba.gui.components.actions.CreateAction;
+import com.haulmont.cuba.gui.components.actions.EditAction;
 import com.haulmont.cuba.gui.data.DataSupplier;
 import com.haulmont.cuba.gui.data.Datasource;
 import com.haulmont.cuba.gui.export.FileDataProvider;
@@ -38,11 +40,19 @@ public class PartnerEdit extends AbstractEditor<Partner> {
     private LookupPickerField regionPickerField;
     @Inject
     private LookupPickerField countryPickerField;
+    @Inject
+    private Button createContactAdressButton;
+    @Named("partnerFilteredByParentTable.create")
+    private CreateAction partnerFilteredByParentTableCreate;
+    @Named("partnerFilteredByParentTable.edit")
+    private EditAction partnerFilteredByParentTableEdit;
 
     @Override
     public void init(Map<String, Object> params) {
         regionPickerField.removeAction(regionPickerField.getOpenAction());
         countryPickerField.removeAction(countryPickerField.getOpenAction());
+        partnerFilteredByParentTableCreate.setWindowId("ekomerp$PartnerContact.edit");
+        partnerFilteredByParentTableEdit.setWindowId("ekomerp$PartnerContact.edit");
         partnerTypeGroup.addValueChangeListener(e -> {
             if(e.getValue().toString() == "company"){
                 parentPickerField.setVisible(false);
@@ -54,7 +64,8 @@ public class PartnerEdit extends AbstractEditor<Partner> {
 
         });
         parentPickerField.removeAction(parentPickerField.getOpenAction());
-
+        partnerImageUpload.setUploadButtonCaption(null);
+        partnerImageUpload.setClearButtonCaption(null);
         partnerImageUpload.addFileUploadSucceedListener(event -> {
             FileDescriptor fd = partnerImageUpload.getFileDescriptor();
             try {
@@ -72,7 +83,12 @@ public class PartnerEdit extends AbstractEditor<Partner> {
             showNotification(formatMessage(getMessage("uploadSuccessMessage"), partnerImageUpload.getFileName()),
                     NotificationType.HUMANIZED);
         });
+        partnerImageUpload.addAfterValueClearListener(event -> {
+            ResourceDataProvider dataProvider = new ResourceDataProvider(DEFAULT_PRODUCT_IMAGE_PATH);
+            partnerImage.setSource(DEFAULT_PRODUCT_IMAGE_NAME, dataProvider);
+            getItem().setImage(null);
 
+        });
 
         super.init(params);
     }

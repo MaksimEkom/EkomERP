@@ -3,7 +3,7 @@
         caption="msg://editorCaption"
         class="com.ekom.ekomerp.web.partner.PartnercontactEdit"
         datasource="partnerDs"
-        focusComponent="fieldGroup"
+        focusComponent="partnerFieldGroup"
         messagesPack="com.ekom.ekomerp.web.partner">
     <dsContext>
         <datasource id="partnerDs"
@@ -23,32 +23,57 @@
             spacing="true">
         <scrollBox id="scrollBox"
                    spacing="true">
-            <fieldGroup id="fieldGroup"
-                        datasource="partnerDs">
-                <column width="250px">
-                    <field id="name"/>
-                    <field id="partnerType"/>
-                    <field id="customer"/>
-                    <field id="vendor"/>
-                    <field id="email"/>
-                    <field id="website"/>
-                    <field id="active"/>
-                    <field id="position"/>
-                    <field id="phone"/>
-                    <field id="mobile"/>
-                    <field id="fax"/>
-                    <field id="parent"
-                           optionsDatasource="parentsDs"/>
-                    <field id="street"/>
-                    <field id="city"/>
-                    <field id="zip"/>
-                    <field id="addressType"/>
-                    <field id="notes"
-                           rows="5"/>
-                </column>
-            </fieldGroup>
+            <optionsGroup id="partnerOptionsGroup"
+                          datasource="partnerDs"
+                          orientation="horizontal"
+                          property="addressType"/>
+            <hbox spacing="true">
+                <groupBox id="addressGroupBox"
+                          caption="msg://Address"
+                          spacing="true">
+                    <textField datasource="partnerDs"
+                               inputPrompt="msg://street"
+                               property="street"
+                               width="400px"/>
+                    <hbox spacing="true">
+                        <textField datasource="partnerDs"
+                                   inputPrompt="msg://city"
+                                   property="city"
+                                   width="195px"/>
+                        <textField datasource="partnerDs"
+                                   inputPrompt="msg://zip"
+                                   property="zip"
+                                   width="195px"/>
+                    </hbox>
+                    <lookupPickerField id="regionPickerField"
+                                       datasource="partnerDs"
+                                       inputPrompt="msg://region"
+                                       property="region"
+                                       width="400px"/>
+                    <lookupPickerField id="countryPickerField"
+                                       datasource="partnerDs"
+                                       inputPrompt="msg://country"
+                                       property="country"
+                                       width="400px"/>
+                </groupBox>
+                <fieldGroup id="partnerFieldGroup"
+                            datasource="partnerDs">
+                    <column width="250px">
+                        <field id="name"
+                               caption="msg://Name"/>
+                        <field id="position"/>
+                        <field id="email"/>
+                        <field id="phone"/>
+                        <field id="mobile"/>
+                        <field id="fax"/>
+                        <field id="notes"
+                               rows="5"/>
+                    </column>
+                </fieldGroup>
+            </hbox>
         </scrollBox>
         <frame id="windowActions"
+               height="30px"
                screen="editWindowActions"/>
     </layout>
 </window>

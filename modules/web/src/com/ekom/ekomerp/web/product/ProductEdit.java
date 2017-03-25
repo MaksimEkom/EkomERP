@@ -49,6 +49,8 @@ public class ProductEdit extends AbstractEditor<Product> {
     public void init(Map<String, Object> params) {
         laboriousnessDs.addCollectionChangeListener(e -> calculateTotalLaboriousness());
 //        stockMovementLinesTableEdit.setWindowId("ekomerp$StockMovement.edit");
+        productImageUpload.setUploadButtonCaption(null);
+        productImageUpload.setClearButtonCaption(null);
         productImageUpload.addFileUploadSucceedListener(event -> {
             FileDescriptor fd = productImageUpload.getFileDescriptor();
             try {
@@ -65,6 +67,13 @@ public class ProductEdit extends AbstractEditor<Product> {
 
             showNotification(formatMessage(getMessage("uploadSuccessMessage"), productImageUpload.getFileName()),
                     NotificationType.HUMANIZED);
+        });
+
+        productImageUpload.addAfterValueClearListener(event -> {
+            ResourceDataProvider dataProvider = new ResourceDataProvider(DEFAULT_PRODUCT_IMAGE_PATH);
+            productImage.setSource(DEFAULT_PRODUCT_IMAGE_NAME, dataProvider);
+            getItem().setImage(null);
+
         });
         super.init(params);
     }
