@@ -91,6 +91,18 @@ public class Product extends StandardEntity {
     @Column(name = "NOTES")
     protected String notes;
 
+    @Column(name = "PURCHASE_PRICE")
+    protected Double purchasePrice = 0.0;
+
+    public void setPurchasePrice(Double purchasePrice) {
+        this.purchasePrice = purchasePrice;
+    }
+
+    public Double getPurchasePrice() {
+        return purchasePrice;
+    }
+
+
     public void setNotes(String notes) {
         this.notes = notes;
     }

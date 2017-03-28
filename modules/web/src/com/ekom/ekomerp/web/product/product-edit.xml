@@ -48,7 +48,7 @@ order by e.stockMovement.date]]>
                                       spacing="true">
                                     <groupBox id="productImageBox"
                                               caption="msg://Image"
-                                              height="250px"
+                                              height="175px"
                                               spacing="true"
                                               width="AUTO">
                                         <embedded id="productImage"
@@ -65,19 +65,25 @@ order by e.stockMovement.date]]>
                                         uploadButtonDescription="msg://Upload image"
                                         uploadButtonIcon="icons/upload.png"/>
                             </vbox>
-                            <fieldGroup datasource="productDs">
-                                <column width="250px">
-                                    <field id="name"/>
-                                    <field id="code"/>
-                                    <field id="for_sale"
-                                           description="msg://Check if product can be sold"/>
-                                    <field id="for_purchase"
-                                           description="msg://Check if product can be purchased"/>
-                                </column>
-                            </fieldGroup>
+                            <vbox spacing="true">
+                                <textField datasource="productDs"
+                                           height="40px"
+                                           inputPrompt="msg://Name"
+                                           property="name"
+                                           width="400px"/>
+                                <fieldGroup datasource="productDs">
+                                    <column width="250px">
+                                        <field id="for_sale"
+                                               description="msg://Check if product can be sold"/>
+                                        <field id="for_purchase"
+                                               description="msg://Check if product can be purchased"/>
+                                    </column>
+                                </fieldGroup>
+                            </vbox>
                             <fieldGroup datasource="productDs">
                                 <column width="250px">
                                     <field id="category"/>
+                                    <field id="code"/>
                                     <field id="unit"
                                            datasource="productDs"
                                            optionsDatasource="unitsDs"/>
@@ -100,6 +106,7 @@ order by e.stockMovement.date]]>
                             <field id="docName"
                                    rows="2"
                                    width="250px"/>
+                            <field id="purchasePrice"/>
                         </column>
                         <column>
                             <field id="analog"

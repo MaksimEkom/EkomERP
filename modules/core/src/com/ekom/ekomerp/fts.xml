@@ -40,5 +40,11 @@
         <entity class="com.ekom.ekomerp.entity.Region">
             <include re=".*"/>
         </entity>
+        <entity class="com.ekom.ekomerp.entity.PurchaseOrder">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.PurchaseOrderLine">
+            <include re=".*"/>
+        </entity>
     </entities>
 </fts-config>

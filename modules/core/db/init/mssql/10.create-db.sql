@@ -25,6 +25,7 @@
     FOR_PURCHASE tinyint,
     IMAGE_ID uniqueidentifier,
     NOTES varchar(max),
+    PURCHASE_PRICE double precision,
     --
     primary key nonclustered (ID)
 )^
@@ -260,3 +261,48 @@ create table EKOMERP_REGION (
     primary key nonclustered (ID)
 )^
 -- end EKOMERP_REGION
+-- begin EKOMERP_PURCHASE_ORDER
+create table EKOMERP_PURCHASE_ORDER (
+    ID uniqueidentifier,
+    VERSION integer not null,
+    CREATE_TS datetime2,
+    CREATED_BY varchar(50),
+    UPDATE_TS datetime2,
+    UPDATED_BY varchar(50),
+    DELETE_TS datetime2,
+    DELETED_BY varchar(50),
+    --
+    VENDOR_ID uniqueidentifier not null,
+    STATE varchar(50),
+    NOTES varchar(max),
+    AMOUNT_UNTAXED double precision,
+    AMOUNT_TAX double precision,
+    AMOUNT_WITH_TAX double precision,
+    DATE_ datetime2 not null,
+    NUMBER_ varchar(255) not null,
+    --
+    primary key nonclustered (ID)
+)^
+-- end EKOMERP_PURCHASE_ORDER
+-- begin EKOMERP_PURCHASE_ORDER_LINE
+create table EKOMERP_PURCHASE_ORDER_LINE (
+    ID uniqueidentifier,
+    VERSION integer not null,
+    CREATE_TS datetime2,
+    CREATED_BY varchar(50),
+    UPDATE_TS datetime2,
+    UPDATED_BY varchar(50),
+    DELETE_TS datetime2,
+    DELETED_BY varchar(50),
+    --
+    PRODUCT_ID uniqueidentifier not null,
+    QUANTITY double precision not null,
+    PRICE double precision not null,
+    SUBTOTAL double precision,
+    TAX double precision,
+    TOTAL double precision,
+    PURCHASE_ORDER_ID uniqueidentifier,
+    --
+    primary key nonclustered (ID)
+)^
+-- end EKOMERP_PURCHASE_ORDER_LINE

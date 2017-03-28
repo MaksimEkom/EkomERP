@@ -1,7 +1,9 @@
 package com.ekom.ekomerp.web.partner;
 
+import com.haulmont.bali.util.ParamsMap;
 import com.haulmont.cuba.core.entity.FileDescriptor;
 import com.haulmont.cuba.core.global.FileStorageException;
+import com.haulmont.cuba.core.global.PersistenceHelper;
 import com.haulmont.cuba.gui.components.*;
 import com.ekom.ekomerp.entity.Partner;
 import com.haulmont.cuba.gui.components.actions.CreateAction;
@@ -46,6 +48,8 @@ public class PartnerEdit extends AbstractEditor<Partner> {
     private CreateAction partnerFilteredByParentTableCreate;
     @Named("partnerFilteredByParentTable.edit")
     private EditAction partnerFilteredByParentTableEdit;
+    @Inject
+    private Table<Partner> partnerFilteredByParentTable;
 
     @Override
     public void init(Map<String, Object> params) {
@@ -94,6 +98,11 @@ public class PartnerEdit extends AbstractEditor<Partner> {
     }
 
     protected void postInit() {
+
+        Partner partner = getItem();
+
+        partnerFilteredByParentTableCreate.setEnabled(!PersistenceHelper.isNew(partner));
+        partnerFilteredByParentTableCreate.setInitialValues(ParamsMap.of("parent",partner));
         super.postInit();
 
         FileDescriptor productImageFile = getItem().getImage();

@@ -11,11 +11,15 @@
         <item id="ekomerp$Country.browse"/>
         <item id="ekomerp$Region.browse"/>
     </menu>
+    <menu id="purchase"
+          insertBefore="administration">
+        <item id="ekomerp$PurchaseOrder.browse"/>
+    </menu>
     <menu id="inventory"
           insertBefore="administration">
-        <item id="ekomerp$StockMovement.browse"/>
         <item id="ekomerp$Inventory.browse"/>
         <item id="ekomerp$Inventory.browseEdit"/>
+        <item id="ekomerp$StockMovement.browse"/>
     </menu>
     <menu id="application"
           insertBefore="administration">

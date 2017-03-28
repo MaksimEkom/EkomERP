@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.ekom.ekomerp.web.purchaseorder.PurchaseOrderBrowse"
+        focusComponent="purchaseOrdersTable"
+        lookupComponent="purchaseOrdersTable"
+        messagesPack="com.ekom.ekomerp.web.purchaseorder">
+    <dsContext>
+        <groupDatasource id="purchaseOrdersDs"
+                         class="com.ekom.ekomerp.entity.PurchaseOrder"
+                         view="_local">
+            <query>
+                <![CDATA[select e from ekomerp$PurchaseOrder e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="purchaseOrdersTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="purchaseOrdersTable"
+                datasource="purchaseOrdersDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="purchaseOrdersTable"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+                <action id="excel"/>
+            </actions>
+            <columns>
+                <column id="number"/>
+                <column id="state"/>
+                <column id="notes"/>
+                <column id="amountUntaxed"/>
+                <column id="amountTax"/>
+                <column id="amountWithTax"/>
+                <column id="date"/>
+            </columns>
+            <rows datasource="purchaseOrdersDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="purchaseOrdersTable.create"/>
+                <button id="editBtn"
+                        action="purchaseOrdersTable.edit"/>
+                <button id="removeBtn"
+                        action="purchaseOrdersTable.remove"/>
+                <button id="excelBtn"
+                        action="purchaseOrdersTable.excel"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

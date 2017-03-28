@@ -210,6 +210,6 @@ where e.parent.id = :ds$partnerDs]]>
             </tabSheet>
         </scrollBox>
         <frame id="windowActions"
-               screen="editWindowActions"/>
+               screen="extendedEditWindowActions"/>
     </layout>
 </window>

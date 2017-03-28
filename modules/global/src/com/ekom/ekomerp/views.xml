@@ -141,4 +141,10 @@
             <property name="name"/>
         </property>
     </view>
+    <view class="com.ekom.ekomerp.entity.PurchaseOrder"
+          extends="_local"
+          name="purchaseOrder-view">
+        <property name="vendor"
+                  view="_minimal"/>
+    </view>
 </views>

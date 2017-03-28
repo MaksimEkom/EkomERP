@@ -17,8 +17,6 @@
             template="com/ekom/ekomerp/web/product/product-edit.xml"/>
     <screen id="ekomerp$Location.browse"
             template="com/ekom/ekomerp/web/location/location-browse.xml"/>
-    <screen id="ekomerp$StockMovement.browse"
-            template="com/ekom/ekomerp/web/stockmovement/stock-movement-browse.xml"/>
     <screen id="ekomerp$StockMovement.edit"
             template="com/ekom/ekomerp/web/stockmovement/stock-movement-edit.xml"/>
     <screen id="ekomerp$StockMovementLine.edit"
@@ -37,4 +35,10 @@
             template="com/ekom/ekomerp/web/region/region-browse.xml"/>
     <screen id="ekomerp$PartnerContact.edit"
             template="com/ekom/ekomerp/web/partner/partnerContact-edit.xml"/>
+    <screen id="ekomerp$StockMovement.browse"
+            template="com/ekom/ekomerp/web/stockmovement/stock-movement-browse.xml"/>
+    <screen id="ekomerp$PurchaseOrder.browse"
+            template="com/ekom/ekomerp/web/purchaseorder/purchase-order-browse.xml"/>
+    <screen id="ekomerp$PurchaseOrder.edit"
+            template="com/ekom/ekomerp/web/purchaseorder/purchase-order-edit.xml"/>
 </screen-config>

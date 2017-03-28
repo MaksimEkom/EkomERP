@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="com.ekom.ekomerp.web.purchaseorder.PurchaseOrderEdit"
+        datasource="purchaseOrderDs"
+        messagesPack="com.ekom.ekomerp.web.purchaseorder">
+    <dsContext>
+        <datasource id="purchaseOrderDs"
+                    class="com.ekom.ekomerp.entity.PurchaseOrder"
+                    view="purchaseOrder-view"/>
+        <collectionDatasource id="vendorsDs"
+                              class="com.ekom.ekomerp.entity.Partner"
+                              view="partnerWithParentView">
+            <query>
+                <![CDATA[select e from ekomerp$Partner e]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="windowActions"
+            spacing="true">
+        <label stylename="h2"
+               value="msg://Draft"/>
+        <label datasource="purchaseOrderDs"
+               property="number"
+               stylename="h1"/>
+        <hbox margin="true"
+              spacing="true"
+              width="100%">
+            <lookupPickerField id="vendorField"
+                               caption="msg://Vendor"
+                               datasource="purchaseOrderDs"
+                               property="vendor"
+                               width="400px"/>
+            <dateField id="purchaseOrderDateField"
+                       caption="msg://Order date"
+                       datasource="purchaseOrderDs"
+                       property="date"
+                       width="200px"/>
+        </hbox>
+        <frame id="windowActions"
+               screen="extendedEditWindowActions"/>
+    </layout>
+</window>

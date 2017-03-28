@@ -16,5 +16,7 @@
         <class>com.ekom.ekomerp.entity.Partner</class>
         <class>com.ekom.ekomerp.entity.Country</class>
         <class>com.ekom.ekomerp.entity.Region</class>
+        <class>com.ekom.ekomerp.entity.PurchaseOrder</class>
+        <class>com.ekom.ekomerp.entity.PurchaseOrderLine</class>
     </persistence-unit>
 </persistence>
