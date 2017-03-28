@@ -21,7 +21,7 @@ public class PurchaseOrderEdit extends AbstractEditor<PurchaseOrder> {
 
     @Override
     public void init(Map<String, Object> params) {
-        vendorField.removeAction(vendorField.getLookupAction());
+        vendorField.removeAction(vendorField.getOpenAction());
         super.init(params);
     }
 

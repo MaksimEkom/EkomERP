@@ -7,12 +7,17 @@
     <dsContext>
         <datasource id="purchaseOrderDs"
                     class="com.ekom.ekomerp.entity.PurchaseOrder"
-                    view="purchaseOrder-view"/>
+                    view="purchaseOrder-view">
+            <collectionDatasource id="purchaseOrderLineDs"
+                                  property="purchaseOrderLine"/>
+        </datasource>
         <collectionDatasource id="vendorsDs"
                               class="com.ekom.ekomerp.entity.Partner"
                               view="partnerWithParentView">
             <query>
-                <![CDATA[select e from ekomerp$Partner e]]>
+                <![CDATA[select e from ekomerp$Partner e
+where e.vendor = true
+order by e.name asc]]>
             </query>
         </collectionDatasource>
     </dsContext>
@@ -31,6 +36,7 @@
             <lookupPickerField id="vendorField"
                                caption="msg://Vendor"
                                datasource="purchaseOrderDs"
+                               optionsDatasource="vendorsDs"
                                property="vendor"
                                width="400px"/>
             <dateField id="purchaseOrderDateField"
@@ -39,6 +45,34 @@
                        property="date"
                        width="200px"/>
         </hbox>
+        <tabSheet>
+            <tab caption="msg://Products"
+                 spacing="true">
+                <table id="purchaseOrderLineTable"
+                       height="300px"
+                       width="100%">
+                    <actions>
+                        <action id="create"/>
+                        <action id="edit"/>
+                        <action id="remove"/>
+                    </actions>
+                    <columns>
+                        <column id="product"/>
+                        <column id="quantity"/>
+                        <column id="price"/>
+                        <column id="subtotal"/>
+                        <column id="tax"/>
+                        <column id="total"/>
+                    </columns>
+                    <rows datasource="purchaseOrderLineDs"/>
+                    <buttonsPanel>
+                        <button action="purchaseOrderLineTable.create"/>
+                        <button action="purchaseOrderLineTable.edit"/>
+                        <button action="purchaseOrderLineTable.remove"/>
+                    </buttonsPanel>
+                </table>
+            </tab>
+        </tabSheet>
         <frame id="windowActions"
                screen="extendedEditWindowActions"/>
     </layout>

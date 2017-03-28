@@ -222,6 +222,7 @@ create table EKOMERP_INVENTORY (
     ZIP varchar(255),
     ADDRESS_TYPE integer,
     NOTES varchar(max),
+    UNP varchar(255),
     --
     primary key nonclustered (ID)
 )^

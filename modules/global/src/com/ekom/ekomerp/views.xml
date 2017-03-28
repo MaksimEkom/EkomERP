@@ -117,6 +117,12 @@
           name="partnerWithParentView">
         <property name="parent"
                   view="_minimal"/>
+        <property name="region"
+                  view="_minimal"/>
+        <property name="country"
+                  view="_minimal"/>
+        <property name="image"
+                  view="_minimal"/>
     </view>
     <view class="com.ekom.ekomerp.entity.StockMovementLine"
           extends="_local"
@@ -146,5 +152,15 @@
           name="purchaseOrder-view">
         <property name="vendor"
                   view="_minimal"/>
+    </view>
+    <view class="com.ekom.ekomerp.entity.PurchaseOrderLine"
+          extends="_local"
+          name="purchaseOrderLine-view">
+        <property name="product"
+                  view="_minimal">
+            <property name="unit"
+                      view="_minimal"/>
+            <property name="purchasePrice"/>
+        </property>
     </view>
 </views>

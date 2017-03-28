@@ -23,6 +23,22 @@
 where e.parent.id = :ds$partnerDs]]>
             </query>
         </collectionDatasource>
+        <collectionDatasource id="countriesDs"
+                              class="com.ekom.ekomerp.entity.Country"
+                              view="_minimal">
+            <query>
+                <![CDATA[select e from ekomerp$Country e
+order by e.name asc]]>
+            </query>
+        </collectionDatasource>
+        <collectionDatasource id="regionsDs"
+                              class="com.ekom.ekomerp.entity.Region"
+                              view="_minimal">
+            <query>
+                <![CDATA[select e from ekomerp$Region e
+order by e.name asc]]>
+            </query>
+        </collectionDatasource>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
@@ -65,6 +81,11 @@ where e.parent.id = :ds$partnerDs]]>
                                                    optionsDatasource="parentsDs"
                                                    property="parent"
                                                    width="410px"/>
+                                <textField id="unpField"
+                                           datasource="partnerDs"
+                                           inputPrompt="msg://UNP"
+                                           property="unp"
+                                           width="410px"/>
                             </vbox>
                         </row>
                         <row>
@@ -99,11 +120,13 @@ where e.parent.id = :ds$partnerDs]]>
                                     <lookupPickerField id="regionPickerField"
                                                        datasource="partnerDs"
                                                        inputPrompt="msg://region"
+                                                       optionsDatasource="regionsDs"
                                                        property="region"
                                                        width="400px"/>
                                     <lookupPickerField id="countryPickerField"
                                                        datasource="partnerDs"
                                                        inputPrompt="msg://country"
+                                                       optionsDatasource="countriesDs"
                                                        property="country"
                                                        width="400px"/>
                                 </groupBox>
@@ -143,19 +166,8 @@ where e.parent.id = :ds$partnerDs]]>
                         <columns>
                             <column id="addressType"/>
                             <column id="name"/>
-                            <column id="partnerType"/>
-                            <column id="customer"/>
-                            <column id="vendor"/>
-                            <column id="email"/>
-                            <column id="website"/>
-                            <column id="active"/>
-                            <column id="position"/>
-                            <column id="phone"/>
-                            <column id="mobile"/>
-                            <column id="fax"/>
                             <column id="street"/>
                             <column id="city"/>
-                            <column id="zip"/>
                             <column id="notes"/>
                         </columns>
                         <rows datasource="partnerFilteredByParentDs"/>

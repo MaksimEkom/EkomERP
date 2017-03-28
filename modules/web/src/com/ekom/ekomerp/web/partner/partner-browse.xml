@@ -49,6 +49,7 @@
                 <column id="country"/>
                 <column id="zip"/>
                 <column id="addressType"/>
+                <column id="unp"/>
             </columns>
             <rows datasource="partnersDs"/>
             <rowsCount/>

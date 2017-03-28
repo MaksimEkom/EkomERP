@@ -4,6 +4,7 @@ import com.haulmont.bali.util.ParamsMap;
 import com.haulmont.cuba.core.entity.FileDescriptor;
 import com.haulmont.cuba.core.global.FileStorageException;
 import com.haulmont.cuba.core.global.PersistenceHelper;
+import com.haulmont.cuba.gui.WindowManager;
 import com.haulmont.cuba.gui.components.*;
 import com.ekom.ekomerp.entity.Partner;
 import com.haulmont.cuba.gui.components.actions.CreateAction;
@@ -50,20 +51,26 @@ public class PartnerEdit extends AbstractEditor<Partner> {
     private EditAction partnerFilteredByParentTableEdit;
     @Inject
     private Table<Partner> partnerFilteredByParentTable;
+    @Inject
+    private TextField unpField;
 
     @Override
     public void init(Map<String, Object> params) {
         regionPickerField.removeAction(regionPickerField.getOpenAction());
         countryPickerField.removeAction(countryPickerField.getOpenAction());
         partnerFilteredByParentTableCreate.setWindowId("ekomerp$PartnerContact.edit");
+        partnerFilteredByParentTableCreate.setOpenType(WindowManager.OpenType.DIALOG);
         partnerFilteredByParentTableEdit.setWindowId("ekomerp$PartnerContact.edit");
+        partnerFilteredByParentTableEdit.setOpenType(WindowManager.OpenType.DIALOG);
         partnerTypeGroup.addValueChangeListener(e -> {
             if(e.getValue().toString() == "company"){
                 parentPickerField.setVisible(false);
                 positionField.setVisible(false);
+                unpField.setVisible(true);
             }else if(e.getValue().toString() == "individual"){
                 parentPickerField.setVisible(true);
                 positionField.setVisible(true);
+                unpField.setVisible(false);
             }
 
         });

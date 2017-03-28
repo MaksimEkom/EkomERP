@@ -16,6 +16,22 @@
                 <![CDATA[select e from ekomerp$Partner e]]>
             </query>
         </collectionDatasource>
+        <collectionDatasource id="countriesDs"
+                              class="com.ekom.ekomerp.entity.Country"
+                              view="_minimal">
+            <query>
+                <![CDATA[select e from ekomerp$Country e
+order by e.name asc]]>
+            </query>
+        </collectionDatasource>
+        <collectionDatasource id="regionsDs"
+                              class="com.ekom.ekomerp.entity.Region"
+                              view="_minimal">
+            <query>
+                <![CDATA[select e from ekomerp$Region e
+order by e.name asc]]>
+            </query>
+        </collectionDatasource>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
@@ -34,27 +50,29 @@
                     <textField datasource="partnerDs"
                                inputPrompt="msg://street"
                                property="street"
-                               width="400px"/>
+                               width="390px"/>
                     <hbox spacing="true">
                         <textField datasource="partnerDs"
                                    inputPrompt="msg://city"
                                    property="city"
-                                   width="195px"/>
+                                   width="190px"/>
                         <textField datasource="partnerDs"
                                    inputPrompt="msg://zip"
                                    property="zip"
-                                   width="195px"/>
+                                   width="190px"/>
                     </hbox>
                     <lookupPickerField id="regionPickerField"
                                        datasource="partnerDs"
                                        inputPrompt="msg://region"
+                                       optionsDatasource="regionsDs"
                                        property="region"
-                                       width="400px"/>
+                                       width="390px"/>
                     <lookupPickerField id="countryPickerField"
                                        datasource="partnerDs"
                                        inputPrompt="msg://country"
+                                       optionsDatasource="countriesDs"
                                        property="country"
-                                       width="400px"/>
+                                       width="390px"/>
                 </groupBox>
                 <fieldGroup id="partnerFieldGroup"
                             datasource="partnerDs">
