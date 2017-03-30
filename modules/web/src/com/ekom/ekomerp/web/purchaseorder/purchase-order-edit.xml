@@ -20,11 +20,20 @@ where e.vendor = true
 order by e.name asc]]>
             </query>
         </collectionDatasource>
+        <collectionDatasource id="productsDs"
+                              class="com.ekom.ekomerp.entity.Product"
+                              view="_local">
+            <query>
+                <![CDATA[select e from ekomerp$Product e
+where e.for_purchase = true
+order by e.name asc
+]]>
+            </query>
+        </collectionDatasource>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="windowActions"
-            spacing="true">
+    <layout expand="windowActions">
         <label stylename="h2"
                value="msg://Draft"/>
         <label datasource="purchaseOrderDs"
@@ -46,33 +55,68 @@ order by e.name asc]]>
                        width="200px"/>
         </hbox>
         <tabSheet>
-            <tab caption="msg://Products"
+            <tab id="tab"
+                 caption="msg://Products"
                  spacing="true">
                 <table id="purchaseOrderLineTable"
-                       height="300px"
+                       columnControlVisible="false"
+                       editable="true"
+                       height="223px"
+                       reorderingAllowed="false"
+                       settingsEnabled="false"
+                       stylename="borderless"
                        width="100%">
                     <actions>
                         <action id="create"/>
-                        <action id="edit"/>
+                        <action id="edit"
+                                enable="false"
+                                visible="false"/>
                         <action id="remove"/>
                     </actions>
                     <columns>
                         <column id="product"/>
-                        <column id="quantity"/>
-                        <column id="price"/>
-                        <column id="subtotal"/>
-                        <column id="tax"/>
-                        <column id="total"/>
+                        <column id="quantity"
+                                align="RIGHT"
+                                editable="true"
+                                stylename="borderless"/>
+                        <column id="price"
+                                align="RIGHT"
+                                editable="true"/>
+                        <column id="subtotal"
+                                align="RIGHT"/>
+                        <column id="tax"
+                                align="RIGHT"/>
+                        <column id="total"
+                                align="RIGHT"/>
                     </columns>
                     <rows datasource="purchaseOrderLineDs"/>
                     <buttonsPanel>
-                        <button action="purchaseOrderLineTable.create"/>
-                        <button action="purchaseOrderLineTable.edit"/>
-                        <button action="purchaseOrderLineTable.remove"/>
+                        <button id="createButton"
+                                caption="msg://Create"
+                                invoke="onCreateButtonClick"/>
+                        <button id="editButton"
+                                action="purchaseOrderLineTable.edit"/>
+                        <button id="removeButton"
+                                action="purchaseOrderLineTable.remove"/>
                     </buttonsPanel>
                 </table>
             </tab>
         </tabSheet>
+        <textField id="purchaseOrderField"
+                   align="BOTTOM_RIGHT"
+                   caption="msg://Sum"
+                   datasource="purchaseOrderDs"
+                   property="amountUntaxed"
+                   stylename="borderless"/>
+        <textField align="BOTTOM_RIGHT"
+                   stylename="borderless"/>
+        <groupBox id="groupBox"
+                  align="BOTTOM_RIGHT"
+                  spacing="true"
+                  stylename="light"
+                  width="200px">
+            <textField align="BOTTOM_RIGHT"/>
+        </groupBox>
         <frame id="windowActions"
                screen="extendedEditWindowActions"/>
     </layout>

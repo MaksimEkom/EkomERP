@@ -18,7 +18,7 @@ public class PurchaseOrderLine extends StandardEntity {
     protected Product product;
 
     @Column(name = "QUANTITY", nullable = false)
-    protected Double quantity;
+    protected Double quantity = 1.0;
 
     @Column(name = "PRICE", nullable = false)
     protected Double price;
