@@ -21,6 +21,15 @@
                 <![CDATA[select e from ekomerp$Unit e]]>
             </query>
         </collectionDatasource>
+        <collectionDatasource id="stockMovementLinesDs"
+                              class="com.ekom.ekomerp.entity.StockMovementLine"
+                              view="stockMovementLine-view">
+            <query>
+                <![CDATA[select e from ekomerp$StockMovementLine e
+where e.product.id = :ds$productDs
+order by e.stockMovement.date]]>
+            </query>
+        </collectionDatasource>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
@@ -28,49 +37,87 @@
             spacing="true">
         <scrollBox id="scrollBox"
                    spacing="true">
-            <hbox spacing="true">
-                <vbox spacing="true">
-                    <groupBox id="productImageBox"
-                              caption="msg://Image"
-                              height="300px"
-                              spacing="true"
-                              width="AUTO">
-                        <embedded id="productImage"
-                                  align="MIDDLE_CENTER"
-                                  height="100%"/>
-                    </groupBox>
-                    <upload id="productImageUpload"
-                            align="TOP_CENTER"/>
-                </vbox>
-                <fieldGroup id="fieldGroup"
-                            datasource="productDs">
-                    <column width="250px">
-                        <field id="code"/>
-                        <field id="name"/>
-                        <field id="category"/>
-                        <field id="active"/>
-                        <field id="notes"
-                               rows="5"/>
-                    </column>
-                    <column>
-                        <field id="unit"
-                               optionsDatasource="unitsDs"
-                               width="250px"/>
-                        <field id="fullName"
-                               width="250px"/>
-                        <field id="docName"
-                               width="250px"/>
-                        <field id="analog"
-                               width="250px"/>
-                    </column>
-                    <column>
-                        <field id="for_sale"/>
-                        <field id="for_purchase"/>
-                    </column>
-                </fieldGroup>
-            </hbox>
+            <groupBox spacing="true">
+                <grid margin="true"
+                      spacing="true">
+                    <columns count="3"/>
+                    <rows>
+                        <row>
+                            <vbox spacing="true">
+                                <vbox id="dropZone"
+                                      spacing="true">
+                                    <groupBox id="productImageBox"
+                                              caption="msg://Image"
+                                              height="175px"
+                                              spacing="true"
+                                              width="AUTO">
+                                        <embedded id="productImage"
+                                                  align="MIDDLE_CENTER"
+                                                  height="100%"/>
+                                    </groupBox>
+                                </vbox>
+                                <upload id="productImageUpload"
+                                        align="TOP_CENTER"
+                                        clearButtonDescription="msg://Clear Image"
+                                        clearButtonIcon="icons/clear.png"
+                                        dropZone="dropZone"
+                                        showClearButton="true"
+                                        uploadButtonDescription="msg://Upload image"
+                                        uploadButtonIcon="icons/upload.png"/>
+                            </vbox>
+                            <vbox spacing="true">
+                                <textField datasource="productDs"
+                                           height="40px"
+                                           inputPrompt="msg://Name"
+                                           property="name"
+                                           width="400px"/>
+                                <fieldGroup datasource="productDs">
+                                    <column width="250px">
+                                        <field id="for_sale"
+                                               description="msg://Check if product can be sold"/>
+                                        <field id="for_purchase"
+                                               description="msg://Check if product can be purchased"/>
+                                    </column>
+                                </fieldGroup>
+                            </vbox>
+                            <fieldGroup datasource="productDs">
+                                <column width="250px">
+                                    <field id="category"/>
+                                    <field id="code"/>
+                                    <field id="unit"
+                                           datasource="productDs"
+                                           optionsDatasource="unitsDs"/>
+                                    <field id="active"/>
+                                </column>
+                            </fieldGroup>
+                        </row>
+                    </rows>
+                </grid>
+            </groupBox>
             <tabSheet>
-                <tab caption="msg://Characteristics "
+                <tab caption="msg://General"
+                     spacing="true">
+                    <fieldGroup id="fieldGroup"
+                                datasource="productDs">
+                        <column width="250px">
+                            <field id="fullName"
+                                   rows="2"
+                                   width="250px"/>
+                            <field id="docName"
+                                   rows="2"
+                                   width="250px"/>
+                            <field id="purchasePrice"/>
+                        </column>
+                        <column>
+                            <field id="analog"
+                                   width="250px"/>
+                            <field id="description"
+                                   rows="5"
+                                   width="250px"/>
+                        </column>
+                    </fieldGroup>
+                </tab>
+                <tab caption="msg://Characteristics"
                      spacing="true">
                     <fieldGroup datasource="productDs">
                         <column width="250px">
@@ -84,7 +131,7 @@
                 <tab caption="msg://Laboriousness"
                      spacing="true">
                     <table id="laboriousnessTable"
-                           height="200px"
+                           height="400px"
                            width="100%">
                         <actions>
                             <action id="create"/>
@@ -110,7 +157,7 @@
                 <tab caption="msg://Consumption"
                      spacing="true">
                     <table id="consumptionTable"
-                           height="200px"
+                           height="400px"
                            width="100%">
                         <actions>
                             <action id="create"/>
@@ -128,6 +175,25 @@
                             <button action="consumptionTable.edit"/>
                             <button action="consumptionTable.remove"/>
                         </buttonsPanel>
+                    </table>
+                </tab>
+                <tab caption="msg://Movement history"
+                     spacing="true">
+                    <relatedEntities id="relatedEntities"
+                                     caption="msg://Open"
+                                     exclude="product"
+                                     for="stockMovementLinesTable"
+                                     openType="DIALOG"/>
+                    <table id="stockMovementLinesTable"
+                           height="400px"
+                           width="100%">
+                        <columns>
+                            <column id="stockMovement.stockMovementType"/>
+                            <column id="stockMovement.consignment"/>
+                            <column id="stockMovement.date"/>
+                            <column id="quantity"/>
+                        </columns>
+                        <rows datasource="stockMovementLinesDs"/>
                     </table>
                 </tab>
             </tabSheet>

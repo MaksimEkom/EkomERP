@@ -2,30 +2,31 @@
 <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
         caption="msg://browseCaption"
         class="com.ekom.ekomerp.web.product.ProductBrowse"
-        focusComponent="productsTable"
-        lookupComponent="productsTable"
         messagesPack="com.ekom.ekomerp.web.product">
     <dsContext>
         <groupDatasource id="productsDs"
                          class="com.ekom.ekomerp.entity.Product"
                          view="productWithCategoryAndUnitAndLaboriousnessAndConsumption">
             <query>
-                <![CDATA[select e from ekomerp$Product e]]>
+                <![CDATA[select e from ekomerp$Product e
+order by e.for_purchase, e.name ]]>
             </query>
         </groupDatasource>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="productsTable"
+    <layout expand="productsDataGrid"
             spacing="true">
-        <filter id="filter"
-                applyTo="productsTable"
-                datasource="productsDs">
+        <filter id="productFilter"
+                applyTo="productsDataGrid"
+                datasource="productsDs"
+                defaultMode="fts"
+                useMaxResults="false">
             <properties include=".*"/>
         </filter>
-        <groupTable id="productsTable"
-                    presentations="true"
-                    width="100%">
+        <dataGrid id="productsDataGrid"
+                  datasource="productsDs"
+                  width="100%">
             <actions>
                 <action id="create"/>
                 <action id="edit"/>
@@ -33,29 +34,35 @@
                 <action id="excel"/>
             </actions>
             <columns>
-                <column id="code"/>
-                <column id="name"/>
-                <column id="unit"/>
-                <column id="fullName"/>
-                <column id="docName"/>
-                <column id="notes"/>
-                <column id="category"/>
-                <column id="active"/>
-                <column id="analog"/>
+                <column id="code"
+                        property="code"/>
+                <column id="name"
+                        property="name"/>
+                <column id="unit"
+                        property="unit"/>
+                <column id="fullName"
+                        property="fullName"/>
+                <column id="docName"
+                        property="docName"/>
+                <column id="description"
+                        property="description"/>
+                <column id="category"
+                        property="category"/>
+                <column id="active"
+                        property="active"/>
+                <column id="analog"
+                        property="analog"/>
             </columns>
-            <rows datasource="productsDs"/>
-            <rowsCount/>
-            <buttonsPanel id="buttonsPanel"
-                          alwaysVisible="true">
-                <button id="createBtn"
-                        action="productsTable.create"/>
-                <button id="editBtn"
-                        action="productsTable.edit"/>
-                <button id="removeBtn"
-                        action="productsTable.remove"/>
-                <button id="excelBtn"
-                        action="productsTable.excel"/>
+            <buttonsPanel>
+                <button id="createButton"
+                        action="productsDataGrid.create"/>
+                <button id="editButton"
+                        action="productsDataGrid.edit"/>
+                <button id="removeButton"
+                        action="productsDataGrid.remove"/>
+                <button id="excelButton"
+                        action="productsDataGrid.excel"/>
             </buttonsPanel>
-        </groupTable>
+        </dataGrid>
     </layout>
 </window>

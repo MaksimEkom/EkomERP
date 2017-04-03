@@ -4,4 +4,8 @@ import com.haulmont.cuba.gui.components.AbstractEditor;
 import com.ekom.ekomerp.entity.StockMovementLine;
 
 public class StockMovementLineEdit extends AbstractEditor<StockMovementLine> {
+
+
+
+
 }

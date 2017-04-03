@@ -1,0 +1,32 @@
+create table EKOMERP_PARTNER (
+    ID uniqueidentifier,
+    VERSION integer not null,
+    CREATE_TS datetime2,
+    CREATED_BY varchar(50),
+    UPDATE_TS datetime2,
+    UPDATED_BY varchar(50),
+    DELETE_TS datetime2,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255) not null,
+    IS_COMPANY tinyint,
+    CUSTOMER tinyint,
+    VENDOR tinyint,
+    IMAGE_ID uniqueidentifier,
+    EMAIL varchar(255),
+    WEBSITE varchar(255),
+    ACTIVE tinyint,
+    POSITION_ varchar(255),
+    PHONE varchar(255),
+    MOBILE varchar(255),
+    FAX varchar(255),
+    PARENT_ID uniqueidentifier,
+    STREET varchar(255),
+    CITY varchar(255),
+    REGION varchar(255),
+    COUNTRY varchar(255),
+    ZIP varchar(255),
+    ADDRESSES varchar(255),
+    --
+    primary key nonclustered (ID)
+);

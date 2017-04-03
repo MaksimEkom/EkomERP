@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="com.ekom.ekomerp.web.partner.PartnerEdit"
+        datasource="partnerDs"
+        messagesPack="com.ekom.ekomerp.web.partner">
+    <dsContext>
+        <datasource id="partnerDs"
+                    class="com.ekom.ekomerp.entity.Partner"
+                    view="partnerWithParentView"/>
+        <collectionDatasource id="parentsDs"
+                              class="com.ekom.ekomerp.entity.Partner"
+                              view="_local">
+            <query>
+                <![CDATA[select e from ekomerp$Partner e]]>
+            </query>
+        </collectionDatasource>
+        <collectionDatasource id="partnerFilteredByParentDs"
+                              class="com.ekom.ekomerp.entity.Partner"
+                              view="partnerWithParentView">
+            <query>
+                <![CDATA[select e from ekomerp$Partner e
+where e.parent.id = :ds$partnerDs]]>
+            </query>
+        </collectionDatasource>
+        <collectionDatasource id="countriesDs"
+                              class="com.ekom.ekomerp.entity.Country"
+                              view="_minimal">
+            <query>
+                <![CDATA[select e from ekomerp$Country e
+order by e.name asc]]>
+            </query>
+        </collectionDatasource>
+        <collectionDatasource id="regionsDs"
+                              class="com.ekom.ekomerp.entity.Region"
+                              view="_minimal">
+            <query>
+                <![CDATA[select e from ekomerp$Region e
+order by e.name asc]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="scrollBox"
+            spacing="true">
+        <scrollBox id="scrollBox"
+                   spacing="true">
+            <groupBox spacing="true">
+                <grid spacing="true">
+                    <columns count="3"/>
+                    <rows>
+                        <row>
+                            <vbox id="dropZone"
+                                  align="TOP_CENTER"
+                                  spacing="true">
+                                <groupBox id="partnerImageBox"
+                                          align="TOP_CENTER"
+                                          caption="msg://Image"
+                                          height="150px"
+                                          spacing="true">
+                                    <embedded id="partnerImage"
+                                              align="MIDDLE_CENTER"
+                                              height="100%"/>
+                                </groupBox>
+                            </vbox>
+                            <vbox colspan="2"
+                                  spacing="true">
+                                <optionsGroup id="partnerTypeGroup"
+                                              datasource="partnerDs"
+                                              orientation="horizontal"
+                                              property="partnerType"/>
+                                <textField datasource="partnerDs"
+                                           height="40px"
+                                           inputPrompt="msg://Name"
+                                           property="name"
+                                           width="410px"/>
+                                <lookupPickerField id="parentPickerField"
+                                                   datasource="partnerDs"
+                                                   inputPrompt="msg://Company"
+                                                   optionsDatasource="parentsDs"
+                                                   property="parent"
+                                                   width="410px"/>
+                                <textField id="unpField"
+                                           datasource="partnerDs"
+                                           inputPrompt="msg://UNP"
+                                           property="unp"
+                                           width="410px"/>
+                                <textField id="fullNameField"
+                                           datasource="partnerDs"
+                                           inputPrompt="msg://Full name"
+                                           property="fullName"
+                                           width="770px"/>
+                            </vbox>
+                        </row>
+                        <row>
+                            <vbox align="TOP_CENTER"
+                                  spacing="true">
+                                <upload id="partnerImageUpload"
+                                        align="TOP_CENTER"
+                                        clearButtonDescription="msg://Clear image"
+                                        clearButtonIcon="icons/clear.png"
+                                        dropZone="dropZone"
+                                        showClearButton="true"
+                                        uploadButtonDescription="msg://Upload image"
+                                        uploadButtonIcon="icons/upload.png"/>
+                            </vbox>
+                            <vbox spacing="true">
+                                <groupBox caption="msg://Address"
+                                          height="210px"
+                                          spacing="true"
+                                          width="AUTO">
+                                    <textField datasource="partnerDs"
+                                               inputPrompt="msg://street"
+                                               property="street"
+                                               width="400px"/>
+                                    <hbox spacing="true">
+                                        <textField datasource="partnerDs"
+                                                   inputPrompt="msg://city"
+                                                   property="city"
+                                                   width="195px"/>
+                                        <textField datasource="partnerDs"
+                                                   inputPrompt="msg://zip"
+                                                   property="zip"
+                                                   width="195px"/>
+                                    </hbox>
+                                    <lookupPickerField id="regionPickerField"
+                                                       datasource="partnerDs"
+                                                       inputPrompt="msg://region"
+                                                       optionsDatasource="regionsDs"
+                                                       property="region"
+                                                       width="400px"/>
+                                    <lookupPickerField id="countryPickerField"
+                                                       datasource="partnerDs"
+                                                       height="30px"
+                                                       inputPrompt="msg://country"
+                                                       optionsDatasource="countriesDs"
+                                                       property="country"
+                                                       width="400px"/>
+                                </groupBox>
+                            </vbox>
+                            <vbox spacing="true">
+                                <fieldGroup id="partnerFieldGroup"
+                                            datasource="partnerDs">
+                                    <column width="250px">
+                                        <field id="position"/>
+                                        <field id="phone"/>
+                                        <field id="fax"/>
+                                        <field id="mobile"/>
+                                        <field id="email"/>
+                                        <field id="website"/>
+                                    </column>
+                                </fieldGroup>
+                            </vbox>
+                        </row>
+                    </rows>
+                </grid>
+            </groupBox>
+            <tabSheet height="100%">
+                <tab caption="msg://Contacts and addresses"
+                     spacing="true">
+                    <table id="partnerFilteredByParentTable"
+                           columnControlVisible="false"
+                           columnHeaderVisible="false"
+                           height="200px"
+                           reorderingAllowed="false"
+                           stylename="borderless, no-horizontal-lines, no-vertical-lines"
+                           width="100%">
+                        <actions>
+                            <action id="create"/>
+                            <action id="edit"/>
+                            <action id="remove"/>
+                        </actions>
+                        <columns>
+                            <column id="addressType"/>
+                            <column id="name"/>
+                            <column id="street"/>
+                            <column id="city"/>
+                            <column id="notes"/>
+                        </columns>
+                        <rows datasource="partnerFilteredByParentDs"/>
+                        <buttonsPanel>
+                            <button id="createContactAdressButton"
+                                    action="partnerFilteredByParentTable.create"/>
+                            <button id="editContactAdressButton"
+                                    action="partnerFilteredByParentTable.edit"/>
+                            <button id="removeContactAdressButton"
+                                    action="partnerFilteredByParentTable.remove"/>
+                        </buttonsPanel>
+                    </table>
+                </tab>
+                <tab caption="msg://Notes"
+                     spacing="true">
+                    <textArea datasource="partnerDs"
+                              inputPrompt="msg://Notes"
+                              property="notes"
+                              width="100%"/>
+                </tab>
+                <tab caption="msg://Sell and Purchase"
+                     spacing="true">
+                    <grid spacing="true"
+                          width="100%">
+                        <columns count="2"/>
+                        <rows>
+                            <row>
+                                <vbox spacing="true"
+                                      width="200px">
+                                    <label stylename="h2"
+                                           value="msg://Sell"/>
+                                    <hbox spacing="true">
+                                        <label value="msg://Customer"/>
+                                        <checkBox datasource="partnerDs"
+                                                  property="customer"/>
+                                    </hbox>
+                                </vbox>
+                                <vbox spacing="true"
+                                      width="200px">
+                                    <label stylename="h2"
+                                           value="msg://Purchase"/>
+                                    <hbox spacing="true">
+                                        <label value="msg://Vendor"/>
+                                        <checkBox datasource="partnerDs"
+                                                  property="vendor"/>
+                                    </hbox>
+                                </vbox>
+                            </row>
+                        </rows>
+                    </grid>
+                </tab>
+            </tabSheet>
+        </scrollBox>
+        <frame id="windowActions"
+               screen="extendedEditWindowActions"/>
+    </layout>
+</window>

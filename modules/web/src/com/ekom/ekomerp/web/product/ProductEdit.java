@@ -1,13 +1,13 @@
 package com.ekom.ekomerp.web.product;
 
 import com.ekom.ekomerp.entity.Laboriousness;
+import com.ekom.ekomerp.entity.StockMovementLine;
 import com.haulmont.cuba.core.entity.FileDescriptor;
 import com.haulmont.cuba.core.global.FileStorageException;
-import com.haulmont.cuba.gui.components.AbstractEditor;
+import com.haulmont.cuba.gui.WindowManager;
+import com.haulmont.cuba.gui.components.*;
 import com.ekom.ekomerp.entity.Product;
-import com.haulmont.cuba.gui.components.Embedded;
-import com.haulmont.cuba.gui.components.FileUploadField;
-import com.haulmont.cuba.gui.components.Label;
+import com.haulmont.cuba.gui.components.actions.EditAction;
 import com.haulmont.cuba.gui.data.CollectionDatasource;
 import com.haulmont.cuba.gui.data.DataSupplier;
 import com.haulmont.cuba.gui.export.FileDataProvider;
@@ -15,8 +15,11 @@ import com.haulmont.cuba.gui.export.ResourceDataProvider;
 import com.haulmont.cuba.gui.upload.FileUploadingAPI;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.Map;
 import java.util.UUID;
+
+import com.haulmont.cuba.gui.data.Datasource;
 
 public class ProductEdit extends AbstractEditor<Product> {
 
@@ -33,15 +36,21 @@ public class ProductEdit extends AbstractEditor<Product> {
     private FileUploadingAPI fileUploadingAPI;
     @Inject
     private DataSupplier dataSupplier;
+    @Inject
+    private Table<StockMovementLine> stockMovementLinesTable;
+    @Inject
+    private CollectionDatasource<StockMovementLine, UUID> stockMovementLinesDs;
+//    @Named("stockMovementLinesTable.edit")
+//    private EditAction stockMovementLinesTableEdit;
 
     public static final String DEFAULT_PRODUCT_IMAGE_PATH = "com/ekom/ekomerp/web/product/default-photo.jpg";
     public static final String DEFAULT_PRODUCT_IMAGE_NAME = "default-photo.jpg";
 
     public void init(Map<String, Object> params) {
         laboriousnessDs.addCollectionChangeListener(e -> calculateTotalLaboriousness());
-
-
-
+//        stockMovementLinesTableEdit.setWindowId("ekomerp$StockMovement.edit");
+        productImageUpload.setUploadButtonCaption(null);
+        productImageUpload.setClearButtonCaption(null);
         productImageUpload.addFileUploadSucceedListener(event -> {
             FileDescriptor fd = productImageUpload.getFileDescriptor();
             try {
@@ -58,6 +67,13 @@ public class ProductEdit extends AbstractEditor<Product> {
 
             showNotification(formatMessage(getMessage("uploadSuccessMessage"), productImageUpload.getFileName()),
                     NotificationType.HUMANIZED);
+        });
+
+        productImageUpload.addAfterValueClearListener(event -> {
+            ResourceDataProvider dataProvider = new ResourceDataProvider(DEFAULT_PRODUCT_IMAGE_PATH);
+            productImage.setSource(DEFAULT_PRODUCT_IMAGE_NAME, dataProvider);
+            getItem().setImage(null);
+
         });
         super.init(params);
     }
@@ -83,4 +99,8 @@ public class ProductEdit extends AbstractEditor<Product> {
         label1.setValue(totalLaboriousness);
     }
 
+
+    public Component generateUnitField(Datasource datasource, String fieldId) {
+		return null;
+    }
 }

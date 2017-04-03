@@ -13,18 +13,19 @@
                               class="com.ekom.ekomerp.entity.Product"
                               view="productWithUnit">
             <query>
-                <![CDATA[select e from ekomerp$Product e]]>
+                <![CDATA[select e from ekomerp$Product e
+order by e.name]]>
             </query>
         </collectionDatasource>
     </dsContext>
     <dialogMode forceDialog="true"
                 height="200"
-                width="400"/>
+                width="700"/>
     <layout expand="windowActions"
             spacing="true">
         <fieldGroup id="fieldGroup"
                     datasource="stockMovementLineDs">
-            <column width="250px">
+            <column width="500px">
                 <field id="product"
                        optionsDatasource="productsDs"/>
                 <field id="quantity"/>

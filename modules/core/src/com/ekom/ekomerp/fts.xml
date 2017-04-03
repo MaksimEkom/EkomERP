@@ -28,7 +28,25 @@
         <entity class="com.ekom.ekomerp.entity.StockMovementLine">
             <include re=".*"/>
         </entity>
-        <entity class="com.ekom.ekomerp.entity.InventoryQuantity">
+        <entity class="com.ekom.ekomerp.entity.Inventory">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.Partner">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.Country">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.Region">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.PurchaseOrder">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.PurchaseOrderLine">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.PaymentCondition">
             <include re=".*"/>
         </entity>
     </entities>

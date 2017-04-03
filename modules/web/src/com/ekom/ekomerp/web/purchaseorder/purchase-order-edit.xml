@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="com.ekom.ekomerp.web.purchaseorder.PurchaseOrderEdit"
+        datasource="purchaseOrderDs"
+        messagesPack="com.ekom.ekomerp.web.purchaseorder">
+    <dsContext>
+        <datasource id="purchaseOrderDs"
+                    class="com.ekom.ekomerp.entity.PurchaseOrder"
+                    view="purchaseOrder-view">
+            <collectionDatasource id="purchaseOrderLineDs"
+                                  property="purchaseOrderLine"/>
+        </datasource>
+        <collectionDatasource id="vendorsDs"
+                              class="com.ekom.ekomerp.entity.Partner"
+                              view="partnerWithParentView">
+            <query>
+                <![CDATA[select e from ekomerp$Partner e
+where e.vendor = true
+order by e.name asc]]>
+            </query>
+        </collectionDatasource>
+        <collectionDatasource id="productsDs"
+                              class="com.ekom.ekomerp.entity.Product"
+                              view="_local">
+            <query>
+                <![CDATA[select e from ekomerp$Product e
+where e.for_purchase = true
+order by e.name asc
+]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="windowActions">
+        <label stylename="h2"
+               value="msg://Draft"/>
+        <label datasource="purchaseOrderDs"
+               property="number"
+               stylename="h1"/>
+        <hbox margin="true"
+              spacing="true"
+              width="100%">
+            <lookupPickerField id="vendorField"
+                               caption="msg://Vendor"
+                               datasource="purchaseOrderDs"
+                               optionsDatasource="vendorsDs"
+                               property="vendor"
+                               width="400px"/>
+            <dateField id="purchaseOrderDateField"
+                       caption="msg://Order date"
+                       datasource="purchaseOrderDs"
+                       property="date"
+                       width="200px"/>
+        </hbox>
+        <tabSheet height="400px">
+            <tab id="tab"
+                 caption="msg://Products"
+                 spacing="true">
+                <table id="purchaseOrderLineTable"
+                       columnControlVisible="false"
+                       height="223px"
+                       reorderingAllowed="false"
+                       settingsEnabled="false"
+                       stylename="borderless"
+                       width="100%">
+                    <actions>
+                        <action id="create"/>
+                        <action id="edit"
+                                enable="false"
+                                visible="false"/>
+                        <action id="remove"/>
+                    </actions>
+                    <columns>
+                        <column id="product"/>
+                        <column id="quantity"
+                                align="RIGHT"
+                                editable="true"
+                                stylename="borderless"/>
+                        <column id="price"
+                                align="RIGHT"
+                                editable="true"/>
+                        <column id="subtotal"
+                                align="RIGHT"/>
+                        <column id="tax"
+                                align="RIGHT"/>
+                        <column id="total"
+                                align="RIGHT"/>
+                    </columns>
+                    <rows datasource="purchaseOrderLineDs"/>
+                    <buttonsPanel>
+                        <button id="createButton"
+                                action="purchaseOrderLineTable.create"
+                                caption="msg://Create"
+                                invoke="onCreateButtonClick"/>
+                        <button id="editButton"
+                                action="purchaseOrderLineTable.edit"/>
+                        <button id="removeButton"
+                                action="purchaseOrderLineTable.remove"/>
+                    </buttonsPanel>
+                </table>
+                <hbox align="MIDDLE_RIGHT"
+                      spacing="true">
+                    <label align="MIDDLE_RIGHT"
+                           value="msg://Amount Untaxed"/>
+                    <textField id="amountUntaxedField"
+                               align="MIDDLE_RIGHT"
+                               datasource="purchaseOrderDs"
+                               property="amountUntaxed"
+                               stylename="borderless"
+                               width="150px"/>
+                </hbox>
+                <hbox align="MIDDLE_RIGHT"
+                      spacing="true">
+                    <label align="MIDDLE_RIGHT"
+                           value="msg://Tax"/>
+                    <textField id="amountTaxField"
+                               align="MIDDLE_RIGHT"
+                               stylename="borderless"
+                               width="150px"/>
+                </hbox>
+                <groupBox id="groupBox"
+                          align="BOTTOM_RIGHT"
+                          spacing="true"
+                          stylename="light"
+                          width="300px">
+                    <hbox align="MIDDLE_RIGHT"
+                          spacing="true">
+                        <label align="MIDDLE_RIGHT"
+                               stylename="h2 bold"
+                               value="msg://Amount"/>
+                        <textField id="amountTotalField"
+                                   align="MIDDLE_RIGHT"
+                                   stylename="borderless bold"
+                                   width="140px"/>
+                    </hbox>
+                </groupBox>
+            </tab>
+            <tab caption="msg://Delivery and Payment"
+                 margin="true"
+                 spacing="true">
+                <grid spacing="true"
+                      width="100%">
+                    <columns count="2"/>
+                    <rows>
+                        <row>
+                            <vbox spacing="true">
+                                <hbox height="100%"
+                                      spacing="true">
+                                    <label align="MIDDLE_LEFT"
+                                           value="msg://Delivery date"/>
+                                    <dateField datasource="purchaseOrderDs"
+                                               height="33px"
+                                               property="date"
+                                               width="150px"/>
+                                </hbox>
+                            </vbox>
+                            <vbox spacing="true">
+                                <hbox height="100%"
+                                      spacing="true"
+                                      width="100%">
+                                    <label value="msg://Payment condition"/>
+                                    <lookupPickerField/>
+                                </hbox>
+                            </vbox>
+                        </row>
+                    </rows>
+                </grid>
+            </tab>
+        </tabSheet>
+        <frame id="windowActions"
+               screen="extendedEditWindowActions"/>
+    </layout>
+</window>

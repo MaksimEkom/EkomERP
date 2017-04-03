@@ -19,7 +19,10 @@ import sun.util.calendar.BaseCalendar;
 
 import java.util.Set;
 import javax.persistence.OneToMany;
+import com.haulmont.cuba.core.entity.annotation.Listeners;
+import javax.persistence.Lob;
 
+@Listeners("ekomerp_StockMovementEntityListener")
 @Table(name = "EKOMERP_STOCK_MOVEMENT")
 @Entity(name = "ekomerp$StockMovement")
 public class StockMovement extends StandardEntity {
@@ -29,21 +32,35 @@ public class StockMovement extends StandardEntity {
     protected String consignment;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "DATE_")
+    @Column(name = "DATE_", nullable = false)
     protected Date date = new Date(System.currentTimeMillis());
 
     @Lookup(type = LookupType.DROPDOWN)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "LOCATION_ID")
     protected Location location;
 
-    @Column(name = "STOCK_MOVEMENT_TYPE")
+    @Column(name = "STOCK_MOVEMENT_TYPE", nullable = false)
     protected Integer stockMovementType;
 
     @Composition
     @OnDelete(DeletePolicy.CASCADE)
     @OneToMany(mappedBy = "stockMovement")
     protected Set<StockMovementLine> stockMovementLine;
+
+    @Lob
+    @Column(name = "NOTES")
+    protected String notes;
+
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
 
     public void setStockMovementLine(Set<StockMovementLine> stockMovementLine) {
         this.stockMovementLine = stockMovementLine;
