@@ -18,7 +18,9 @@ import javax.persistence.OneToMany;
 import java.util.Date;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import com.haulmont.chile.core.annotations.NamePattern;
 
+@NamePattern("%s|number")
 @Table(name = "EKOMERP_PURCHASE_ORDER")
 @Entity(name = "ekomerp$PurchaseOrder")
 public class PurchaseOrder extends StandardEntity {
@@ -56,6 +58,32 @@ public class PurchaseOrder extends StandardEntity {
 
     @Column(name = "NUMBER_", nullable = false)
     protected String number = "Новый";
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DELIVERY_DATE")
+    protected Date deliveryDate;
+
+    @Lookup(type = LookupType.DROPDOWN, actions = {"lookup", "open"})
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PAYMENT_CONDITION_ID")
+    protected PaymentCondition paymentCondition;
+
+    public void setDeliveryDate(Date deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
+    public Date getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setPaymentCondition(PaymentCondition paymentCondition) {
+        this.paymentCondition = paymentCondition;
+    }
+
+    public PaymentCondition getPaymentCondition() {
+        return paymentCondition;
+    }
+
 
     public void setNumber(String number) {
         this.number = number;

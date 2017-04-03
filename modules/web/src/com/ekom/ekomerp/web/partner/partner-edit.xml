@@ -86,6 +86,11 @@ order by e.name asc]]>
                                            inputPrompt="msg://UNP"
                                            property="unp"
                                            width="410px"/>
+                                <textField id="fullNameField"
+                                           datasource="partnerDs"
+                                           inputPrompt="msg://Full name"
+                                           property="fullName"
+                                           width="770px"/>
                             </vbox>
                         </row>
                         <row>
@@ -102,7 +107,9 @@ order by e.name asc]]>
                             </vbox>
                             <vbox spacing="true">
                                 <groupBox caption="msg://Address"
-                                          spacing="true">
+                                          height="210px"
+                                          spacing="true"
+                                          width="AUTO">
                                     <textField datasource="partnerDs"
                                                inputPrompt="msg://street"
                                                property="street"
@@ -125,6 +132,7 @@ order by e.name asc]]>
                                                        width="400px"/>
                                     <lookupPickerField id="countryPickerField"
                                                        datasource="partnerDs"
+                                                       height="30px"
                                                        inputPrompt="msg://country"
                                                        optionsDatasource="countriesDs"
                                                        property="country"

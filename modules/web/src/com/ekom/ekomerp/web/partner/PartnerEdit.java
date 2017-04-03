@@ -53,6 +53,8 @@ public class PartnerEdit extends AbstractEditor<Partner> {
     private Table<Partner> partnerFilteredByParentTable;
     @Inject
     private TextField unpField;
+    @Inject
+    private TextField fullNameField;
 
     @Override
     public void init(Map<String, Object> params) {
@@ -67,10 +69,12 @@ public class PartnerEdit extends AbstractEditor<Partner> {
                 parentPickerField.setVisible(false);
                 positionField.setVisible(false);
                 unpField.setVisible(true);
+                fullNameField.setInputPrompt("Полное наименование");
             }else if(e.getValue().toString() == "individual"){
                 parentPickerField.setVisible(true);
                 positionField.setVisible(true);
                 unpField.setVisible(false);
+                fullNameField.setInputPrompt("ФИО");
             }
 
         });

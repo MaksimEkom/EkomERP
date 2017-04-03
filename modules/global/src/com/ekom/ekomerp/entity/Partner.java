@@ -92,6 +92,18 @@ public class Partner extends StandardEntity {
     @Column(name = "UNP", unique = true)
     protected String unp;
 
+    @Column(name = "FULL_NAME")
+    protected String fullName;
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+
     public void setUnp(String unp) {
         this.unp = unp;
     }

@@ -223,6 +223,7 @@ create table EKOMERP_INVENTORY (
     ADDRESS_TYPE integer,
     NOTES varchar(max),
     UNP varchar(255),
+    FULL_NAME varchar(255),
     --
     primary key nonclustered (ID)
 )^
@@ -281,6 +282,8 @@ create table EKOMERP_PURCHASE_ORDER (
     AMOUNT_WITH_TAX double precision,
     DATE_ datetime2 not null,
     NUMBER_ varchar(255) not null,
+    DELIVERY_DATE datetime2,
+    PAYMENT_CONDITION_ID uniqueidentifier,
     --
     primary key nonclustered (ID)
 )^
@@ -307,3 +310,19 @@ create table EKOMERP_PURCHASE_ORDER_LINE (
     primary key nonclustered (ID)
 )^
 -- end EKOMERP_PURCHASE_ORDER_LINE
+-- begin EKOMERP_PAYMENT_CONDITION
+create table EKOMERP_PAYMENT_CONDITION (
+    ID uniqueidentifier,
+    VERSION integer not null,
+    CREATE_TS datetime2,
+    CREATED_BY varchar(50),
+    UPDATE_TS datetime2,
+    UPDATED_BY varchar(50),
+    DELETE_TS datetime2,
+    DELETED_BY varchar(50),
+    --
+    CONDITION_ varchar(400),
+    --
+    primary key nonclustered (ID)
+)^
+-- end EKOMERP_PAYMENT_CONDITION

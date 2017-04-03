@@ -18,5 +18,6 @@
         <class>com.ekom.ekomerp.entity.Region</class>
         <class>com.ekom.ekomerp.entity.PurchaseOrder</class>
         <class>com.ekom.ekomerp.entity.PurchaseOrderLine</class>
+        <class>com.ekom.ekomerp.entity.PaymentCondition</class>
     </persistence-unit>
 </persistence>

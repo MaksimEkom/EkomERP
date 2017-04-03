@@ -38,9 +38,9 @@ public class PurchaseOrderEdit extends AbstractEditor<PurchaseOrder> {
 
     @Override
     public void init(Map<String, Object> params) {
+        super.init(params);
         vendorField.removeAction(vendorField.getOpenAction());
 
-        super.init(params);
         purchaseOrderLineDs.addItemPropertyChangeListener(e -> {
             PurchaseOrderLine item = purchaseOrderLineDs.getItem();
             if(e.getProperty() == "product"){
@@ -50,6 +50,7 @@ public class PurchaseOrderEdit extends AbstractEditor<PurchaseOrder> {
                     item.setPrice(1.0);
                 }
             }
+
             if((e.getProperty() == "quantity" || e.getProperty() == "price") && purchaseOrderLineDs.getItem().getProduct()!=null){
                 item.setSubtotal(calculateSubtotal());
                 item.setTax(calculateTax());
@@ -65,6 +66,12 @@ public class PurchaseOrderEdit extends AbstractEditor<PurchaseOrder> {
             productLookUpPickerField.setWidth("100%");
             return productLookUpPickerField;
         });
+    }
+
+    @Override
+    protected boolean preCommit() {
+        setNumberField();
+        return super.preCommit();
     }
 
     private Double calculateTax() {
@@ -83,5 +90,20 @@ public class PurchaseOrderEdit extends AbstractEditor<PurchaseOrder> {
     public void onCreateButtonClick() {
         purchaseOrderLineDs.addItem(metadata.create(PurchaseOrderLine.class));
         
+    }
+    private void setNumberField(){
+
+        if (getItem().getNumber().equals("Новый")){
+            String number = "ЗП-";
+            long longNumber=getNextValue();
+            for (int i = (6-(int)(Math.log10(longNumber)+1)); i>0;i--){
+                number+="0";
+            }
+            number+=longNumber;
+            getItem().setNumber(number);
+        }
+    }
+    private long getNextValue() {
+        return uniqueNumbersService.getNextNumber("PurchaseOrderNumber");
     }
 }

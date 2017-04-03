@@ -54,13 +54,12 @@ order by e.name asc
                        property="date"
                        width="200px"/>
         </hbox>
-        <tabSheet>
+        <tabSheet height="400px">
             <tab id="tab"
                  caption="msg://Products"
                  spacing="true">
                 <table id="purchaseOrderLineTable"
                        columnControlVisible="false"
-                       editable="true"
                        height="223px"
                        reorderingAllowed="false"
                        settingsEnabled="false"
@@ -92,6 +91,7 @@ order by e.name asc
                     <rows datasource="purchaseOrderLineDs"/>
                     <buttonsPanel>
                         <button id="createButton"
+                                action="purchaseOrderLineTable.create"
                                 caption="msg://Create"
                                 invoke="onCreateButtonClick"/>
                         <button id="editButton"
@@ -100,23 +100,75 @@ order by e.name asc
                                 action="purchaseOrderLineTable.remove"/>
                     </buttonsPanel>
                 </table>
+                <hbox align="MIDDLE_RIGHT"
+                      spacing="true">
+                    <label align="MIDDLE_RIGHT"
+                           value="msg://Amount Untaxed"/>
+                    <textField id="amountUntaxedField"
+                               align="MIDDLE_RIGHT"
+                               datasource="purchaseOrderDs"
+                               property="amountUntaxed"
+                               stylename="borderless"
+                               width="150px"/>
+                </hbox>
+                <hbox align="MIDDLE_RIGHT"
+                      spacing="true">
+                    <label align="MIDDLE_RIGHT"
+                           value="msg://Tax"/>
+                    <textField id="amountTaxField"
+                               align="MIDDLE_RIGHT"
+                               stylename="borderless"
+                               width="150px"/>
+                </hbox>
+                <groupBox id="groupBox"
+                          align="BOTTOM_RIGHT"
+                          spacing="true"
+                          stylename="light"
+                          width="300px">
+                    <hbox align="MIDDLE_RIGHT"
+                          spacing="true">
+                        <label align="MIDDLE_RIGHT"
+                               stylename="h2 bold"
+                               value="msg://Amount"/>
+                        <textField id="amountTotalField"
+                                   align="MIDDLE_RIGHT"
+                                   stylename="borderless bold"
+                                   width="140px"/>
+                    </hbox>
+                </groupBox>
+            </tab>
+            <tab caption="msg://Delivery and Payment"
+                 margin="true"
+                 spacing="true">
+                <grid spacing="true"
+                      width="100%">
+                    <columns count="2"/>
+                    <rows>
+                        <row>
+                            <vbox spacing="true">
+                                <hbox height="100%"
+                                      spacing="true">
+                                    <label align="MIDDLE_LEFT"
+                                           value="msg://Delivery date"/>
+                                    <dateField datasource="purchaseOrderDs"
+                                               height="33px"
+                                               property="date"
+                                               width="150px"/>
+                                </hbox>
+                            </vbox>
+                            <vbox spacing="true">
+                                <hbox height="100%"
+                                      spacing="true"
+                                      width="100%">
+                                    <label value="msg://Payment condition"/>
+                                    <lookupPickerField/>
+                                </hbox>
+                            </vbox>
+                        </row>
+                    </rows>
+                </grid>
             </tab>
         </tabSheet>
-        <textField id="purchaseOrderField"
-                   align="BOTTOM_RIGHT"
-                   caption="msg://Sum"
-                   datasource="purchaseOrderDs"
-                   property="amountUntaxed"
-                   stylename="borderless"/>
-        <textField align="BOTTOM_RIGHT"
-                   stylename="borderless"/>
-        <groupBox id="groupBox"
-                  align="BOTTOM_RIGHT"
-                  spacing="true"
-                  stylename="light"
-                  width="200px">
-            <textField align="BOTTOM_RIGHT"/>
-        </groupBox>
         <frame id="windowActions"
                screen="extendedEditWindowActions"/>
     </layout>

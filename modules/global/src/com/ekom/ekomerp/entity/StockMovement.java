@@ -52,6 +52,7 @@ public class StockMovement extends StandardEntity {
     @Column(name = "NOTES")
     protected String notes;
 
+
     public void setNotes(String notes) {
         this.notes = notes;
     }

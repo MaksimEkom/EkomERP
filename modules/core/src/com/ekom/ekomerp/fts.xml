@@ -46,5 +46,8 @@
         <entity class="com.ekom.ekomerp.entity.PurchaseOrderLine">
             <include re=".*"/>
         </entity>
+        <entity class="com.ekom.ekomerp.entity.PaymentCondition">
+            <include re=".*"/>
+        </entity>
     </entities>
 </fts-config>

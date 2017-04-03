@@ -152,6 +152,16 @@
           name="purchaseOrder-view">
         <property name="vendor"
                   view="_minimal"/>
+        <property name="purchaseOrderLine"
+                  view="_minimal">
+            <property name="product"
+                      view="_minimal"/>
+            <property name="quantity"/>
+            <property name="price"/>
+            <property name="subtotal"/>
+            <property name="tax"/>
+            <property name="total"/>
+        </property>
     </view>
     <view class="com.ekom.ekomerp.entity.PurchaseOrderLine"
           extends="_local"

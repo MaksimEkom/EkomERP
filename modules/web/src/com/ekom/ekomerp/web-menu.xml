@@ -10,6 +10,7 @@
         <item id="ekomerp$Partner.browse"/>
         <item id="ekomerp$Country.browse"/>
         <item id="ekomerp$Region.browse"/>
+        <item id="ekomerp$PaymentCondition.browse"/>
     </menu>
     <menu id="purchase"
           insertBefore="administration">
