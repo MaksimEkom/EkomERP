@@ -81,6 +81,11 @@
             <property name="unit"
                       view="_minimal"/>
         </property>
+        <property name="stockMovement"
+                  view="_minimal">
+            <property name="location"
+                      view="_minimal"/>
+        </property>
     </view>
     <view class="com.ekom.ekomerp.entity.Product"
           extends="_local"
@@ -128,7 +133,10 @@
           extends="_local"
           name="stockMovementLine-view">
         <property name="product"
-                  view="_minimal"/>
+                  view="_minimal">
+            <property name="unit"
+                      view="_minimal"/>
+        </property>
         <property name="stockMovement"
                   view="_minimal">
             <property name="consignment"/>

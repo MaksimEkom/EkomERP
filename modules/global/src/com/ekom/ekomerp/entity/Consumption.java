@@ -15,6 +15,7 @@ import com.haulmont.cuba.core.entity.StandardEntity;
 public class Consumption extends StandardEntity {
     private static final long serialVersionUID = 8482106517592679738L;
 
+    @Lookup(type = LookupType.DROPDOWN, actions = {"lookup"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PRODUCT_ID")
     protected Product product;

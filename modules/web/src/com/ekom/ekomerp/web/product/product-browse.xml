@@ -2,6 +2,7 @@
 <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
         caption="msg://browseCaption"
         class="com.ekom.ekomerp.web.product.ProductBrowse"
+        lookupComponent="productsDataGrid"
         messagesPack="com.ekom.ekomerp.web.product">
     <dsContext>
         <groupDatasource id="productsDs"

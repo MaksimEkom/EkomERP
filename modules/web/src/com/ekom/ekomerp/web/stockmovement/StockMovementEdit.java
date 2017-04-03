@@ -31,6 +31,9 @@ public class StockMovementEdit extends AbstractEditor<StockMovement> {
 
     @Override
     public void init(Map<String, Object> params) {
+        if(isUserAdmin()){
+            locationField.setOptionsDatasource(locationsDs);
+        }else locationField.setOptionsDatasource(locationsFilteredDs);
         super.init(params);
     }
 
