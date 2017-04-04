@@ -8,7 +8,7 @@
     <dsContext>
         <datasource id="inventoryDs"
                     class="com.ekom.ekomerp.entity.Inventory"
-                    view="_local"/>
+                    view="inventory-view"/>
         <groupDatasource id="inventoriesDs"
                          class="com.ekom.ekomerp.entity.Inventory"
                          view="inventory-view">
