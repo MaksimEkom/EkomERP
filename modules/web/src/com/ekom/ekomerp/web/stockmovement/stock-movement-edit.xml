@@ -27,15 +27,6 @@
 where e.stockman.id = :session$userId]]>
             </query>
         </collectionDatasource>
-        <collectionDatasource id="inventoriesDs"
-                              class="com.ekom.ekomerp.entity.Inventory"
-                              view="inventory-view">
-            <query>
-                <![CDATA[select e from ekomerp$Inventory e
-where e.location = :ds$stockMovementDs.location
-and e.product = :ds$stockMovementDs.product]]>
-            </query>
-        </collectionDatasource>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
