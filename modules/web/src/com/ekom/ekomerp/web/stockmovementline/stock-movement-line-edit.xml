@@ -17,15 +17,6 @@
 order by e.name]]>
             </query>
         </collectionDatasource>
-        <collectionDatasource id="inventoriesDs"
-                              class="com.ekom.ekomerp.entity.Inventory"
-                              view="inventory-view">
-            <query>
-                <![CDATA[select e from ekomerp$Inventory e
-where e.location = :ds$stockMovementLineDs.stockMovement.location.id
-and e.product = :ds$stockMovementLineDs.product.id]]>
-            </query>
-        </collectionDatasource>
     </dsContext>
     <dialogMode forceDialog="true"
                 height="200"
@@ -40,15 +31,6 @@ and e.product = :ds$stockMovementLineDs.product.id]]>
                 <field id="quantity"/>
             </column>
         </fieldGroup>
-        <hbox enable="false"
-              spacing="true"
-              visible="false">
-            <label align="MIDDLE_LEFT"
-                   value="msg://Current quantity"/>
-            <textField id="quantityTextField"
-                       align="MIDDLE_LEFT"
-                       enable="false"/>
-        </hbox>
         <frame id="windowActions"
                screen="editWindowActions"/>
     </layout>
