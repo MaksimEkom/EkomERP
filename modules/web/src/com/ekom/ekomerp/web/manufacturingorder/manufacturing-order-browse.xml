@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.ekom.ekomerp.web.manufacturingorder.ManufacturingOrderBrowse"
+        focusComponent="manufacturingOrdersTable"
+        lookupComponent="manufacturingOrdersTable"
+        messagesPack="com.ekom.ekomerp.web.manufacturingorder">
+    <dsContext>
+        <groupDatasource id="manufacturingOrdersDs"
+                         class="com.ekom.ekomerp.entity.ManufacturingOrder"
+                         view="_local">
+            <query>
+                <![CDATA[select e from ekomerp$ManufacturingOrder e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="manufacturingOrdersTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="manufacturingOrdersTable"
+                datasource="manufacturingOrdersDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="manufacturingOrdersTable"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+                <action id="excel"/>
+            </actions>
+            <columns>
+                <column id="number"/>
+                <column id="date"/>
+                <column id="dateOfManufacture"/>
+                <column id="notes"/>
+                <column id="state"/>
+            </columns>
+            <rows datasource="manufacturingOrdersDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="manufacturingOrdersTable.create"/>
+                <button id="editBtn"
+                        action="manufacturingOrdersTable.edit"/>
+                <button id="removeBtn"
+                        action="manufacturingOrdersTable.remove"/>
+                <button id="excelBtn"
+                        action="manufacturingOrdersTable.excel"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

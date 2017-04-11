@@ -39,6 +39,7 @@ order by e.date desc]]>
                 <action id="create"/>
                 <action id="edit"/>
                 <action id="remove"/>
+                <action id="excel"/>
             </actions>
             <columns>
                 <column id="consignment"/>
@@ -57,6 +58,7 @@ order by e.date desc]]>
                         action="stockMovementsTable.edit"/>
                 <button id="removeBtn"
                         action="stockMovementsTable.remove"/>
+                <button action="stockMovementsTable.excel"/>
             </buttonsPanel>
         </groupTable>
     </layout>

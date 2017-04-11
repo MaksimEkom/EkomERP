@@ -43,4 +43,8 @@
             template="com/ekom/ekomerp/web/purchaseorder/purchase-order-edit.xml"/>
     <screen id="ekomerp$PaymentCondition.browse"
             template="com/ekom/ekomerp/web/paymentcondition/payment-condition-browse.xml"/>
+    <screen id="ekomerp$ManufacturingOrder.browse"
+            template="com/ekom/ekomerp/web/manufacturingorder/manufacturing-order-browse.xml"/>
+    <screen id="ekomerp$ManufacturingOrder.edit"
+            template="com/ekom/ekomerp/web/manufacturingorder/manufacturing-order-edit.xml"/>
 </screen-config>

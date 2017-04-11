@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="com.ekom.ekomerp.web.manufacturingorder.ManufacturingOrderEdit"
+        datasource="manufacturingOrderDs"
+        messagesPack="com.ekom.ekomerp.web.manufacturingorder">
+    <dsContext>
+        <datasource id="manufacturingOrderDs"
+                    class="com.ekom.ekomerp.entity.ManufacturingOrder"
+                    view="manufacturingOrder-view">
+            <collectionDatasource id="manufacturingOrderLineDs"
+                                  property="manufacturingOrderLine"/>
+        </datasource>
+        <collectionDatasource id="productsDs"
+                              class="com.ekom.ekomerp.entity.Product"
+                              view="productWithUnit">
+            <query>
+                <![CDATA[select e from ekomerp$Product e
+where e.for_sale = true
+order by e.name asc
+]]>
+            </query>
+        </collectionDatasource>
+        <collectionDatasource id="customersDs"
+                              class="com.ekom.ekomerp.entity.Partner"
+                              view="_local">
+            <query>
+                <![CDATA[select e from ekomerp$Partner e
+where e.customer = true
+order by e.name asc]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="windowActions"
+            spacing="true">
+        <label stylename="h1 bold"
+               value="msg://Manufacturing order"/>
+        <hbox spacing="true"
+              width="100%">
+            <textField caption="msg://Number"
+                       datasource="manufacturingOrderDs"
+                       property="number"
+                       width="300px"/>
+            <lookupField caption="msg://State"
+                         datasource="manufacturingOrderDs"
+                         property="state"
+                         width="300px"/>
+        </hbox>
+        <hbox spacing="true"
+              width="100%">
+            <lookupPickerField id="customerPickerField"
+                               caption="msg://Customer"
+                               datasource="manufacturingOrderDs"
+                               optionsDatasource="customersDs"
+                               property="customer"
+                               width="300px"/>
+            <vbox spacing="true">
+                <dateField caption="msg://Date"
+                           datasource="manufacturingOrderDs"
+                           property="date"
+                           width="300px"/>
+                <dateField caption="msg://Date of manufacture"
+                           datasource="manufacturingOrderDs"
+                           property="dateOfManufacture"
+                           width="300px"/>
+            </vbox>
+        </hbox>
+        <table id="manufacturingOrderLineTable"
+               editable="true"
+               height="300px"
+               width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"
+                        enable="false"
+                        visible="false"/>
+                <action id="remove"/>
+            </actions>
+            <columns>
+                <column id="product"
+                        editable="true"/>
+                <column id="product.unit"/>
+                <column id="quantity"
+                        editable="true"/>
+            </columns>
+            <rows datasource="manufacturingOrderLineDs"/>
+            <buttonsPanel>
+                <button id="createButton"
+                        caption="msg://Create"
+                        invoke="onCreateButtonClick"/>
+                <button id="editButton"
+                        action="manufacturingOrderLineTable.edit"/>
+                <button id="removeButton"
+                        action="manufacturingOrderLineTable.remove"/>
+            </buttonsPanel>
+        </table>
+        <textArea datasource="manufacturingOrderDs"
+                  inputPrompt="msg://Notes"
+                  property="notes"
+                  width="100%"/>
+        <frame id="windowActions"
+               screen="extendedEditWindowActions"/>
+    </layout>
+</window>

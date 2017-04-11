@@ -16,6 +16,10 @@
           insertBefore="administration">
         <item id="ekomerp$PurchaseOrder.browse"/>
     </menu>
+    <menu id="manufacture"
+          insertBefore="administration">
+        <item id="ekomerp$ManufacturingOrder.browse"/>
+    </menu>
     <menu id="inventory"
           insertBefore="administration">
         <item id="ekomerp$Inventory.browse"/>

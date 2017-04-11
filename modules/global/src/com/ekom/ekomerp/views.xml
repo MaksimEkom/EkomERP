@@ -190,4 +190,22 @@
         <property name="purchaseOrder"
                   view="_minimal"/>
     </view>
+    <view class="com.ekom.ekomerp.entity.ManufacturingOrderLine"
+          extends="_local"
+          name="manufacturingOrderLine-view">
+        <property name="product"
+                  view="_minimal">
+            <property name="code"/>
+            <property name="unit"
+                      view="_minimal"/>
+        </property>
+    </view>
+    <view class="com.ekom.ekomerp.entity.ManufacturingOrder"
+          extends="_local"
+          name="manufacturingOrder-view">
+        <property name="customer"
+                  view="_minimal"/>
+        <property name="manufacturingOrderLine"
+                  view="manufacturingOrderLine-view"/>
+    </view>
 </views>

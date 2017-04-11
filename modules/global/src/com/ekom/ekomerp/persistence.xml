@@ -19,5 +19,7 @@
         <class>com.ekom.ekomerp.entity.PurchaseOrder</class>
         <class>com.ekom.ekomerp.entity.PurchaseOrderLine</class>
         <class>com.ekom.ekomerp.entity.PaymentCondition</class>
+        <class>com.ekom.ekomerp.entity.ManufacturingOrder</class>
+        <class>com.ekom.ekomerp.entity.ManufacturingOrderLine</class>
     </persistence-unit>
 </persistence>
