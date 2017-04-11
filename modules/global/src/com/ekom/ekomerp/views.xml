@@ -163,13 +163,20 @@
         <property name="purchaseOrderLine"
                   view="_minimal">
             <property name="product"
-                      view="_minimal"/>
+                      view="_minimal">
+                <property name="unit"
+                          view="_minimal"/>
+            </property>
             <property name="quantity"/>
             <property name="price"/>
             <property name="subtotal"/>
             <property name="tax"/>
             <property name="total"/>
+            <property name="purchaseOrder"
+                      view="_minimal"/>
         </property>
+        <property name="paymentCondition"
+                  view="_minimal"/>
     </view>
     <view class="com.ekom.ekomerp.entity.PurchaseOrderLine"
           extends="_local"
@@ -180,5 +187,7 @@
                       view="_minimal"/>
             <property name="purchasePrice"/>
         </property>
+        <property name="purchaseOrder"
+                  view="_minimal"/>
     </view>
 </views>

@@ -14,6 +14,7 @@ import com.haulmont.cuba.gui.xml.layout.ComponentsFactory;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
 
@@ -35,19 +36,24 @@ public class PurchaseOrderEdit extends AbstractEditor<PurchaseOrder> {
     private ComponentsFactory componentsFactory;
     @Inject
     private CollectionDatasource<Product, UUID> productsDs;
+    @Inject
+    private TextField amountTaxField;
+    @Inject
+    private TextField amountUntaxedField;
+    @Inject
+    private TextField amountTotalField;
 
     @Override
     public void init(Map<String, Object> params) {
-        super.init(params);
-        vendorField.removeAction(vendorField.getOpenAction());
 
+        vendorField.removeAction(vendorField.getOpenAction());
         purchaseOrderLineDs.addItemPropertyChangeListener(e -> {
             PurchaseOrderLine item = purchaseOrderLineDs.getItem();
             if(e.getProperty() == "product"){
                 if (item.getProduct().getPurchasePrice()!=null) {
                     item.setPrice(item.getProduct().getPurchasePrice());
                 }else{
-                    item.setPrice(1.0);
+                    item.setPrice(0.0);
                 }
             }
 
@@ -55,6 +61,9 @@ public class PurchaseOrderEdit extends AbstractEditor<PurchaseOrder> {
                 item.setSubtotal(calculateSubtotal());
                 item.setTax(calculateTax());
                 item.setTotal(calculateTotal());
+                getItem().setAmountTax(calculateAmountTax());
+                getItem().setAmountUntaxed(calculateAmountSubtotal());
+                getItem().setAmountWithTax(calculateAmountTotal());
             }
 
         });
@@ -66,10 +75,20 @@ public class PurchaseOrderEdit extends AbstractEditor<PurchaseOrder> {
             productLookUpPickerField.setWidth("100%");
             return productLookUpPickerField;
         });
+
+        purchaseOrderLineDs.addCollectionChangeListener(e -> {
+            if(e.getOperation() == CollectionDatasource.Operation.REMOVE) {
+                getItem().setAmountTax(calculateAmountTax());
+                getItem().setAmountUntaxed(calculateAmountSubtotal());
+                getItem().setAmountWithTax(calculateAmountTotal());
+            }
+        });
+        super.init(params);
     }
 
     @Override
     protected boolean preCommit() {
+        deleteEmptyRow();
         setNumberField();
         return super.preCommit();
     }
@@ -85,10 +104,54 @@ public class PurchaseOrderEdit extends AbstractEditor<PurchaseOrder> {
     private Double calculateSubtotal() {
         return (purchaseOrderLineDs.getItem().getPrice()*purchaseOrderLineDs.getItem().getQuantity());
     }
+    private Double calculateAmountTax() {
+        Collection<PurchaseOrderLine> orderLines = purchaseOrderLineDs.getItems();
+        double amountTax = 0.0;
+        if(orderLines!=null) {
+            for (PurchaseOrderLine line : orderLines) {
+               amountTax+=line.getTax();
+            }
+        }
+        return amountTax;
+    }
 
+    private Double calculateAmountTotal() {
+        return calculateAmountSubtotal()+calculateAmountTax();
+    }
+
+    private Double calculateAmountSubtotal() {
+        Collection<PurchaseOrderLine> orderLines = purchaseOrderLineDs.getItems();
+        double amountSubtotal = 0.0;
+        if(orderLines!=null) {
+            for (PurchaseOrderLine line : orderLines) {
+                amountSubtotal+=line.getSubtotal();
+            }
+        }
+        return amountSubtotal;
+    }
 
     public void onCreateButtonClick() {
-        purchaseOrderLineDs.addItem(metadata.create(PurchaseOrderLine.class));
+        Collection<PurchaseOrderLine> orderLines = purchaseOrderLineDs.getItems();
+        boolean hasEmptyLine = false;
+        if(orderLines!=null) {
+            for (PurchaseOrderLine line : orderLines) {
+                if (line.getProduct()==null){
+                    hasEmptyLine = true;
+                    break;
+                }
+            }
+            if(hasEmptyLine==false){
+                PurchaseOrderLine line = metadata.create(PurchaseOrderLine.class);
+                line.setPurchaseOrder(getItem());
+                purchaseOrderLineDs.addItem(line);
+
+            }
+        }else {
+            PurchaseOrderLine line = metadata.create(PurchaseOrderLine.class);
+            line.setPurchaseOrder(getItem());
+            purchaseOrderLineDs.addItem(line);
+
+        }
         
     }
     private void setNumberField(){
@@ -101,6 +164,17 @@ public class PurchaseOrderEdit extends AbstractEditor<PurchaseOrder> {
             }
             number+=longNumber;
             getItem().setNumber(number);
+        }
+    }
+    private void deleteEmptyRow() {
+        Collection<PurchaseOrderLine> orderLines = purchaseOrderLineDs.getItems();
+
+        if (orderLines != null) {
+            for (PurchaseOrderLine line : orderLines) {
+                if (line.getProduct() == null) {
+                    purchaseOrderLineDs.removeItem(line);
+                }
+            }
         }
     }
     private long getNextValue() {
