@@ -22,7 +22,7 @@ order by e.name asc]]>
         </collectionDatasource>
         <collectionDatasource id="productsDs"
                               class="com.ekom.ekomerp.entity.Product"
-                              view="_local">
+                              view="productWithUnit">
             <query>
                 <![CDATA[select e from ekomerp$Product e
 where e.for_purchase = true
@@ -34,8 +34,25 @@ order by e.name asc
     <dialogMode height="600"
                 width="800"/>
     <layout expand="windowActions">
-        <label stylename="h2"
-               value="msg://Draft"/>
+        <hbox align="TOP_RIGHT"
+              spacing="true"
+              width="100%">
+            <label id="purchaseOrderLabel"
+                   stylename="h2 bold"
+                   value="msg://Draft"/>
+            <vbox spacing="true">
+                <button id="confirmButton"
+                        align="MIDDLE_RIGHT"
+                        caption="msg://Confirm"
+                        invoke="onConfirmButtonClick"
+                        width="200px"/>
+                <button id="discardButton"
+                        align="TOP_RIGHT"
+                        caption="msg://Discard"
+                        invoke="onDiscardButtonClick"
+                        width="200px"/>
+            </vbox>
+        </hbox>
         <label datasource="purchaseOrderDs"
                property="number"
                stylename="h1"/>

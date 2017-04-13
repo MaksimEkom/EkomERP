@@ -32,7 +32,7 @@ public class PurchaseOrder extends StandardEntity {
     protected Partner vendor;
 
     @Column(name = "STATE")
-    protected String state;
+    protected String state = "draft";
 
     @Lob
     @Column(name = "NOTES")

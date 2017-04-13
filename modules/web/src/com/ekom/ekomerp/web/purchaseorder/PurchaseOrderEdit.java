@@ -2,23 +2,28 @@ package com.ekom.ekomerp.web.purchaseorder;
 
 import com.ekom.ekomerp.entity.Product;
 import com.ekom.ekomerp.entity.PurchaseOrderLine;
+import com.ekom.ekomerp.entity.PurchaseOrderState;
 import com.haulmont.cuba.core.app.UniqueNumbersService;
 import com.haulmont.cuba.core.global.Metadata;
-import com.haulmont.cuba.gui.components.AbstractEditor;
+import com.haulmont.cuba.gui.components.*;
 import com.ekom.ekomerp.entity.PurchaseOrder;
-import com.haulmont.cuba.gui.components.LookupPickerField;
-import com.haulmont.cuba.gui.components.Table;
-import com.haulmont.cuba.gui.components.TextField;
 import com.haulmont.cuba.gui.data.CollectionDatasource;
 import com.haulmont.cuba.gui.xml.layout.ComponentsFactory;
+import com.haulmont.bpm.gui.procactions.ProcActionsFrame;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 public class PurchaseOrderEdit extends AbstractEditor<PurchaseOrder> {
+
+private static final String PROCESS_CODE = "purchase";
+
+    @Inject
+    private ProcActionsFrame procActionsFrame;
 
     @Named("fieldGroup.number")
     private TextField numberField;
@@ -42,11 +47,19 @@ public class PurchaseOrderEdit extends AbstractEditor<PurchaseOrder> {
     private TextField amountUntaxedField;
     @Inject
     private TextField amountTotalField;
+    @Inject
+    private Label purchaseOrderLabel;
+    @Inject
+    private Button confirmButton;
+    @Inject
+    private Button discardButton;
 
     @Override
     public void init(Map<String, Object> params) {
 
         vendorField.removeAction(vendorField.getOpenAction());
+
+
         purchaseOrderLineDs.addItemPropertyChangeListener(e -> {
             PurchaseOrderLine item = purchaseOrderLineDs.getItem();
             if(e.getProperty() == "product"){
@@ -84,6 +97,20 @@ public class PurchaseOrderEdit extends AbstractEditor<PurchaseOrder> {
             }
         });
         super.init(params);
+    }
+
+    @Override
+    protected void postInit() {
+        if(getItem().getState()==PurchaseOrderState.purchase){
+            purchaseOrderLabel.setValue("Заказ на поставку");
+            discardButton.setVisible(true);
+            confirmButton.setVisible(false);
+        }else{
+            purchaseOrderLabel.setValue("Запрос цен");
+            confirmButton.setVisible(true);
+            discardButton.setVisible(false);
+        }
+        super.postInit();
     }
 
     @Override
@@ -179,5 +206,22 @@ public class PurchaseOrderEdit extends AbstractEditor<PurchaseOrder> {
     }
     private long getNextValue() {
         return uniqueNumbersService.getNextNumber("PurchaseOrderNumber");
+    }
+    
+
+    public void onConfirmButtonClick() {
+        getItem().setState(PurchaseOrderState.purchase);
+        purchaseOrderLabel.setValue("Заказ на поставку");
+        confirmButton.setVisible(false);
+        discardButton.setVisible(true);
+        commit();
+    }
+
+    public void onDiscardButtonClick() {
+        getItem().setState(PurchaseOrderState.draft);
+        purchaseOrderLabel.setValue("Заказ на поставку");
+        confirmButton.setVisible(true);
+        discardButton.setVisible(false);
+        commit();
     }
 }
