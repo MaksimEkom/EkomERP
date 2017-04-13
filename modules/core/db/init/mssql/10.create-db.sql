@@ -360,6 +360,7 @@ create table EKOMERP_MANUFACTURING_ORDER_LINE (
     --
     PRODUCT_ID uniqueidentifier not null,
     QUANTITY double precision not null,
+    QUANTITY_PRODUCED double precision,
     MANUFACTURING_ORDER_ID uniqueidentifier,
     --
     primary key nonclustered (ID)

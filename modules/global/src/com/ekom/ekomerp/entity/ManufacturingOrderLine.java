@@ -23,9 +23,21 @@ public class ManufacturingOrderLine extends StandardEntity {
     @Column(name = "QUANTITY", nullable = false)
     protected Double quantity;
 
+    @Column(name = "QUANTITY_PRODUCED")
+    protected Double quantityProduced;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MANUFACTURING_ORDER_ID")
     protected ManufacturingOrder manufacturingOrder;
+
+    public void setQuantityProduced(Double quantityProduced) {
+        this.quantityProduced = quantityProduced;
+    }
+
+    public Double getQuantityProduced() {
+        return quantityProduced;
+    }
+
 
     public void setProduct(Product product) {
         this.product = product;

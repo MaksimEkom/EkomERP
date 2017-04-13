@@ -85,6 +85,8 @@ order by e.name asc]]>
                 <column id="product.unit"/>
                 <column id="quantity"
                         editable="true"/>
+                <column id="quantityProduced"
+                        editable="true"/>
             </columns>
             <rows datasource="manufacturingOrderLineDs"/>
             <buttonsPanel>

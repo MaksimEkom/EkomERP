@@ -44,6 +44,9 @@ public class ManufacturingOrderEdit extends AbstractEditor<ManufacturingOrder> {
                 if (item.getQuantity()==null) {
                     item.setQuantity(0.0);
                 }
+                if (item.getQuantityProduced()==null) {
+                    item.setQuantityProduced(0.0);
+                }
             }
             manufacturingOrderLineTable.repaint();
         });
