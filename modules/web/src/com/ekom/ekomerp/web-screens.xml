@@ -47,4 +47,8 @@
             template="com/ekom/ekomerp/web/manufacturingorder/manufacturing-order-browse.xml"/>
     <screen id="ekomerp$ManufacturingOrder.edit"
             template="com/ekom/ekomerp/web/manufacturingorder/manufacturing-order-edit.xml"/>
+    <screen id="ekomerp$Invoice.browse"
+            template="com/ekom/ekomerp/web/invoice/invoice-browse.xml"/>
+    <screen id="ekomerp$Invoice.edit"
+            template="com/ekom/ekomerp/web/invoice/invoice-edit.xml"/>
 </screen-config>

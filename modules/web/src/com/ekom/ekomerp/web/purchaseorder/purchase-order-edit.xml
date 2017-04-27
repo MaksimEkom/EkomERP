@@ -37,9 +37,14 @@ order by e.name asc
         <hbox align="TOP_RIGHT"
               spacing="true"
               width="100%">
-            <label id="purchaseOrderLabel"
-                   stylename="h2 bold"
-                   value="msg://Draft"/>
+            <vbox spacing="true">
+                <label id="purchaseOrderLabel"
+                       stylename="h2 bold"
+                       value="msg://Draft"/>
+                <label datasource="purchaseOrderDs"
+                       property="number"
+                       stylename="h1"/>
+            </vbox>
             <vbox spacing="true">
                 <button id="confirmButton"
                         align="MIDDLE_RIGHT"
@@ -53,9 +58,6 @@ order by e.name asc
                         width="200px"/>
             </vbox>
         </hbox>
-        <label datasource="purchaseOrderDs"
-               property="number"
-               stylename="h1"/>
         <hbox margin="true"
               spacing="true"
               width="100%">
@@ -94,6 +96,7 @@ order by e.name asc
                     <columns>
                         <column id="product"
                                 editable="true"/>
+                        <column id="product.unit"/>
                         <column id="quantity"
                                 align="RIGHT"
                                 editable="true"

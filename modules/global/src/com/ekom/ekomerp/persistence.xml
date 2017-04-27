@@ -21,5 +21,7 @@
         <class>com.ekom.ekomerp.entity.PaymentCondition</class>
         <class>com.ekom.ekomerp.entity.ManufacturingOrder</class>
         <class>com.ekom.ekomerp.entity.ManufacturingOrderLine</class>
+        <class>com.ekom.ekomerp.entity.Invoice</class>
+        <class>com.ekom.ekomerp.entity.InvoiceLine</class>
     </persistence-unit>
 </persistence>

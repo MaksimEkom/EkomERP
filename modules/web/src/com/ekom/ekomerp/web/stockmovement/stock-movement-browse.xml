@@ -48,7 +48,7 @@ order by e.date desc]]>
                 <column id="location"/>
                 <column id="notes"/>
             </columns>
-            <rows datasource="stockMovementsDs"/>
+            <rows datasource="stockMovementsFilteredDs"/>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">

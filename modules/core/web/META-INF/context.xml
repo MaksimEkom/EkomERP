@@ -1,15 +1,14 @@
 <Context>
     <!-- Database connection -->
-    <Resource driverClassName="net.sourceforge.jtds.jdbc.Driver"
+    <Resource driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
               maxIdle="2"
               maxTotal="20"
               maxWaitMillis="5000"
               name="jdbc/CubaDS"
               password="SQLadmin.1"
               type="javax.sql.DataSource"
-              url="jdbc:jtds:sqlserver://192.168.0.205/EkomDB"
-              username="sa"
-              validationQuery="select 1"/>
+              url="jdbc:sqlserver://178.124.189.62;databaseName=EkomDB"
+              username="sa"/>
     <!-- Switch off session serialization -->
     <Manager pathname=""/>
     <!--<Resource driverClassName="org.hsqldb.jdbc.JDBCDriver"

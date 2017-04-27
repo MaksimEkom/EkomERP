@@ -23,23 +23,23 @@ public class StockMovementBrowse extends AbstractLookup {
     @Inject
     private UserSession userSession;
 
-    @Override
-    public void init(Map<String, Object> params) {
-        if(isUserAdmin()){
-            stockMovementsTable.setDatasource(stockMovementsDs);
-        }else stockMovementsTable.setDatasource(stockMovementsFilteredDs);
-        super.init(params);
-    }
-
-    public boolean isUserAdmin(){
-        Collection <UserRole> userRoles = userSession.getUser().getUserRoles();
-        boolean isAdmin = false;
-        for (UserRole userRole:userRoles){
-            if(userRole.getRole().getType().getId()==10){
-                isAdmin = true;
-                break;
-            }
-        }
-        return isAdmin;
-    }
+//    @Override
+//    public void init(Map<String, Object> params) {
+//        if(isUserAdmin()){
+//            stockMovementsTable.setDatasource(stockMovementsDs);
+//        }else stockMovementsTable.setDatasource(stockMovementsFilteredDs);
+//        super.init(params);
+//    }
+//
+//    public boolean isUserAdmin(){
+//        Collection <UserRole> userRoles = userSession.getUser().getUserRoles();
+//        boolean isAdmin = false;
+//        for (UserRole userRole:userRoles){
+//            if(userRole.getRole().getType().getId()==10){
+//                isAdmin = true;
+//                break;
+//            }
+//        }
+//        return isAdmin;
+//    }
 }

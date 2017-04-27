@@ -33,7 +33,7 @@ order by e.name asc]]>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="windowActions"
+    <layout expand="manufacturingOrderLineTable"
             spacing="true">
         <label stylename="h2 bold"
                value="msg://Manufacturing order"/>

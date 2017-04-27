@@ -55,5 +55,11 @@
         <entity class="com.ekom.ekomerp.entity.ManufacturingOrderLine">
             <include re=".*"/>
         </entity>
+        <entity class="com.ekom.ekomerp.entity.Invoice">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.InvoiceLine">
+            <include re=".*"/>
+        </entity>
     </entities>
 </fts-config>

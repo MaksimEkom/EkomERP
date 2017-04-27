@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.ekom.ekomerp.web.invoice.InvoiceBrowse"
+        focusComponent="invoicesTable"
+        lookupComponent="invoicesTable"
+        messagesPack="com.ekom.ekomerp.web.invoice">
+    <dsContext>
+        <groupDatasource id="invoicesDs"
+                         class="com.ekom.ekomerp.entity.Invoice"
+                         view="invoice-view">
+            <query>
+                <![CDATA[select e from ekomerp$Invoice e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="invoicesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="invoicesTable"
+                datasource="invoicesDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="invoicesTable"
+                    presentations="true"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+                <action id="excel"/>
+                <action id="refresh"/>
+            </actions>
+            <columns>
+                <column id="number"/>
+                <column id="date"/>
+                <column id="dueDate"/>
+                <column id="partner"/>
+                <column id="state"/>
+                <column id="type"/>
+                <column id="origin"/>
+                <column id="amountUntaxed"/>
+                <column id="amountTax"/>
+                <column id="amountTotal"/>
+                <column id="notes"/>
+            </columns>
+            <rows datasource="invoicesDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="invoicesTable.create"/>
+                <button id="editBtn"
+                        action="invoicesTable.edit"/>
+                <button id="removeBtn"
+                        action="invoicesTable.remove"/>
+                <button id="excelBtn"
+                        action="invoicesTable.excel"/>
+                <button id="refreshBtn"
+                        action="invoicesTable.refresh"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

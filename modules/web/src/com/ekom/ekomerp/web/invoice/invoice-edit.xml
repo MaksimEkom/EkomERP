@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="com.ekom.ekomerp.web.invoice.InvoiceEdit"
+        datasource="invoiceDs"
+        messagesPack="com.ekom.ekomerp.web.invoice">
+    <dsContext>
+        <datasource id="invoiceDs"
+                    class="com.ekom.ekomerp.entity.Invoice"
+                    view="invoice-view">
+            <collectionDatasource id="invoiceLineDs"
+                                  property="invoiceLine"/>
+        </datasource>
+        <collectionDatasource id="partnersDs"
+                              class="com.ekom.ekomerp.entity.Partner"
+                              view="_local">
+            <query>
+                <![CDATA[select e from ekomerp$Partner e
+order by e.name asc]]>
+            </query>
+        </collectionDatasource>
+        <collectionDatasource id="productsDs"
+                              class="com.ekom.ekomerp.entity.Product"
+                              view="productWithUnit">
+            <query>
+                <![CDATA[select e from ekomerp$Product e
+order by e.name]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="windowActions">
+        <hbox spacing="true"
+              width="100%">
+            <vbox spacing="true">
+                <label id="invoiceLabel"
+                       stylename="h2 bold"
+                       value="msg://Invoice"/>
+                <label id="invoiceNumberLabel"
+                       datasource="invoiceDs"
+                       property="number"
+                       stylename="h1"/>
+            </vbox>
+            <vbox spacing="true"/>
+        </hbox>
+        <hbox margin="true"
+              spacing="true"
+              width="100%">
+            <vbox spacing="true">
+                <lookupPickerField caption="msg://Partner"
+                                   datasource="invoiceDs"
+                                   optionsDatasource="partnersDs"
+                                   property="partner"
+                                   width="300px"/>
+                <textField id="originField"
+                           caption="msg://Origin"
+                           datasource="invoiceDs"
+                           property="origin"
+                           width="300px"/>
+            </vbox>
+            <vbox spacing="true">
+                <dateField caption="msg://Date"
+                           datasource="invoiceDs"
+                           property="date"
+                           width="200px"/>
+                <dateField id="dueDateField"
+                           caption="msg://Due date"
+                           datasource="invoiceDs"
+                           property="dueDate"
+                           width="200px"/>
+            </vbox>
+        </hbox>
+        <tabSheet>
+            <tab id="invoiceLineTab"
+                 caption="msg://Invoice"
+                 spacing="true">
+                <table id="invoiceLineTable"
+                       editable="true"
+                       height="200px"
+                       width="100%">
+                    <actions>
+                        <action id="create"/>
+                        <action id="edit"
+                                enable="false"
+                                visible="false"/>
+                        <action id="remove"/>
+                    </actions>
+                    <columns>
+                        <column id="product"
+                                editable="true"/>
+                        <column id="product.unit"/>
+                        <column id="quantity"
+                                editable="true"/>
+                        <column id="price"
+                                editable="true"/>
+                        <column id="subtotal"/>
+                        <column id="tax"/>
+                        <column id="total"/>
+                    </columns>
+                    <rows datasource="invoiceLineDs"/>
+                    <buttonsPanel>
+                        <button id="createButton"
+                                caption="msg://Create"
+                                invoke="onCreateButtonClick"/>
+                        <button action="invoiceLineTable.edit"/>
+                        <button action="invoiceLineTable.remove"/>
+                    </buttonsPanel>
+                </table>
+                <grid spacing="true"
+                      width="100%">
+                    <columns count="2"/>
+                    <rows>
+                        <row>
+                            <textArea datasource="invoiceDs"
+                                      inputPrompt="msg://Notes"
+                                      property="notes"
+                                      width="400px"/>
+                            <vbox spacing="true">
+                                <hbox align="MIDDLE_RIGHT"
+                                      spacing="true">
+                                    <label align="MIDDLE_RIGHT"
+                                           value="msg://Amount Untaxed"/>
+                                    <textField align="MIDDLE_RIGHT"
+                                               datasource="invoiceDs"
+                                               property="amountUntaxed"
+                                               stylename="borderless"
+                                               width="150px"/>
+                                </hbox>
+                                <hbox align="MIDDLE_RIGHT"
+                                      spacing="true">
+                                    <label align="MIDDLE_RIGHT"
+                                           value="msg://Tax"/>
+                                    <textField align="MIDDLE_RIGHT"
+                                               datasource="invoiceDs"
+                                               property="amountTax"
+                                               stylename="borderless"
+                                               width="150px"/>
+                                </hbox>
+                                <groupBox align="MIDDLE_RIGHT"
+                                          spacing="true"
+                                          stylename="light"
+                                          width="300px">
+                                    <hbox align="MIDDLE_RIGHT"
+                                          spacing="true">
+                                        <label align="MIDDLE_RIGHT"
+                                               stylename="h2 bold"
+                                               value="msg://AmountTotal"/>
+                                        <textField align="MIDDLE_RIGHT"
+                                                   datasource="invoiceDs"
+                                                   property="amountTotal"
+                                                   stylename="borderless"
+                                                   width="140px"/>
+                                    </hbox>
+                                </groupBox>
+                            </vbox>
+                        </row>
+                    </rows>
+                </grid>
+            </tab>
+        </tabSheet>
+        <frame id="windowActions"
+               screen="extendedEditWindowActions"/>
+    </layout>
+</window>

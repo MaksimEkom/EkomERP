@@ -15,7 +15,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.Collection;
 import java.util.Map;
-import java.util.Objects;
 import java.util.UUID;
 
 public class PurchaseOrderEdit extends AbstractEditor<PurchaseOrder> {
@@ -68,6 +67,7 @@ private static final String PROCESS_CODE = "purchase";
                 }else{
                     item.setPrice(0.0);
                 }
+                purchaseOrderLineTable.repaint();
             }
 
             if((e.getProperty() == "quantity" || e.getProperty() == "price") && purchaseOrderLineDs.getItem().getProduct()!=null){
@@ -75,7 +75,7 @@ private static final String PROCESS_CODE = "purchase";
                 item.setTax(calculateTax());
                 item.setTotal(calculateTotal());
                 getItem().setAmountTax(calculateAmountTax());
-                getItem().setAmountUntaxed(calculateAmountSubtotal());
+                getItem().setAmountUntaxed(calculateAmountUntaxed());
                 getItem().setAmountWithTax(calculateAmountTotal());
             }
 
@@ -92,7 +92,7 @@ private static final String PROCESS_CODE = "purchase";
         purchaseOrderLineDs.addCollectionChangeListener(e -> {
             if(e.getOperation() == CollectionDatasource.Operation.REMOVE) {
                 getItem().setAmountTax(calculateAmountTax());
-                getItem().setAmountUntaxed(calculateAmountSubtotal());
+                getItem().setAmountUntaxed(calculateAmountUntaxed());
                 getItem().setAmountWithTax(calculateAmountTotal());
             }
         });
@@ -143,18 +143,18 @@ private static final String PROCESS_CODE = "purchase";
     }
 
     private Double calculateAmountTotal() {
-        return calculateAmountSubtotal()+calculateAmountTax();
+        return calculateAmountUntaxed()+calculateAmountTax();
     }
 
-    private Double calculateAmountSubtotal() {
+    private Double calculateAmountUntaxed() {
         Collection<PurchaseOrderLine> orderLines = purchaseOrderLineDs.getItems();
-        double amountSubtotal = 0.0;
+        double amountUntaxed = 0.0;
         if(orderLines!=null) {
             for (PurchaseOrderLine line : orderLines) {
-                amountSubtotal+=line.getSubtotal();
+                amountUntaxed+=line.getSubtotal();
             }
         }
-        return amountSubtotal;
+        return amountUntaxed;
     }
 
     public void onCreateButtonClick() {
@@ -177,12 +177,10 @@ private static final String PROCESS_CODE = "purchase";
             PurchaseOrderLine line = metadata.create(PurchaseOrderLine.class);
             line.setPurchaseOrder(getItem());
             purchaseOrderLineDs.addItem(line);
-
         }
         
     }
     private void setNumberField(){
-
         if (getItem().getNumber().equals("Новый")){
             String number = "ЗП-";
             long longNumber=getNextValue();
