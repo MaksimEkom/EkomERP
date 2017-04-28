@@ -71,6 +71,14 @@
                           view="_minimal"/>
             </property>
             <property name="quantity"/>
+            <property name="stockMovement"
+                      view="_minimal">
+                <property name="location"
+                          view="_minimal"/>
+                <property name="stockMovementType"/>
+            </property>
+            <property name="quantityBefore"/>
+            <property name="quantityAfter"/>
         </property>
     </view>
     <view class="com.ekom.ekomerp.entity.StockMovementLine"
@@ -85,6 +93,7 @@
                   view="_minimal">
             <property name="location"
                       view="_minimal"/>
+            <property name="stockMovementType"/>
         </property>
     </view>
     <view class="com.ekom.ekomerp.entity.Product"

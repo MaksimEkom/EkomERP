@@ -31,11 +31,27 @@ public class StockMovementLine extends StandardEntity {
     @JoinColumn(name = "STOCK_MOVEMENT_ID")
     protected StockMovement stockMovement;
 
+    @Column(name = "QUANTITY_BEFORE")
+    protected Double quantityBefore;
 
+    @Column(name = "QUANTITY_AFTER")
+    protected Double quantityAfter;
 
+    public void setQuantityBefore(Double quantityBefore) {
+        this.quantityBefore = quantityBefore;
+    }
 
+    public Double getQuantityBefore() {
+        return quantityBefore;
+    }
 
+    public void setQuantityAfter(Double quantityAfter) {
+        this.quantityAfter = quantityAfter;
+    }
 
+    public Double getQuantityAfter() {
+        return quantityAfter;
+    }
 
 
     public void setProduct(Product product) {

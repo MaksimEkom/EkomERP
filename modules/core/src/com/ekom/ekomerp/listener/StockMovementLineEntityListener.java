@@ -30,13 +30,21 @@ public class StockMovementLineEntityListener implements BeforeDeleteEntityListen
 
     @Override
     public void onBeforeInsert(StockMovementLine entity, EntityManager entityManager) {
+        if (inventoryWorker.findInventoryLine(entity.getProduct(), entity.getStockMovement().getLocation())==null){
+            entity.setQuantityBefore(0.0);
+        }else {
+            entity.setQuantityBefore(inventoryWorker.findInventoryLine(entity.getProduct(), entity.getStockMovement().getLocation()).getQuantity());
+        }
         addStockMovementLine(entity,entityManager);
+        entity.setQuantityAfter(inventoryWorker.findInventoryLine(entity.getProduct(), entity.getStockMovement().getLocation()).getQuantity());
     }
 
     @Override
     public void onBeforeUpdate(StockMovementLine entity, EntityManager entityManager) {
         removeOldStockMovementLine(entity,entityManager);
+        entity.setQuantityBefore(inventoryWorker.findInventoryLine(entity.getProduct(), entity.getStockMovement().getLocation()).getQuantity());
         addStockMovementLine(entity,entityManager);
+        entity.setQuantityAfter(inventoryWorker.findInventoryLine(entity.getProduct(), entity.getStockMovement().getLocation()).getQuantity());
     }
     private void addStockMovementLine(StockMovementLine stockMovementLine, EntityManager entityManager){
         Inventory inventoryLine = inventoryWorker.findInventoryLine(stockMovementLine.getProduct(), stockMovementLine.getStockMovement().getLocation());

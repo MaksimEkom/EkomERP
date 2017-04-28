@@ -169,6 +169,8 @@ create table EKOMERP_LOCATION (
     PRODUCT_ID uniqueidentifier not null,
     QUANTITY double precision not null,
     STOCK_MOVEMENT_ID uniqueidentifier,
+    QUANTITY_BEFORE double precision,
+    QUANTITY_AFTER double precision,
     --
     primary key nonclustered (ID)
 )^

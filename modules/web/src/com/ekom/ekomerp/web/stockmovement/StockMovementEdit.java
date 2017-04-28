@@ -37,7 +37,13 @@ public class StockMovementEdit extends AbstractEditor<StockMovement> {
         super.init(params);
     }
 
-   private void checkNegativeInventoryAfterUpdate(StockMovementLine stockMovementLine, String property, Object value, Object oldValue) {
+    @Override
+    protected boolean preCommit() {
+      //  setBeforeAndAfterQuantity();
+        return super.preCommit();
+    }
+
+    private void checkNegativeInventoryAfterUpdate(StockMovementLine stockMovementLine, String property, Object value, Object oldValue) {
        showNotification(property);
        List<Inventory> inventory = findInventoryByProductAndLocation(stockMovementLine.getProduct(),stockMovementLine.getStockMovement().getLocation());
        if(property.equals("quantity")){
@@ -81,5 +87,22 @@ public class StockMovementEdit extends AbstractEditor<StockMovement> {
             }
         }
         return isAdmin;
+    }
+
+    public void setBeforeAndAfterQuantity(){
+        Collection<StockMovementLine> lines = getItem().getStockMovementLine();
+        for (StockMovementLine line:lines) {
+            if(findInventoryByProductAndLocation(line.getProduct(),line.getStockMovement().getLocation())==null){
+                line.setQuantityBefore(0.0);
+            }else{
+                line.setQuantityBefore(findInventoryByProductAndLocation(line.getProduct(),line.getStockMovement().getLocation()).get(0).getQuantity());
+            }
+
+            if(line.getStockMovement().getStockMovementType().getId()==1){
+                line.setQuantityAfter(line.getQuantityBefore()+line.getQuantity());
+            }else if (line.getStockMovement().getStockMovementType().getId()==1){
+                line.setQuantityAfter(line.getQuantityBefore()-line.getQuantity());
+            }
+        }
     }
 }
