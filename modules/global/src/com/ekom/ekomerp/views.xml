@@ -69,6 +69,7 @@
                       view="_minimal">
                 <property name="unit"
                           view="_minimal"/>
+                <property name="code"/>
             </property>
             <property name="quantity"/>
             <property name="stockMovement"

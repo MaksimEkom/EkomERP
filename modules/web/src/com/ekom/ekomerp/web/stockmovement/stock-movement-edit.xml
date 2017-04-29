@@ -59,6 +59,7 @@ where e.stockman.id = :session$userId]]>
             </actions>
             <columns>
                 <column id="product"/>
+                <column id="product.code"/>
                 <column id="product.unit.name"/>
                 <column id="quantity"/>
             </columns>
