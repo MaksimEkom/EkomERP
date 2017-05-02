@@ -89,7 +89,7 @@ public class Partner extends StandardEntity {
     @Column(name = "NOTES")
     protected String notes;
 
-    @Column(name = "UNP", unique = true)
+    @Column(name = "UNP")
     protected String unp;
 
     @Column(name = "FULL_NAME")

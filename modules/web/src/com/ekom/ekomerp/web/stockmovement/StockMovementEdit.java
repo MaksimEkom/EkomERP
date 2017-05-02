@@ -39,7 +39,7 @@ public class StockMovementEdit extends AbstractEditor<StockMovement> {
 
     @Override
     protected boolean preCommit() {
-      //  setBeforeAndAfterQuantity();
+ //       setBeforeAndAfterQuantity();
         return super.preCommit();
     }
 
@@ -100,7 +100,7 @@ public class StockMovementEdit extends AbstractEditor<StockMovement> {
 
             if(line.getStockMovement().getStockMovementType().getId()==1){
                 line.setQuantityAfter(line.getQuantityBefore()+line.getQuantity());
-            }else if (line.getStockMovement().getStockMovementType().getId()==1){
+            }else if (line.getStockMovement().getStockMovementType().getId()==2){
                 line.setQuantityAfter(line.getQuantityBefore()-line.getQuantity());
             }
         }

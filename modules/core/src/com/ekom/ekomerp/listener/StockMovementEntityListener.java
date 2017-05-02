@@ -36,18 +36,27 @@ public class StockMovementEntityListener implements BeforeUpdateEntityListener<S
             if (inventoryLine == null) {
                 switch (stockMovement.getStockMovementType()) {
                     case in:
+                        line.setQuantityBefore(0.0);
                         inventoryWorker.insertInventoryLine(line.getProduct(), stockMovement.getLocation(), line.getQuantity());
+                        line.setQuantityAfter(inventoryLine.getQuantity());
                         break;
                     case out:
+                        line.setQuantityBefore(0.0);
+                        inventoryWorker.insertInventoryLine(line.getProduct(), stockMovement.getLocation(), line.getQuantity()*(-1));
+                        line.setQuantityAfter(inventoryLine.getQuantity());
                         break;
                 }
             }else{
                 switch (stockMovement.getStockMovementType()) {
                     case in:
+                        line.setQuantityBefore(inventoryLine.getQuantity());
                         inventoryWorker.increaseInventoryLine(inventoryLine, line.getQuantity());
+                        line.setQuantityAfter(inventoryLine.getQuantity());
                         break;
                     case out:
+                        line.setQuantityBefore(inventoryLine.getQuantity());
                         inventoryWorker.reduceInventoryLine(inventoryLine, line.getQuantity());
+                        line.setQuantityAfter(inventoryLine.getQuantity());
                         break;
                 }
             }
