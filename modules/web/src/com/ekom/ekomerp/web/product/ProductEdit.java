@@ -100,7 +100,5 @@ public class ProductEdit extends AbstractEditor<Product> {
     }
 
 
-    public Component generateUnitField(Datasource datasource, String fieldId) {
-		return null;
-    }
+    
 }

@@ -11,7 +11,7 @@
                     view="consumption-edit"/>
         <collectionDatasource id="consumableProductsDs"
                               class="com.ekom.ekomerp.entity.Product"
-                              view="_minimal">
+                              view="productWithUnit">
             <query>
                 <![CDATA[select e from ekomerp$Product e
 ]]>
