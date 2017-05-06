@@ -2,8 +2,6 @@
 <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
         caption="msg://browseCaption"
         class="com.ekom.ekomerp.web.inventory.InventoryBrowse"
-        focusComponent="inventoriesTable"
-        lookupComponent="inventoriesTable"
         messagesPack="com.ekom.ekomerp.web.inventory">
     <dsContext>
         <groupDatasource id="inventoriesDs"
@@ -11,51 +9,39 @@
                          view="inventory-view">
             <query>
                 <![CDATA[select e from ekomerp$Inventory e
-where e.quantity <> 0]]>
+where e.quantity <> 0
+order by e.product.name]]>
             </query>
         </groupDatasource>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="inventoriesTable"
+    <layout expand="inventoriesDataGrid"
             spacing="true">
         <filter id="filter"
-                applyTo="inventoriesTable"
+                applyTo="inventoriesDataGrid"
                 datasource="inventoriesDs"
-                 defaultMode="fts"
+                defaultMode="fts"
                 useMaxResults="false">
             <properties include=".*"/>
         </filter>
-        <groupTable id="inventoriesTable"
-                    aggregatable="true"
-                    aggregationStyle="BOTTOM"
-                    width="100%">
+        <dataGrid id="inventoriesDataGrid"
+                  datasource="inventoriesDs"
+                  width="100%">
             <actions>
                 <action id="excel"/>
                 <action id="refresh"/>
-                <action id="edit"
-                        caption="msg://Edit"
-                        openType="DIALOG"/>
             </actions>
             <columns>
-                <group>
-                    <column id="product"/>
-                </group>
-                <column id="product.code"/>
-                <column id="location"/>
-                <column id="quantity">
-                    <aggregation type="SUM"/>
-                </column>
+                <column property="product"/>
+                <column property="product.code"/>
+                <column property="location"/>
+                <column property="quantity"/>
             </columns>
-            <rows datasource="inventoriesDs"/>
-            <rowsCount/>
-            <buttonsPanel id="buttonsPanel"
-                          alwaysVisible="true">
-                <button id="excelBtn"
-                        action="inventoriesTable.excel"/>
-                <button id="refreshBtn"
-                        action="inventoriesTable.refresh"/>
+            <buttonsPanel>
+                <button action="inventoriesDataGrid.excel"/>
+                <button action="inventoriesDataGrid.refresh"/>
             </buttonsPanel>
-        </groupTable>
+        </dataGrid>
     </layout>
 </window>

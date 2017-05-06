@@ -192,6 +192,10 @@ order by e.stockMovement.date]]>
                             <column id="stockMovement.consignment"/>
                             <column id="stockMovement.date"/>
                             <column id="quantity"/>
+                            <column id="quantityBefore"
+                                    caption="msg://Quantity before"/>
+                            <column id="quantityAfter"
+                                    caption="msg://Quantity after"/>
                         </columns>
                         <rows datasource="stockMovementLinesDs"/>
                     </table>
