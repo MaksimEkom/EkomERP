@@ -45,8 +45,7 @@ where e.stockman.id = :session$userId]]>
         </fieldGroup>
         <hbox spacing="true">
             <label value="msg://Movement type"/>
-            <optionsGroup id="stockMovementTypeOptionsGroup"
-                          datasource="stockMovementDs"
+            <optionsGroup datasource="stockMovementDs"
                           orientation="horizontal"
                           property="stockMovementType"/>
         </hbox>

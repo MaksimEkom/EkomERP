@@ -5,7 +5,6 @@ import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.gui.components.AbstractEditor;
 import com.haulmont.cuba.gui.components.LookupPickerField;
-import com.haulmont.cuba.gui.components.OptionsGroup;
 import com.haulmont.cuba.gui.data.CollectionDatasource;
 import com.haulmont.cuba.gui.data.Datasource;
 import com.haulmont.cuba.security.entity.UserRole;
@@ -16,7 +15,7 @@ import javax.inject.Named;
 import javax.management.Notification;
 import java.util.*;
 
-public class StockMovementAdjustment extends AbstractEditor<StockMovement> {
+public class StockMovementEdit extends AbstractEditor<StockMovement> {
     @Inject
     private CollectionDatasource<StockMovementLine, UUID> stockMovementLineDs;
     @Inject
@@ -29,19 +28,12 @@ public class StockMovementAdjustment extends AbstractEditor<StockMovement> {
     private CollectionDatasource<Location, UUID> locationsDs;
     @Inject
     private CollectionDatasource<Location, UUID> locationsFilteredDs;
-    @Inject
-    private OptionsGroup stockMovementTypeOptionsGroup;
-
 
     @Override
     public void init(Map<String, Object> params) {
         if(isUserAdmin()){
             locationField.setOptionsDatasource(locationsDs);
         }else locationField.setOptionsDatasource(locationsFilteredDs);
-        Map<String, Object> map = new LinkedHashMap<>();
-        map.put(StockmovementTypeEnum.in.name(),StockmovementTypeEnum.in);
-        map.put(StockmovementTypeEnum.out.name(),StockmovementTypeEnum.out);
-        stockMovementTypeOptionsGroup.setOptionsMap(map);
         super.init(params);
     }
 
