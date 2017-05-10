@@ -8,7 +8,8 @@ import javax.annotation.Nullable;
 public enum StockmovementTypeEnum implements EnumClass<Integer> {
 
     in(1),
-    out(2);
+    out(2),
+    adjustment(3);
 
     private Integer id;
 
