@@ -1,6 +1,6 @@
 
 buildscript {
-    ext.cubaVersion = '6.5.0'
+    ext.cubaVersion = '6.5.1'
     repositories {
         maven {
             url 'https://repo.cuba-platform.com/content/groups/work'
@@ -120,7 +120,7 @@ configure(coreModule) {
         dbms = 'mssql'
         dbmsVersion = '2012'
         host = '178.124.189.62'
-        dbName = 'EkomDB'
+        dbName = 'EkomDB_copy'
         dbUser = 'sa'
         dbPassword = 'SQLadmin.1'
     }
@@ -129,7 +129,7 @@ configure(coreModule) {
         dbms = 'mssql'
         dbmsVersion = '2012'
         host = '178.124.189.62'
-        dbName = 'EkomDB'
+        dbName = 'EkomDB_copy'
         dbUser = 'sa'
         dbPassword = 'SQLadmin.1'
     }
