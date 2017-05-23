@@ -1,6 +1,7 @@
 package com.ekom.ekomerp.web.stockmovement;
 
 import com.ekom.ekomerp.entity.*;
+import com.haulmont.cuba.core.app.UniqueNumbersService;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.gui.components.AbstractEditor;
@@ -16,7 +17,7 @@ import javax.inject.Named;
 import javax.management.Notification;
 import java.util.*;
 
-public class StockMovementEdit extends AbstractEditor<StockMovement> {
+public class StockMovementAdjustmentEdit extends AbstractEditor<StockMovement> {
     @Inject
     private CollectionDatasource<StockMovementLine, UUID> stockMovementLineDs;
     @Inject
@@ -31,49 +32,24 @@ public class StockMovementEdit extends AbstractEditor<StockMovement> {
     private CollectionDatasource<Location, UUID> locationsFilteredDs;
     @Inject
     private OptionsGroup stockMovementTypeOptionsGroup;
+    @Inject
+    private UniqueNumbersService uniqueNumbersService;
 
     @Override
     public void init(Map<String, Object> params) {
         if(isUserAdmin()){
             locationField.setOptionsDatasource(locationsDs);
         }else locationField.setOptionsDatasource(locationsFilteredDs);
-
-        Map<String, Object> stockMovementTypeMap = new LinkedHashMap<>();
-        stockMovementTypeMap.put("in", StockmovementTypeEnum.in);
-        stockMovementTypeMap.put("out", StockmovementTypeEnum.out);
-        stockMovementTypeOptionsGroup.setOptionsMap(stockMovementTypeMap);
         super.init(params);
     }
 
     @Override
     protected boolean preCommit() {
+        getItem().setStockMovementType(StockmovementTypeEnum.adjustment);
  //       setBeforeAndAfterQuantity();
         return super.preCommit();
     }
 
-    private void checkNegativeInventoryAfterUpdate(StockMovementLine stockMovementLine, String property, Object value, Object oldValue) {
-       showNotification(property);
-       List<Inventory> inventory = findInventoryByProductAndLocation(stockMovementLine.getProduct(),stockMovementLine.getStockMovement().getLocation());
-       if(property.equals("quantity")){
-           showNotification("dfdghjhgfds");
-           switch(stockMovementLine.getStockMovement().getStockMovementType()){
-                case in:
-                    if ((inventory.get(0).getQuantity()-((double)oldValue-(double)value))<0){
-                        showNotification("Недостаточно "+stockMovementLine.getProduct().toString()
-                                +" на складе "+stockMovementLine.getStockMovement().getLocation());
-                    }
-                    break;
-                case out:
-                    if ((inventory.get(0).getQuantity()+((double)oldValue-(double)value))<0){
-                        showNotification("Недостаточно "+stockMovementLine.getProduct().toString()
-                                +" на складе "+stockMovementLine.getStockMovement().getLocation());
-                    }
-                    break;
-            }
-       }
-
-
-   }
 
     private List<Inventory> findInventoryByProductAndLocation(Product product, Location location){
         LoadContext loadContext = LoadContext.create(Inventory.class).setQuery(LoadContext
@@ -111,6 +87,22 @@ public class StockMovementEdit extends AbstractEditor<StockMovement> {
             }else if (line.getStockMovement().getStockMovementType().getId()==2){
                 line.setQuantityAfter(line.getQuantityBefore()-line.getQuantity());
             }
+        }
+    }
+
+    private long getNextValue() {
+        return uniqueNumbersService.getNextNumber("StockAdjustmentNumber");
+    }
+
+    private void setConsignmentField(){
+        if (getItem().getConsignment().equals("Новый")){
+            String number = "КС-";
+            long longNumber=getNextValue();
+            for (int i = (6-(int)(Math.log10(longNumber)+1)); i>0;i--){
+                number+="0";
+            }
+            number+=longNumber;
+            getItem().setConsignment(number);
         }
     }
 }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.ekom.ekomerp.web.stockmovement.StockMovementAdjustmentBrowse"
+        focusComponent="stockMovementsTable"
+        lookupComponent="stockMovementsTable"
+        messagesPack="com.ekom.ekomerp.web.stockmovement">
+    <dsContext>
+        <groupDatasource id="stockMovementsDs"
+                         class="com.ekom.ekomerp.entity.StockMovement"
+                         view="stockMovementWithLocation">
+            <query>
+                <![CDATA[select e from ekomerp$StockMovement e
+where e.stockMovementType = 3
+order by e.date desc]]>
+            </query>
+        </groupDatasource>
+        <groupDatasource id="stockMovementsFilteredDs"
+                         class="com.ekom.ekomerp.entity.StockMovement"
+                         view="stockMovementWithLocation">
+            <query>
+                <![CDATA[select e from ekomerp$StockMovement e
+where e.createdBy = :session$userLogin
+and e.stockMovementType = 3
+order by e.date desc]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="stockMovementsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="stockMovementsTable"
+                datasource="stockMovementsDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="stockMovementsTable"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+                <action id="excel"/>
+            </actions>
+            <columns>
+                <column id="consignment"/>
+                <column id="date"/>
+                <column id="stockMovementType"/>
+                <column id="location"/>
+                <column id="notes"/>
+            </columns>
+            <rows datasource="stockMovementsFilteredDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="stockMovementsTable.create"/>
+                <button id="editBtn"
+                        action="stockMovementsTable.edit"/>
+                <button id="removeBtn"
+                        action="stockMovementsTable.remove"/>
+                <button action="stockMovementsTable.excel"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

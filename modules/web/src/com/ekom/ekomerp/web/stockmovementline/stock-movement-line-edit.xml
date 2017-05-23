@@ -27,8 +27,14 @@ order by e.name]]>
                     datasource="stockMovementLineDs">
             <column width="500px">
                 <field id="product"
-                       optionsDatasource="productsDs"/>
-                <field id="quantity"/>
+                       optionsDatasource="productsDs"
+                       property="product"/>
+                <field id="code"
+                       datasource="productsDs"
+                       editable="false"
+                       property="code"/>
+                <field id="quantity"
+                       property="quantity"/>
             </column>
         </fieldGroup>
         <frame id="windowActions"

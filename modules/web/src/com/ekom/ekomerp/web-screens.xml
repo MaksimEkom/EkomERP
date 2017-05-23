@@ -51,4 +51,8 @@
             template="com/ekom/ekomerp/web/invoice/invoice-browse.xml"/>
     <screen id="ekomerp$Invoice.edit"
             template="com/ekom/ekomerp/web/invoice/invoice-edit.xml"/>
+    <screen id="ekomerp$StockMovementAdjustment.edit"
+            template="com/ekom/ekomerp/web/stockmovement/stock-movement-adjustment-edit.xml"/>
+    <screen id="ekomerp$StockMovementAdjustment.browse"
+            template="com/ekom/ekomerp/web/stockmovement/stock-movement-adjustment-browse.xml"/>
 </screen-config>

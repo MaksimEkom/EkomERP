@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
         caption="msg://editorCaption"
-        class="com.ekom.ekomerp.web.stockmovement.StockMovementEdit"
+        class="com.ekom.ekomerp.web.stockmovement.StockMovementAdjustmentEdit"
         datasource="stockMovementDs"
         focusComponent="fieldGroup"
         messagesPack="com.ekom.ekomerp.web.stockmovement">
@@ -32,6 +32,17 @@ where e.stockman.id = :session$userId]]>
                 width="800"/>
     <layout expand="windowActions"
             spacing="true">
+        <hbox spacing="true">
+            <vbox spacing="true">
+                <label id="stockMovementLabel"
+                       stylename="h2 bold"
+                       value="msg://Stock Adjustment"/>
+                <label id="consignmentNumberLabel"
+                       datasource="stockMovementDs"
+                       property="number"
+                       stylename="h1 bold"/>
+            </vbox>
+        </hbox>
         <fieldGroup id="fieldGroup"
                     datasource="stockMovementDs">
             <column width="250px">
@@ -43,15 +54,6 @@ where e.stockman.id = :session$userId]]>
                        rows="5"/>
             </column>
         </fieldGroup>
-        <hbox spacing="true">
-            <label align="MIDDLE_LEFT"
-                   value="msg://Movement type"/>
-            <optionsGroup id="stockMovementTypeOptionsGroup"
-                          align="MIDDLE_LEFT"
-                          datasource="stockMovementDs"
-                          orientation="horizontal"
-                          property="stockMovementType"/>
-        </hbox>
         <table id="stockMovementLineTable"
                height="200px"
                width="100%">

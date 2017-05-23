@@ -29,6 +29,7 @@
         <item id="ekomerp$Inventory.browse"/>
         <item id="ekomerp$Inventory.browseEdit"/>
         <item id="ekomerp$StockMovement.browse"/>
+        <item screen="ekomerp$StockMovementAdjustment.browse"/>
     </menu>
     <menu id="application"
           insertBefore="administration">
