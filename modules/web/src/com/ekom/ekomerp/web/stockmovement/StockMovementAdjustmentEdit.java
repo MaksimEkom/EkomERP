@@ -46,6 +46,7 @@ public class StockMovementAdjustmentEdit extends AbstractEditor<StockMovement> {
     @Override
     protected boolean preCommit() {
         getItem().setStockMovementType(StockmovementTypeEnum.adjustment);
+        setNumberField();
  //       setBeforeAndAfterQuantity();
         return super.preCommit();
     }
@@ -94,15 +95,15 @@ public class StockMovementAdjustmentEdit extends AbstractEditor<StockMovement> {
         return uniqueNumbersService.getNextNumber("StockAdjustmentNumber");
     }
 
-    private void setConsignmentField(){
-        if (getItem().getConsignment().equals("Новый")){
+    private void setNumberField(){
+        if (getItem().getNumber().equals("Новый")){
             String number = "КС-";
             long longNumber=getNextValue();
             for (int i = (6-(int)(Math.log10(longNumber)+1)); i>0;i--){
                 number+="0";
             }
             number+=longNumber;
-            getItem().setConsignment(number);
+            getItem().setNumber(number);
         }
     }
 }

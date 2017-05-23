@@ -37,10 +37,10 @@ where e.stockman.id = :session$userId]]>
                 <label id="stockMovementLabel"
                        stylename="h2 bold"
                        value="msg://Stock Adjustment"/>
-                <label id="consignmentNumberLabel"
+                <label id="numberLabel"
                        datasource="stockMovementDs"
                        property="number"
-                       stylename="h1 bold"/>
+                       stylename="h1"/>
             </vbox>
         </hbox>
         <fieldGroup id="fieldGroup"
@@ -76,6 +76,6 @@ where e.stockman.id = :session$userId]]>
             </buttonsPanel>
         </table>
         <frame id="windowActions"
-               screen="editWindowActions"/>
+               screen="extendedEditWindowActions"/>
     </layout>
 </window>

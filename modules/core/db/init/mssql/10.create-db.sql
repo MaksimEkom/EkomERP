@@ -152,6 +152,7 @@ create table EKOMERP_LOCATION (
     LOCATION_ID uniqueidentifier not null,
     STOCK_MOVEMENT_TYPE integer not null,
     NOTES varchar(max),
+    NUMBER_ varchar(255),
     --
     primary key nonclustered (ID)
 )^

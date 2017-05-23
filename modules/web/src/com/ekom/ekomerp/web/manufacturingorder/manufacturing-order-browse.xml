@@ -8,7 +8,7 @@
     <dsContext>
         <groupDatasource id="manufacturingOrdersDs"
                          class="com.ekom.ekomerp.entity.ManufacturingOrder"
-                         view="_local">
+                         view="manufacturingOrder-view">
             <query>
                 <![CDATA[select e from ekomerp$ManufacturingOrder e]]>
             </query>
@@ -34,6 +34,7 @@
             <columns>
                 <column id="number"/>
                 <column id="date"/>
+                <column id="customer"/>
                 <column id="dateOfManufacture"/>
                 <column id="notes"/>
                 <column id="state"/>

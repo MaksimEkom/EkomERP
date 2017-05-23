@@ -21,7 +21,9 @@ import java.util.Set;
 import javax.persistence.OneToMany;
 import com.haulmont.cuba.core.entity.annotation.Listeners;
 import javax.persistence.Lob;
+import com.haulmont.chile.core.annotations.NamePattern;
 
+@NamePattern("%s|number")
 @Listeners("ekomerp_StockMovementEntityListener")
 @Table(name = "EKOMERP_STOCK_MOVEMENT")
 @Entity(name = "ekomerp$StockMovement")
@@ -54,7 +56,7 @@ public class StockMovement extends StandardEntity {
 
 
     @Column(name = "NUMBER_")
-    protected String number;
+    protected String number = "Новый";
 
     public void setNumber(String number) {
         this.number = number;
