@@ -4,18 +4,22 @@ import com.ekom.ekomerp.entity.*;
 import com.haulmont.cuba.core.app.UniqueNumbersService;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.LoadContext;
-import com.haulmont.cuba.gui.components.AbstractEditor;
-import com.haulmont.cuba.gui.components.LookupPickerField;
-import com.haulmont.cuba.gui.components.OptionsGroup;
+import com.haulmont.cuba.core.global.Metadata;
+import com.haulmont.cuba.gui.WindowManager;
+import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.data.CollectionDatasource;
 import com.haulmont.cuba.gui.data.Datasource;
+import com.haulmont.cuba.gui.xml.layout.ComponentsFactory;
 import com.haulmont.cuba.security.entity.UserRole;
 import com.haulmont.cuba.security.global.UserSession;
+import com.haulmont.cuba.web.gui.components.renderers.WebComponentRenderer;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.management.Notification;
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class StockMovementAdjustmentEdit extends AbstractEditor<StockMovement> {
     @Inject
@@ -34,13 +38,33 @@ public class StockMovementAdjustmentEdit extends AbstractEditor<StockMovement> {
     private OptionsGroup stockMovementTypeOptionsGroup;
     @Inject
     private UniqueNumbersService uniqueNumbersService;
+    @Inject
+    private Metadata metadata;
+    @Inject
+    private DataGrid<StockMovementLine> stockMovementLineDataGrid;
+    @Inject
+    private ComponentsFactory componentsFactory;
+    @Inject
+    private CollectionDatasource<Product, UUID> productsDs;
 
     @Override
     public void init(Map<String, Object> params) {
         if(isUserAdmin()){
             locationField.setOptionsDatasource(locationsDs);
         }else locationField.setOptionsDatasource(locationsFilteredDs);
+        
+
+        stockMovementLineDataGrid.getColumnNN("product").setEditorFieldGenerator((datasource, property) -> {
+            LookupPickerField lookupPickerField = componentsFactory.createComponent(LookupPickerField.class);
+            lookupPickerField.setDatasource(datasource, property);
+            lookupPickerField.setOptionsDatasource(productsDs);
+            lookupPickerField.addLookupAction();
+            PickerField.LookupAction lookupAction = lookupPickerField.addLookupAction();
+            lookupAction.setLookupScreenOpenType(WindowManager.OpenType.DIALOG);
+            return lookupPickerField;
+        });
         super.init(params);
+
     }
 
     @Override
@@ -105,5 +129,30 @@ public class StockMovementAdjustmentEdit extends AbstractEditor<StockMovement> {
             number+=longNumber;
             getItem().setNumber(number);
         }
+    }
+
+    public void onCreateButtonClick() {
+        Collection<StockMovementLine> stockMovementLines = stockMovementLineDs.getItems();
+        boolean hasEmptyLine = false;
+        if(stockMovementLines!=null) {
+            for (StockMovementLine line : stockMovementLines) {
+                if (line.getProduct()==null){
+                    hasEmptyLine = true;
+                    break;
+                }
+            }
+            if(hasEmptyLine==false){
+                StockMovementLine line = metadata.create(StockMovementLine.class);
+                line.setStockMovement(getItem());
+                stockMovementLineDs.addItem(line);
+                stockMovementLineDataGrid.editItem(line);
+            }
+        }else {
+            StockMovementLine line = metadata.create(StockMovementLine.class);
+            line.setStockMovement(getItem());
+            stockMovementLineDs.addItem(line);
+            stockMovementLineDataGrid.editItem(line);
+        }
+
     }
 }

@@ -3,7 +3,7 @@
         caption="msg://editorCaption"
         class="com.ekom.ekomerp.web.stockmovement.StockMovementAdjustmentEdit"
         datasource="stockMovementDs"
-        focusComponent="fieldGroup"
+        focusComponent="stockMovementLineDataGrid"
         messagesPack="com.ekom.ekomerp.web.stockmovement">
     <dsContext>
         <datasource id="stockMovementDs"
@@ -27,6 +27,14 @@
 where e.stockman.id = :session$userId]]>
             </query>
         </collectionDatasource>
+        <collectionDatasource id="productsDs"
+                              class="com.ekom.ekomerp.entity.Product"
+                              view="productWithUnit">
+            <query>
+                <![CDATA[select e from ekomerp$Product e
+order by e.name asc]]>
+            </query>
+        </collectionDatasource>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
@@ -46,7 +54,6 @@ where e.stockman.id = :session$userId]]>
         <fieldGroup id="fieldGroup"
                     datasource="stockMovementDs">
             <column width="250px">
-                <field id="consignment"/>
                 <field id="date"/>
                 <field id="location"
                        optionsDatasource="locationsDs"/>
@@ -54,27 +61,40 @@ where e.stockman.id = :session$userId]]>
                        rows="5"/>
             </column>
         </fieldGroup>
-        <table id="stockMovementLineTable"
-               height="200px"
-               width="100%">
+        <dataGrid id="stockMovementLineDataGrid"
+                  datasource="stockMovementLineDs"
+                  editorEnabled="true"
+                  height="200px"
+                  width="100%">
             <actions>
                 <action id="create"/>
                 <action id="edit"/>
                 <action id="remove"/>
             </actions>
             <columns>
-                <column id="product"/>
-                <column id="product.code"/>
-                <column id="product.unit.name"/>
-                <column id="quantity"/>
+                <column id="product"
+                        property="product"/>
+                <column id="code"
+                        editable="false"
+                        property="product.code"/>
+                <column id="unit"
+                        editable="false"
+                        property="product.unit"/>
+                <column id="quantity"
+                        property="quantity"/>
+                <column id="quantityBefore"
+                        property="quantityBefore"/>
+                <column id="quantityAfter"
+                        property="quantityAfter"/>
             </columns>
-            <rows datasource="stockMovementLineDs"/>
             <buttonsPanel>
-                <button action="stockMovementLineTable.create"/>
-                <button action="stockMovementLineTable.edit"/>
-                <button action="stockMovementLineTable.remove"/>
+                <button id="createButton"
+                        caption="msg://Create"
+                        invoke="onCreateButtonClick"/>
+                <button id="removeButton"
+                        action="stockMovementLineDataGrid.remove"/>
             </buttonsPanel>
-        </table>
+        </dataGrid>
         <frame id="windowActions"
                screen="extendedEditWindowActions"/>
     </layout>

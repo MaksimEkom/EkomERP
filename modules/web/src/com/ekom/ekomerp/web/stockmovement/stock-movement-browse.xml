@@ -11,6 +11,7 @@
                          view="stockMovementWithLocation">
             <query>
                 <![CDATA[select e from ekomerp$StockMovement e 
+where e.stockMovementType <> 3
 order by e.date desc]]>
             </query>
         </groupDatasource>
@@ -20,6 +21,7 @@ order by e.date desc]]>
             <query>
                 <![CDATA[select e from ekomerp$StockMovement e
 where e.createdBy = :session$userLogin
+and e.stockMovementType <> 3
 order by e.date desc]]>
             </query>
         </groupDatasource>
