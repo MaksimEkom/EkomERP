@@ -2,9 +2,7 @@ package com.ekom.ekomerp.web.stockmovement;
 
 import com.ekom.ekomerp.entity.StockMovement;
 import com.haulmont.cuba.gui.WindowManager;
-import com.haulmont.cuba.gui.components.AbstractLookup;
-import com.haulmont.cuba.gui.components.Button;
-import com.haulmont.cuba.gui.components.GroupTable;
+import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.components.actions.CreateAction;
 import com.haulmont.cuba.gui.components.actions.EditAction;
 import com.haulmont.cuba.gui.data.GroupDatasource;
@@ -23,16 +21,15 @@ public class StockMovementAdjustmentBrowse extends AbstractLookup {
     private GroupDatasource<StockMovement, UUID> stockMovementsDs;
     @Inject
     private GroupDatasource<StockMovement, UUID> stockMovementsFilteredDs;
-    @Inject
-    private GroupTable<StockMovement> stockMovementsTable;
+
     @Inject
     private UserSession userSession;
     @Inject
-    private Button createBtn;
-    @Named("stockMovementsTable.create")
-    private CreateAction stockMovementsTableCreate;
-    @Named("stockMovementsTable.edit")
-    private EditAction stockMovementsTableEdit;
+    private DataGrid<StockMovement> stockMovementsFilteredDataGrid;
+    @Named("stockMovementsFilteredDataGrid.create")
+    private Action stockMovementsFilteredDataGridCreate;
+    @Named("stockMovementsFilteredDataGrid.edit")
+    private Action stockMovementsFilteredDataGridEdit;
 
     @Override
   public void init(Map<String, Object> params) {
@@ -40,11 +37,11 @@ public class StockMovementAdjustmentBrowse extends AbstractLookup {
        //     stockMovementsTable.setDatasource(stockMovementsDs);
        // }else stockMovementsTable.setDatasource(stockMovementsFilteredDs);
 
-       stockMovementsTableCreate.setWindowId("ekomerp$StockMovementAdjustment.edit");
-       stockMovementsTableCreate.setOpenType(WindowManager.OpenType.THIS_TAB);
-       stockMovementsTableEdit.setWindowId("ekomerp$StockMovementAdjustment.edit");
-       stockMovementsTableEdit.setOpenType(WindowManager.OpenType.THIS_TAB);
-       super.init(params);
+        ((CreateAction) stockMovementsFilteredDataGridCreate).setWindowId("ekomerp$StockMovementAdjustment.edit");
+        ((EditAction) stockMovementsFilteredDataGridEdit).setWindowId("ekomerp$StockMovementAdjustment.edit");
+
+
+        super.init(params);
    }
 //
 //    public boolean isUserAdmin(){
@@ -58,4 +55,6 @@ public class StockMovementAdjustmentBrowse extends AbstractLookup {
 //        }
 //        return isAdmin;
 //    }
+
+
 }

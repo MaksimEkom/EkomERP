@@ -3,7 +3,7 @@
         caption="msg://editorCaption"
         class="com.ekom.ekomerp.web.stockmovement.StockMovementAdjustmentEdit"
         datasource="stockMovementDs"
-        focusComponent="stockMovementLineDataGrid"
+        focusComponent="fieldGroup"
         messagesPack="com.ekom.ekomerp.web.stockmovement">
     <dsContext>
         <datasource id="stockMovementDs"
@@ -38,7 +38,7 @@ order by e.name asc]]>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="windowActions"
+    <layout expand="stockMovementLineDataGrid"
             spacing="true">
         <hbox spacing="true">
             <vbox spacing="true">
@@ -64,7 +64,6 @@ order by e.name asc]]>
         <dataGrid id="stockMovementLineDataGrid"
                   datasource="stockMovementLineDs"
                   editorEnabled="true"
-                  height="200px"
                   width="100%">
             <actions>
                 <action id="create"/>
@@ -72,30 +71,23 @@ order by e.name asc]]>
                 <action id="remove"/>
             </actions>
             <columns>
+                <column property="quantity"/>
+                <column property="quantityBefore"/>
+                <column property="quantityAfter"/>
                 <column id="product"
+                        editable="false"
                         property="product"/>
-                <column id="code"
-                        editable="false"
-                        property="product.code"/>
-                <column id="unit"
-                        editable="false"
-                        property="product.unit"/>
-                <column id="quantity"
-                        property="quantity"/>
-                <column id="quantityBefore"
-                        property="quantityBefore"/>
-                <column id="quantityAfter"
-                        property="quantityAfter"/>
             </columns>
             <buttonsPanel>
                 <button id="createButton"
-                        caption="msg://Create"
-                        invoke="onCreateButtonClick"/>
+                        action="stockMovementLineDataGrid.create"/>
+                <button id="editButton"
+                        action="stockMovementLineDataGrid.edit"/>
                 <button id="removeButton"
                         action="stockMovementLineDataGrid.remove"/>
             </buttonsPanel>
         </dataGrid>
         <frame id="windowActions"
-               screen="extendedEditWindowActions"/>
+               screen="editWindowActions"/>
     </layout>
 </window>

@@ -7,17 +7,15 @@ import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.WindowManager;
 import com.haulmont.cuba.gui.components.*;
+import com.haulmont.cuba.gui.components.actions.CreateAction;
+import com.haulmont.cuba.gui.components.actions.EditAction;
 import com.haulmont.cuba.gui.data.CollectionDatasource;
-import com.haulmont.cuba.gui.data.Datasource;
 import com.haulmont.cuba.gui.xml.layout.ComponentsFactory;
 import com.haulmont.cuba.security.entity.UserRole;
 import com.haulmont.cuba.security.global.UserSession;
-import com.haulmont.cuba.web.gui.components.renderers.WebComponentRenderer;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.management.Notification;
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -46,9 +44,30 @@ public class StockMovementAdjustmentEdit extends AbstractEditor<StockMovement> {
     private ComponentsFactory componentsFactory;
     @Inject
     private CollectionDatasource<Product, UUID> productsDs;
+    @Named("stockMovementLineDataGrid.create")
+    private Action stockMovementLineDataGridCreate;
+    @Named("stockMovementLineDataGrid.edit")
+    private Action stockMovementLineDataGridEdit;
 
     @Override
     public void init(Map<String, Object> params) {
+        ((EditAction) stockMovementLineDataGridEdit).setOpenType(WindowManager.OpenType.NEW_TAB);
+        stockMovementLineDataGrid.addAction(new CreateAction(stockMovementLineDataGrid){
+            @Override
+            public void actionPerform(Component component) {
+                StockMovementLine line = metadata.create(StockMovementLine.class);
+                stockMovementLineDs.addItem(line);
+                stockMovementLineDataGrid.editItem(line.getId());
+            }
+        });
+        stockMovementLineDataGrid.addAction(new EditAction(stockMovementLineDataGrid){
+            @Override
+            public void actionPerform(Component component) {
+                stockMovementLineDataGrid.editItem(stockMovementLineDataGrid.getSingleSelected().getId());
+
+            }
+        });
+
         if(isUserAdmin()){
             locationField.setOptionsDatasource(locationsDs);
         }else locationField.setOptionsDatasource(locationsFilteredDs);
@@ -63,7 +82,8 @@ public class StockMovementAdjustmentEdit extends AbstractEditor<StockMovement> {
             lookupAction.setLookupScreenOpenType(WindowManager.OpenType.DIALOG);
             return lookupPickerField;
         });
-        super.init(params);
+
+
 
     }
 
@@ -131,28 +151,30 @@ public class StockMovementAdjustmentEdit extends AbstractEditor<StockMovement> {
         }
     }
 
-    public void onCreateButtonClick() {
-        Collection<StockMovementLine> stockMovementLines = stockMovementLineDs.getItems();
-        boolean hasEmptyLine = false;
-        if(stockMovementLines!=null) {
-            for (StockMovementLine line : stockMovementLines) {
-                if (line.getProduct()==null){
-                    hasEmptyLine = true;
-                    break;
-                }
-            }
-            if(hasEmptyLine==false){
-                StockMovementLine line = metadata.create(StockMovementLine.class);
-                line.setStockMovement(getItem());
-                stockMovementLineDs.addItem(line);
-                stockMovementLineDataGrid.editItem(line);
-            }
-        }else {
-            StockMovementLine line = metadata.create(StockMovementLine.class);
-            line.setStockMovement(getItem());
-            stockMovementLineDs.addItem(line);
-            stockMovementLineDataGrid.editItem(line);
-        }
+//    public void onCreateButtonClick() {
+//        Collection<StockMovementLine> stockMovementLines = stockMovementLineDs.getItems();
+//        boolean hasEmptyLine = false;
+//        if(stockMovementLines!=null) {
+//            for (StockMovementLine line : stockMovementLines) {
+//                if (line.getProduct()==null){
+//                    hasEmptyLine = true;
+//                    break;
+//                }
+//            }
+//            if(hasEmptyLine==false){
+//                StockMovementLine line = metadata.create(StockMovementLine.class);
+//                line.setStockMovement(getItem());
+//                stockMovementLineDs.addItem(line);
+//                stockMovementLineDataGrid.editItem(line.getId());
+//            }
+//        }else {
+//            StockMovementLine line = metadata.create(StockMovementLine.class);
+//            line.setStockMovement(getItem());
+//            stockMovementLineDs.addItem(line);
+//            stockMovementLineDataGrid.editItem(line.getId());
+//        }
+//
+//    }
 
-    }
+    
 }

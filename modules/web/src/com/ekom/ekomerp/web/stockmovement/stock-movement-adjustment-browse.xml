@@ -2,8 +2,7 @@
 <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
         caption="msg://browseCaption"
         class="com.ekom.ekomerp.web.stockmovement.StockMovementAdjustmentBrowse"
-        focusComponent="stockMovementsTable"
-        lookupComponent="stockMovementsTable"
+        focusComponent="stockMovementsFilteredDataGrid"
         messagesPack="com.ekom.ekomerp.web.stockmovement">
     <dsContext>
         <groupDatasource id="stockMovementsDs"
@@ -28,40 +27,38 @@ order by e.date desc]]>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="stockMovementsTable"
+    <layout expand="stockMovementsFilteredDataGrid"
             spacing="true">
-        <filter id="filter"
-                applyTo="stockMovementsTable"
+        <filter id="stockMovementsFilter"
+                applyTo="stockMovementsFilteredDataGrid"
                 datasource="stockMovementsDs">
             <properties include=".*"/>
         </filter>
-        <groupTable id="stockMovementsTable"
-                    width="100%">
+        <dataGrid id="stockMovementsFilteredDataGrid"
+                  datasource="stockMovementsFilteredDs"
+                  width="100%">
             <actions>
                 <action id="create"/>
                 <action id="edit"/>
                 <action id="remove"/>
+                <action id="refresh"/>
                 <action id="excel"/>
             </actions>
             <columns>
-                <column id="consignment"/>
-                <column id="date"/>
-                <column id="stockMovementType"/>
-                <column id="location"/>
-                <column id="notes"/>
+                <column property="number"/>
+                <column property="date"/>
+                <column property="stockMovementType"/>
+                <column editable="false"
+                        property="location"/>
+                <column property="notes"/>
             </columns>
-            <rows datasource="stockMovementsFilteredDs"/>
-            <rowsCount/>
-            <buttonsPanel id="buttonsPanel"
-                          alwaysVisible="true">
-                <button id="createBtn"
-                        action="stockMovementsTable.create"/>
-                <button id="editBtn"
-                        action="stockMovementsTable.edit"/>
-                <button id="removeBtn"
-                        action="stockMovementsTable.remove"/>
-                <button action="stockMovementsTable.excel"/>
+            <buttonsPanel>
+                <button action="stockMovementsFilteredDataGrid.create"/>
+                <button action="stockMovementsFilteredDataGrid.edit"/>
+                <button action="stockMovementsFilteredDataGrid.remove"/>
+                <button action="stockMovementsFilteredDataGrid.refresh"/>
+                <button action="stockMovementsFilteredDataGrid.excel"/>
             </buttonsPanel>
-        </groupTable>
+        </dataGrid>
     </layout>
 </window>
