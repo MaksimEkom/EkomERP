@@ -11,6 +11,7 @@
         <item id="ekomerp$Country.browse"/>
         <item id="ekomerp$Region.browse"/>
         <item id="ekomerp$PaymentCondition.browse"/>
+        <item screen="CopyFromAnalog"/>
     </menu>
     <menu id="purchase"
           insertBefore="administration">
@@ -20,7 +21,7 @@
           insertBefore="administration">
         <item id="ekomerp$ManufacturingOrder.browse"/>
     </menu>
-    <menu id="Accounting"
+    <menu id="accounting"
           insertBefore="administration">
         <item id="ekomerp$Invoice.browse"/>
     </menu>

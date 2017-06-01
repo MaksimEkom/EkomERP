@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://caption"
+        class="com.ekom.ekomerp.web.product.Copyfromanalog"
+        messagesPack="com.ekom.ekomerp.web.product">
+    <dsContext>
+        <collectionDatasource id="productsDs"
+                              class="com.ekom.ekomerp.entity.Product"
+                              view="_local">
+            <query>
+                <![CDATA[select e from ekomerp$Product e]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <dialogMode closeable="true"
+                forceDialog="true"
+                height="180"
+                modal="true"
+                resizable="true"
+                width="500"/>
+    <layout margin="true">
+        <vbox spacing="true">
+            <hbox spacing="true">
+                <label value="msg://Product"
+                       width="100px"/>
+                <lookupPickerField id="productLookupPickerField"
+                                   optionsDatasource="productsDs"
+                                   width="350px"/>
+            </hbox>
+            <hbox spacing="true">
+                <label value="msg://Code"
+                       width="100px"/>
+                <textField id="codeTextField"
+                           editable="false"
+                           width="350px"/>
+            </hbox>
+            <buttonsPanel>
+                <button caption="msg://OK"/>
+                <button caption="msg://Cancel"/>
+            </buttonsPanel>
+        </vbox>
+    </layout>
+</window>

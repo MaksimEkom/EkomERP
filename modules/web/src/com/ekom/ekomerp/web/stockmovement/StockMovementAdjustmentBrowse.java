@@ -5,6 +5,7 @@ import com.haulmont.cuba.gui.WindowManager;
 import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.components.actions.CreateAction;
 import com.haulmont.cuba.gui.components.actions.EditAction;
+import com.haulmont.cuba.gui.data.CollectionDatasource;
 import com.haulmont.cuba.gui.data.GroupDatasource;
 import com.haulmont.cuba.security.entity.UserRole;
 import com.haulmont.cuba.security.global.UserSession;
@@ -18,9 +19,9 @@ import java.util.UUID;
 public class StockMovementAdjustmentBrowse extends AbstractLookup {
 
     @Inject
-    private GroupDatasource<StockMovement, UUID> stockMovementsDs;
+    private CollectionDatasource<StockMovement, UUID> stockMovementsDs;
     @Inject
-    private GroupDatasource<StockMovement, UUID> stockMovementsFilteredDs;
+    private CollectionDatasource<StockMovement, UUID> stockMovementsFilteredDs;
 
     @Inject
     private UserSession userSession;
@@ -30,12 +31,18 @@ public class StockMovementAdjustmentBrowse extends AbstractLookup {
     private Action stockMovementsFilteredDataGridCreate;
     @Named("stockMovementsFilteredDataGrid.edit")
     private Action stockMovementsFilteredDataGridEdit;
+    @Inject
+    private Filter stockMovementsFilter;
 
     @Override
   public void init(Map<String, Object> params) {
-       //if(isUserAdmin()){
-       //     stockMovementsTable.setDatasource(stockMovementsDs);
-       // }else stockMovementsTable.setDatasource(stockMovementsFilteredDs);
+       if(isUserAdmin()){
+           stockMovementsFilteredDataGrid.setDatasource(stockMovementsDs);
+           stockMovementsFilter.setDatasource(stockMovementsDs);
+       }else {
+           stockMovementsFilteredDataGrid.setDatasource(stockMovementsFilteredDs);
+           stockMovementsFilter.setDatasource(stockMovementsFilteredDs);
+       }
 
         ((CreateAction) stockMovementsFilteredDataGridCreate).setWindowId("ekomerp$StockMovementAdjustment.edit");
         ((EditAction) stockMovementsFilteredDataGridEdit).setWindowId("ekomerp$StockMovementAdjustment.edit");
@@ -43,18 +50,18 @@ public class StockMovementAdjustmentBrowse extends AbstractLookup {
 
         super.init(params);
    }
-//
-//    public boolean isUserAdmin(){
-//        Collection <UserRole> userRoles = userSession.getUser().getUserRoles();
-//        boolean isAdmin = false;
-//        for (UserRole userRole:userRoles){
-//            if(userRole.getRole().getType().getId()==10){
-//                isAdmin = true;
-//                break;
-//            }
-//        }
-//        return isAdmin;
-//    }
+
+    public boolean isUserAdmin(){
+        Collection <UserRole> userRoles = userSession.getUser().getUserRoles();
+        boolean isAdmin = false;
+        for (UserRole userRole:userRoles){
+            if(userRole.getRole().getType().getId()==10){
+                isAdmin = true;
+                break;
+            }
+        }
+        return isAdmin;
+    }
 
 
 }

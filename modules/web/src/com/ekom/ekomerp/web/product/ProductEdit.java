@@ -101,4 +101,8 @@ public class ProductEdit extends AbstractEditor<Product> {
 
 
     
+
+    public void onCopyButtonClick() {
+
+    }
 }

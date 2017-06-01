@@ -2,66 +2,68 @@
 <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
         caption="msg://browseCaption"
         class="com.ekom.ekomerp.web.stockmovement.StockMovementBrowse"
-        focusComponent="stockMovementsTable"
-        lookupComponent="stockMovementsTable"
         messagesPack="com.ekom.ekomerp.web.stockmovement">
     <dsContext>
-        <groupDatasource id="stockMovementsDs"
-                         class="com.ekom.ekomerp.entity.StockMovement"
-                         view="stockMovementWithLocation">
+        <collectionDatasource id="stockMovementsDs"
+                              class="com.ekom.ekomerp.entity.StockMovement"
+                              view="stockMovementWithLocation">
             <query>
                 <![CDATA[select e from ekomerp$StockMovement e 
 where e.stockMovementType <> 3
 order by e.date desc]]>
             </query>
-        </groupDatasource>
-        <groupDatasource id="stockMovementsFilteredDs"
-                         class="com.ekom.ekomerp.entity.StockMovement"
-                         view="stockMovementWithLocation">
+        </collectionDatasource>
+        <collectionDatasource id="stockMovementsFilteredDs"
+                              class="com.ekom.ekomerp.entity.StockMovement"
+                              view="stockMovementWithLocation">
             <query>
                 <![CDATA[select e from ekomerp$StockMovement e
 where e.createdBy = :session$userLogin
 and e.stockMovementType <> 3
 order by e.date desc]]>
             </query>
-        </groupDatasource>
+        </collectionDatasource>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="stockMovementsTable"
+    <layout expand="stockMovementsFilteredDataGrid"
             spacing="true">
-        <filter id="filter"
-                applyTo="stockMovementsTable"
-                datasource="stockMovementsDs">
+        <filter id="stockMovementsFilteredFilter"
+                applyTo="stockMovementsFilteredDataGrid"
+                datasource="stockMovementsFilteredDs"
+                defaultMode="fts"
+                useMaxResults="false">
             <properties include=".*"/>
         </filter>
-        <groupTable id="stockMovementsTable"
-                    width="100%">
+        <dataGrid id="stockMovementsFilteredDataGrid"
+                  datasource="stockMovementsFilteredDs"
+                  width="100%">
             <actions>
                 <action id="create"/>
                 <action id="edit"/>
                 <action id="remove"/>
+                <action id="refresh"/>
                 <action id="excel"/>
             </actions>
             <columns>
-                <column id="consignment"/>
-                <column id="date"/>
-                <column id="stockMovementType"/>
-                <column id="location"/>
-                <column id="notes"/>
+                <column property="consignment"/>
+                <column property="date"/>
+                <column property="stockMovementType"/>
+                <column property="notes"/>
+                <column property="number"/>
             </columns>
-            <rows datasource="stockMovementsFilteredDs"/>
-            <rowsCount/>
-            <buttonsPanel id="buttonsPanel"
-                          alwaysVisible="true">
-                <button id="createBtn"
-                        action="stockMovementsTable.create"/>
-                <button id="editBtn"
-                        action="stockMovementsTable.edit"/>
-                <button id="removeBtn"
-                        action="stockMovementsTable.remove"/>
-                <button action="stockMovementsTable.excel"/>
+            <buttonsPanel>
+                <button id="createButton"
+                        action="stockMovementsFilteredDataGrid.create"/>
+                <button id="editButton"
+                        action="stockMovementsFilteredDataGrid.edit"/>
+                <button id="excelButton"
+                        action="stockMovementsFilteredDataGrid.excel"/>
+                <button id="refreshButton"
+                        action="stockMovementsFilteredDataGrid.refresh"/>
+                <button id="removeButton"
+                        action="stockMovementsFilteredDataGrid.remove"/>
             </buttonsPanel>
-        </groupTable>
+        </dataGrid>
     </layout>
 </window>

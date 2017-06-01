@@ -5,25 +5,25 @@
         focusComponent="stockMovementsFilteredDataGrid"
         messagesPack="com.ekom.ekomerp.web.stockmovement">
     <dsContext>
-        <groupDatasource id="stockMovementsDs"
-                         class="com.ekom.ekomerp.entity.StockMovement"
-                         view="stockMovementWithLocation">
+        <collectionDatasource id="stockMovementsDs"
+                              class="com.ekom.ekomerp.entity.StockMovement"
+                              view="stockMovementWithLocation">
             <query>
                 <![CDATA[select e from ekomerp$StockMovement e
 where e.stockMovementType = 3
 order by e.date desc]]>
             </query>
-        </groupDatasource>
-        <groupDatasource id="stockMovementsFilteredDs"
-                         class="com.ekom.ekomerp.entity.StockMovement"
-                         view="stockMovementWithLocation">
+        </collectionDatasource>
+        <collectionDatasource id="stockMovementsFilteredDs"
+                              class="com.ekom.ekomerp.entity.StockMovement"
+                              view="stockMovementWithLocation">
             <query>
                 <![CDATA[select e from ekomerp$StockMovement e
 where e.createdBy = :session$userLogin
 and e.stockMovementType = 3
 order by e.date desc]]>
             </query>
-        </groupDatasource>
+        </collectionDatasource>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
@@ -31,11 +31,11 @@ order by e.date desc]]>
             spacing="true">
         <filter id="stockMovementsFilter"
                 applyTo="stockMovementsFilteredDataGrid"
-                datasource="stockMovementsDs">
-            <properties include=".*"/>
-        </filter>
+                datasource="stockMovementsFilteredDs"
+                defaultMode="fts"
+                useMaxResults="false"/>
         <dataGrid id="stockMovementsFilteredDataGrid"
-                  datasource="stockMovementsFilteredDs"
+                  datasource="stockMovementsDs"
                   width="100%">
             <actions>
                 <action id="create"/>

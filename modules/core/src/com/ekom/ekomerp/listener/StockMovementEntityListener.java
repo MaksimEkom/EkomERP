@@ -45,6 +45,10 @@ public class StockMovementEntityListener implements BeforeUpdateEntityListener<S
                         inventoryWorker.insertInventoryLine(line.getProduct(), stockMovement.getLocation(), line.getQuantity()*(-1));
                         line.setQuantityAfter(inventoryLine.getQuantity());
                         break;
+                    case adjustment:
+                        line.setQuantityBefore(0.0);
+                        inventoryWorker.insertInventoryLine(line.getProduct(), stockMovement.getLocation(), line.getQuantity());
+                        line.setQuantityAfter(inventoryLine.getQuantity());
                 }
             }else{
                 switch (stockMovement.getStockMovementType()) {
@@ -58,6 +62,10 @@ public class StockMovementEntityListener implements BeforeUpdateEntityListener<S
                         inventoryWorker.reduceInventoryLine(inventoryLine, line.getQuantity());
                         line.setQuantityAfter(inventoryLine.getQuantity());
                         break;
+                    case adjustment:
+                        line.setQuantityBefore(inventoryLine.getQuantity());
+                        inventoryWorker.increaseInventoryLine(inventoryLine, line.getQuantity());
+                        line.setQuantityAfter(inventoryLine.getQuantity());
                 }
             }
         }
@@ -74,6 +82,9 @@ public class StockMovementEntityListener implements BeforeUpdateEntityListener<S
                         break;
                     case out:
                         inventoryWorker.increaseInventoryLine(inventoryLine, line.getQuantity());
+                        break;
+                    case adjustment:
+                        inventoryWorker.reduceInventoryLine(inventoryLine, line.getQuantity());
                         break;
                 }
             }

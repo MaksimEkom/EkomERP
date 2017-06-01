@@ -3,7 +3,6 @@
         caption="msg://editorCaption"
         class="com.ekom.ekomerp.web.stockmovement.StockMovementAdjustmentEdit"
         datasource="stockMovementDs"
-        focusComponent="fieldGroup"
         messagesPack="com.ekom.ekomerp.web.stockmovement">
     <dsContext>
         <datasource id="stockMovementDs"
@@ -38,9 +37,10 @@ order by e.name asc]]>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="stockMovementLineDataGrid"
+    <layout expand="stockMovementLineTable"
             spacing="true">
-        <hbox spacing="true">
+        <hbox spacing="true"
+              width="100%">
             <vbox spacing="true">
                 <label id="stockMovementLabel"
                        stylename="h2 bold"
@@ -50,44 +50,53 @@ order by e.name asc]]>
                        property="number"
                        stylename="h1"/>
             </vbox>
+            <dateField align="MIDDLE_LEFT"
+                       caption="msg://Date"
+                       datasource="stockMovementDs"
+                       property="date"
+                       width="200px"/>
         </hbox>
-        <fieldGroup id="fieldGroup"
-                    datasource="stockMovementDs">
-            <column width="250px">
-                <field id="date"/>
-                <field id="location"
-                       optionsDatasource="locationsDs"/>
-                <field id="notes"
-                       rows="5"/>
-            </column>
-        </fieldGroup>
-        <dataGrid id="stockMovementLineDataGrid"
-                  datasource="stockMovementLineDs"
-                  editorEnabled="true"
-                  width="100%">
+        <lookupField id="locationLookupField"
+                     caption="msg://Location"
+                     datasource="stockMovementDs"
+                     property="location"
+                     width="300px"/>
+        <table id="stockMovementLineTable"
+               editable="true"
+               stylename="borderless"
+               width="100%">
             <actions>
                 <action id="create"/>
-                <action id="edit"/>
+                <action id="edit"
+                        enable="false"
+                        visible="false"/>
                 <action id="remove"/>
             </actions>
             <columns>
-                <column property="quantity"/>
-                <column property="quantityBefore"/>
-                <column property="quantityAfter"/>
                 <column id="product"
-                        editable="false"
-                        property="product"/>
+                        editable="true"/>
+                <column id="product.code"/>
+                <column id="product.unit"/>
+                <column id="quantity"
+                        editable="true"/>
+                <column id="quantityBefore"/>
+                <column id="quantityAfter"
+                        editable="true"/>
             </columns>
+            <rows datasource="stockMovementLineDs"/>
             <buttonsPanel>
                 <button id="createButton"
-                        action="stockMovementLineDataGrid.create"/>
-                <button id="editButton"
-                        action="stockMovementLineDataGrid.edit"/>
+                        caption="msg://Create"
+                        invoke="onCreateButtonClick"/>
                 <button id="removeButton"
-                        action="stockMovementLineDataGrid.remove"/>
+                        action="stockMovementLineTable.remove"/>
             </buttonsPanel>
-        </dataGrid>
+        </table>
+        <textArea datasource="stockMovementDs"
+                  inputPrompt="msg://Notes"
+                  property="notes"
+                  width="100%"/>
         <frame id="windowActions"
-               screen="editWindowActions"/>
+               screen="extendedEditWindowActions"/>
     </layout>
 </window>
