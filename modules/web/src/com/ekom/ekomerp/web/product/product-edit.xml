@@ -147,9 +147,6 @@ order by e.stockMovement.date]]>
                             <button action="laboriousnessTable.create"/>
                             <button action="laboriousnessTable.edit"/>
                             <button action="laboriousnessTable.remove"/>
-                            <button id="copyButton"
-                                    caption="msg://Copy"
-                                    invoke="onCopyButtonClick"/>
                         </buttonsPanel>
                     </table>
                     <hbox spacing="true">
@@ -177,6 +174,9 @@ order by e.stockMovement.date]]>
                             <button action="consumptionTable.create"/>
                             <button action="consumptionTable.edit"/>
                             <button action="consumptionTable.remove"/>
+                            <button id="copyButton"
+                                    caption="msg://Copy"
+                                    invoke="onCopyButtonClick"/>
                         </buttonsPanel>
                     </table>
                 </tab>

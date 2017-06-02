@@ -55,6 +55,6 @@
             template="com/ekom/ekomerp/web/stockmovement/stock-movement-adjustment-edit.xml"/>
     <screen id="ekomerp$StockMovementAdjustment.browse"
             template="com/ekom/ekomerp/web/stockmovement/stock-movement-adjustment-browse.xml"/>
-    <screen id="CopyFromAnalog"
-            template="com/ekom/ekomerp/web/product/CopyFromAnalog.xml"/>
+    <screen id="product-list"
+            template="com/ekom/ekomerp/web/product/product-list.xml"/>
 </screen-config>

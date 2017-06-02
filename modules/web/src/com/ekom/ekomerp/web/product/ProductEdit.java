@@ -1,5 +1,6 @@
 package com.ekom.ekomerp.web.product;
 
+import com.ekom.ekomerp.entity.Consumption;
 import com.ekom.ekomerp.entity.Laboriousness;
 import com.ekom.ekomerp.entity.StockMovementLine;
 import com.haulmont.cuba.core.entity.FileDescriptor;
@@ -7,7 +8,6 @@ import com.haulmont.cuba.core.global.FileStorageException;
 import com.haulmont.cuba.gui.WindowManager;
 import com.haulmont.cuba.gui.components.*;
 import com.ekom.ekomerp.entity.Product;
-import com.haulmont.cuba.gui.components.actions.EditAction;
 import com.haulmont.cuba.gui.data.CollectionDatasource;
 import com.haulmont.cuba.gui.data.DataSupplier;
 import com.haulmont.cuba.gui.export.FileDataProvider;
@@ -15,11 +15,10 @@ import com.haulmont.cuba.gui.export.ResourceDataProvider;
 import com.haulmont.cuba.gui.upload.FileUploadingAPI;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
-import com.haulmont.cuba.gui.data.Datasource;
 
 public class ProductEdit extends AbstractEditor<Product> {
 
@@ -99,10 +98,14 @@ public class ProductEdit extends AbstractEditor<Product> {
         label1.setValue(totalLaboriousness);
     }
 
-
-    
-
     public void onCopyButtonClick() {
-
+        // Open the products list screen
+        ProductList window = (ProductList) openWindow("product-list", WindowManager.OpenType.DIALOG);
+        // Add a listener that will be notified when the screen is closed by action with Window.COMMIT_ACTION_ID
+        window.addCloseWithCommitListener(() -> {
+            // Get a selected entity from the invoked screen and use it
+            Set<Consumption> consumptionSet = window.getSelectedProduct().getConsumption();
+            getItem().setConsumption(consumptionSet);
+        });
     }
 }

@@ -251,4 +251,18 @@
                       view="_minimal"/>
         </property>
     </view>
+    <view class="com.ekom.ekomerp.entity.Product"
+          extends="_local"
+          name="productWithConsumption">
+        <property name="unit"
+                  view="_minimal"/>
+        <property name="consumption"
+                  view="_minimal">
+            <property name="product"
+                      view="_minimal"/>
+            <property name="consumableProduct"
+                      view="_minimal"/>
+            <property name="quantity"/>
+        </property>
+    </view>
 </views>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
         caption="msg://caption"
-        class="com.ekom.ekomerp.web.product.Copyfromanalog"
+        class="com.ekom.ekomerp.web.product.ProductList"
         messagesPack="com.ekom.ekomerp.web.product">
     <dsContext>
         <collectionDatasource id="productsDs"
                               class="com.ekom.ekomerp.entity.Product"
-                              view="_local">
+                              view="productWithConsumption">
             <query>
                 <![CDATA[select e from ekomerp$Product e]]>
             </query>
@@ -35,8 +35,12 @@
                            width="350px"/>
             </hbox>
             <buttonsPanel>
-                <button caption="msg://OK"/>
-                <button caption="msg://Cancel"/>
+                <button id="buttonOK"
+                        caption="msg://OK"
+                        invoke="select"/>
+                <button id="buttonCANCEL"
+                        caption="msg://Cancel"
+                        invoke="cancel"/>
             </buttonsPanel>
         </vbox>
     </layout>
