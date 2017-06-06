@@ -1,14 +1,12 @@
 package com.ekom.ekomerp.listener;
 
-import com.ekom.ekomerp.entity.Inventory;
+import com.ekom.ekomerp.entity.*;
 import com.haulmont.cuba.core.Persistence;
 import com.haulmont.cuba.core.Transaction;
 import com.haulmont.cuba.core.TypedQuery;
 import org.springframework.stereotype.Component;
 import com.haulmont.cuba.core.listener.BeforeDeleteEntityListener;
 import com.haulmont.cuba.core.EntityManager;
-import com.ekom.ekomerp.entity.StockMovement;
-import com.ekom.ekomerp.entity.StockMovementLine;
 import com.haulmont.cuba.core.listener.BeforeInsertEntityListener;
 import com.haulmont.cuba.core.listener.BeforeUpdateEntityListener;
 import com.ekom.ekomerp.service.InventoryWorker;
@@ -26,8 +24,11 @@ public class StockMovementEntityListener implements BeforeUpdateEntityListener<S
     protected Persistence persistence;
     @Override
     public void onBeforeUpdate(StockMovement entity, EntityManager entityManager) {
-       removeOldStockMovementLines(entity,entityManager);
-       addStockMovement(entity,entityManager);
+        if (persistence.getTools().getDirtyFields(entity).contains("location")||
+                persistence.getTools().getDirtyFields(entity).contains("stockMovementType")) {
+            removeOldStockMovementLines(entity, entityManager);
+            addStockMovement(entity, entityManager);
+        }
     }
     private void addStockMovement(StockMovement stockMovement, EntityManager entityManager){
         Set<StockMovementLine> stockMovementLines = stockMovement.getStockMovementLine();
@@ -74,18 +75,36 @@ public class StockMovementEntityListener implements BeforeUpdateEntityListener<S
         Set<StockMovementLine> lines = stockMovement.getStockMovementLine();
         Inventory inventoryLine;
         for (StockMovementLine line : lines) {
-            inventoryLine = inventoryWorker.findInventoryLine(line.getProduct(), stockMovement.getLocation());
+            if(persistence.getTools().getDirtyFields(stockMovement).contains("location")) {
+                inventoryLine = inventoryWorker.findInventoryLine(line.getProduct(),
+                        (Location) persistence.getTools().getOldValue(stockMovement,"location"));
+            }else
+                inventoryLine = inventoryWorker.findInventoryLine(line.getProduct(), stockMovement.getLocation());
             if (inventoryLine != null) {
-                switch (stockMovement.getStockMovementType()) {
-                    case in:
-                        inventoryWorker.reduceInventoryLine(inventoryLine, line.getQuantity());
-                        break;
-                    case out:
-                        inventoryWorker.increaseInventoryLine(inventoryLine, line.getQuantity());
-                        break;
-                    case adjustment:
-                        inventoryWorker.reduceInventoryLine(inventoryLine, line.getQuantity());
-                        break;
+                if(persistence.getTools().getDirtyFields(stockMovement).contains("stockMovementType")) {
+                    switch ( (StockmovementTypeEnum) persistence.getTools().getOldValue(stockMovement,"stockMovementType")) {
+                        case in:
+                            inventoryWorker.reduceInventoryLine(inventoryLine, line.getQuantity());
+                            break;
+                        case out:
+                            inventoryWorker.increaseInventoryLine(inventoryLine, line.getQuantity());
+                            break;
+                        case adjustment:
+                            inventoryWorker.reduceInventoryLine(inventoryLine, line.getQuantity());
+                            break;
+                    }
+                }else{
+                    switch (stockMovement.getStockMovementType()) {
+                        case in:
+                            inventoryWorker.reduceInventoryLine(inventoryLine, line.getQuantity());
+                            break;
+                        case out:
+                            inventoryWorker.increaseInventoryLine(inventoryLine, line.getQuantity());
+                            break;
+                        case adjustment:
+                            inventoryWorker.reduceInventoryLine(inventoryLine, line.getQuantity());
+                            break;
+                    }
                 }
             }
         }

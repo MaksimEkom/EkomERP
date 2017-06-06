@@ -265,4 +265,27 @@
             <property name="quantity"/>
         </property>
     </view>
+    <view class="com.ekom.ekomerp.entity.Product"
+          extends="_minimal"
+          name="productWithLaboriousnessAndConsumption">
+        <property name="laboriousness"
+                  view="_minimal">
+            <property name="product"
+                      view="_minimal"/>
+            <property name="operation"
+                      view="_minimal"/>
+            <property name="value"/>
+        </property>
+        <property name="consumption"
+                  view="_minimal">
+            <property name="product"
+                      view="_minimal"/>
+            <property name="consumableProduct"
+                      view="_minimal"/>
+            <property name="quantity"/>
+        </property>
+        <property name="code"/>
+        <property name="unit"
+                  view="_minimal"/>
+    </view>
 </views>

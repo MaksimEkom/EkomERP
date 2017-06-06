@@ -147,12 +147,13 @@ order by e.stockMovement.date]]>
                             <button action="laboriousnessTable.create"/>
                             <button action="laboriousnessTable.edit"/>
                             <button action="laboriousnessTable.remove"/>
+                            <button id="copyLaboriousnessButton"
+                                    caption="msg://Copy"
+                                    invoke="onCopyLaboriousnessButtonClick"/>
+                            <label value="msg://Total laboriousness"/>
+                            <label id="label1"/>
                         </buttonsPanel>
                     </table>
-                    <hbox spacing="true">
-                        <label value="msg://Total laboriousness"/>
-                        <label id="label1"/>
-                    </hbox>
                 </tab>
                 <tab caption="msg://Consumption"
                      spacing="true">
@@ -174,9 +175,9 @@ order by e.stockMovement.date]]>
                             <button action="consumptionTable.create"/>
                             <button action="consumptionTable.edit"/>
                             <button action="consumptionTable.remove"/>
-                            <button id="copyButton"
+                            <button id="copyConsumptionButton"
                                     caption="msg://Copy"
-                                    invoke="onCopyButtonClick"/>
+                                    invoke="onCopyConsumptionButtonClick"/>
                         </buttonsPanel>
                     </table>
                 </tab>
@@ -206,6 +207,6 @@ order by e.stockMovement.date]]>
             </tabSheet>
         </scrollBox>
         <frame id="windowActions"
-               screen="editWindowActions"/>
+               screen="extendedEditWindowActions"/>
     </layout>
 </window>

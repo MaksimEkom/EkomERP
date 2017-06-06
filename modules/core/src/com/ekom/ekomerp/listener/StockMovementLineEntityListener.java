@@ -25,31 +25,38 @@ public class StockMovementLineEntityListener implements BeforeDeleteEntityListen
 
     @Override
     public void onBeforeDelete(StockMovementLine entity, EntityManager entityManager) {
-        removeStockMovementLine(entity,entityManager);
+        if(!persistence.getTools().isDirty(entity.getStockMovement(),"location","stockMovementType")) {
+            removeStockMovementLine(entity, entityManager);
+        }
     }
 
     @Override
     public void onBeforeInsert(StockMovementLine entity, EntityManager entityManager) {
-       if (inventoryWorker.findInventoryLine(entity.getProduct(), entity.getStockMovement().getLocation())==null){
-            entity.setQuantityBefore(0.0);
-       }else {
-            entity.setQuantityBefore(inventoryWorker.findInventoryLine(entity.getProduct(), entity.getStockMovement().getLocation()).getQuantity());
-        }
-        addStockMovementLine(entity,entityManager);
-        entity.setQuantityAfter(inventoryWorker.findInventoryLine(entity.getProduct(), entity.getStockMovement().getLocation()).getQuantity());
-    }
-
-    @Override
-    public void onBeforeUpdate(StockMovementLine entity, EntityManager entityManager) {
-        if (persistence.getTools().getDirtyFields(entity).contains("product")||persistence.getTools().getDirtyFields(entity).contains("quantity")) {
-            removeOldStockMovementLine(entity, entityManager);
-            if(inventoryWorker.findInventoryLine(entity.getProduct(),entity.getStockMovement().getLocation())==null){
+       if(!persistence.getTools().isDirty(entity.getStockMovement(),"location","stockMovementType")){
+            if (inventoryWorker.findInventoryLine(entity.getProduct(), entity.getStockMovement().getLocation())==null){
                 entity.setQuantityBefore(0.0);
             }else {
                 entity.setQuantityBefore(inventoryWorker.findInventoryLine(entity.getProduct(), entity.getStockMovement().getLocation()).getQuantity());
             }
-            addStockMovementLine(entity, entityManager);
+            addStockMovementLine(entity,entityManager);
             entity.setQuantityAfter(inventoryWorker.findInventoryLine(entity.getProduct(), entity.getStockMovement().getLocation()).getQuantity());
+       }
+    }
+
+    @Override
+    public void onBeforeUpdate(StockMovementLine entity, EntityManager entityManager) {
+        if(!persistence.getTools().isDirty(entity.getStockMovement(),"location","stockMovementType")) {
+            if (persistence.getTools().getDirtyFields(entity).contains("product") ||
+                    persistence.getTools().getDirtyFields(entity).contains("quantity")) {
+                removeOldStockMovementLine(entity, entityManager);
+                if (inventoryWorker.findInventoryLine(entity.getProduct(), entity.getStockMovement().getLocation()) == null) {
+                    entity.setQuantityBefore(0.0);
+                } else {
+                    entity.setQuantityBefore(inventoryWorker.findInventoryLine(entity.getProduct(), entity.getStockMovement().getLocation()).getQuantity());
+                }
+                addStockMovementLine(entity, entityManager);
+                entity.setQuantityAfter(inventoryWorker.findInventoryLine(entity.getProduct(), entity.getStockMovement().getLocation()).getQuantity());
+            }
         }
     }
     private void addStockMovementLine(StockMovementLine stockMovementLine, EntityManager entityManager){

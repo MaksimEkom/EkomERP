@@ -19,7 +19,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-
 public class ProductEdit extends AbstractEditor<Product> {
 
 
@@ -39,7 +38,10 @@ public class ProductEdit extends AbstractEditor<Product> {
     private Table<StockMovementLine> stockMovementLinesTable;
     @Inject
     private CollectionDatasource<StockMovementLine, UUID> stockMovementLinesDs;
-//    @Named("stockMovementLinesTable.edit")
+    @Inject
+    private CollectionDatasource<Consumption, UUID> consumptionDs;
+
+    //    @Named("stockMovementLinesTable.edit")
 //    private EditAction stockMovementLinesTableEdit;
 
     public static final String DEFAULT_PRODUCT_IMAGE_PATH = "com/ekom/ekomerp/web/product/default-photo.jpg";
@@ -98,14 +100,29 @@ public class ProductEdit extends AbstractEditor<Product> {
         label1.setValue(totalLaboriousness);
     }
 
-    public void onCopyButtonClick() {
+    public void onCopyConsumptionButtonClick() {
         // Open the products list screen
         ProductList window = (ProductList) openWindow("product-list", WindowManager.OpenType.DIALOG);
         // Add a listener that will be notified when the screen is closed by action with Window.COMMIT_ACTION_ID
         window.addCloseWithCommitListener(() -> {
             // Get a selected entity from the invoked screen and use it
             Set<Consumption> consumptionSet = window.getSelectedProduct().getConsumption();
-            getItem().setConsumption(consumptionSet);
+            for (Consumption consumption : consumptionSet) {
+                consumptionDs.addItem(consumption);
+            }
+        });
+    }
+
+    public void onCopyLaboriousnessButtonClick() {
+        // Open the products list screen
+        ProductList window = (ProductList) openWindow("product-list", WindowManager.OpenType.DIALOG);
+        // Add a listener that will be notified when the screen is closed by action with Window.COMMIT_ACTION_ID
+        window.addCloseWithCommitListener(() -> {
+            // Get a selected entity from the invoked screen and use it
+            Set<Laboriousness> laboriousnessSet = window.getSelectedProduct().getLaboriousness();
+            for (Laboriousness laboriousness : laboriousnessSet) {
+                laboriousnessDs.addItem(laboriousness);
+            }
         });
     }
 }
