@@ -41,7 +41,7 @@ public class StockMovementBrowse extends AbstractLookup {
     }
 
     public boolean isUserAdmin(){
-        Collection <UserRole> userRoles = userSession.getUser().getUserRoles();
+        Collection <UserRole> userRoles = userSession.getCurrentOrSubstitutedUser().getUserRoles();
         boolean isAdmin = false;
         for (UserRole userRole:userRoles){
             if(userRole.getRole().getType().getId()==10){

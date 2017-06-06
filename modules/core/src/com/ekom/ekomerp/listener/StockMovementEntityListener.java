@@ -22,6 +22,7 @@ public class StockMovementEntityListener implements BeforeUpdateEntityListener<S
     protected InventoryWorker inventoryWorker;
     @Inject
     protected Persistence persistence;
+
     @Override
     public void onBeforeUpdate(StockMovement entity, EntityManager entityManager) {
         if (persistence.getTools().getDirtyFields(entity).contains("location")||

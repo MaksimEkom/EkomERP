@@ -30,7 +30,7 @@ where e.stockman.id = :session$userId]]>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="windowActions"
+    <layout expand="stockMovementLineTable"
             spacing="true">
         <fieldGroup id="fieldGroup"
                     datasource="stockMovementDs">
@@ -53,7 +53,6 @@ where e.stockman.id = :session$userId]]>
                           property="stockMovementType"/>
         </hbox>
         <table id="stockMovementLineTable"
-               height="200px"
                width="100%">
             <actions>
                 <action id="create"/>
@@ -74,6 +73,6 @@ where e.stockman.id = :session$userId]]>
             </buttonsPanel>
         </table>
         <frame id="windowActions"
-               screen="editWindowActions"/>
+               screen="extendedEditWindowActions"/>
     </layout>
 </window>

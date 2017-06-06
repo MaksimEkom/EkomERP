@@ -150,8 +150,10 @@ order by e.stockMovement.date]]>
                             <button id="copyLaboriousnessButton"
                                     caption="msg://Copy"
                                     invoke="onCopyLaboriousnessButtonClick"/>
-                            <label value="msg://Total laboriousness"/>
-                            <label id="label1"/>
+                            <label align="MIDDLE_CENTER"
+                                   value="msg://Total laboriousness"/>
+                            <label id="label1"
+                                   align="MIDDLE_CENTER"/>
                         </buttonsPanel>
                     </table>
                 </tab>

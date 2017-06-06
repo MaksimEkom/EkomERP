@@ -18,7 +18,7 @@ order by e.date desc]]>
                               view="stockMovementWithLocation">
             <query>
                 <![CDATA[select e from ekomerp$StockMovement e
-where e.createdBy = :session$userLogin
+where e.location.stockman = :session$userLogin
 and e.stockMovementType <> 3
 order by e.date desc]]>
             </query>
