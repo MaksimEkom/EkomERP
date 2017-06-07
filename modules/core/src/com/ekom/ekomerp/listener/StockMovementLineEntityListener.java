@@ -5,6 +5,7 @@ import com.ekom.ekomerp.entity.StockMovement;
 import com.ekom.ekomerp.service.InventoryWorker;
 import com.haulmont.cuba.core.Persistence;
 import com.haulmont.cuba.core.Transaction;
+import com.haulmont.cuba.core.global.PersistenceHelper;
 import org.springframework.stereotype.Component;
 import com.haulmont.cuba.core.listener.BeforeDeleteEntityListener;
 import com.haulmont.cuba.core.EntityManager;
@@ -25,14 +26,17 @@ public class StockMovementLineEntityListener implements BeforeDeleteEntityListen
 
     @Override
     public void onBeforeDelete(StockMovementLine entity, EntityManager entityManager) {
-        if(!persistence.getTools().isDirty(entity.getStockMovement(),"location","stockMovementType")) {
+        if(!(persistence.getTools().isDirty(entity.getStockMovement()))||
+                PersistenceHelper.isNew(entity.getStockMovement())) {
             removeStockMovementLine(entity, entityManager);
         }
     }
 
     @Override
     public void onBeforeInsert(StockMovementLine entity, EntityManager entityManager) {
-       if(!persistence.getTools().isDirty(entity.getStockMovement(),"location","stockMovementType")){
+       if(!(persistence.getTools().isDirty(entity.getStockMovement()))||
+               PersistenceHelper.isNew(entity.getStockMovement())){
+
             if (inventoryWorker.findInventoryLine(entity.getProduct(), entity.getStockMovement().getLocation())==null){
                 entity.setQuantityBefore(0.0);
             }else {
@@ -45,7 +49,8 @@ public class StockMovementLineEntityListener implements BeforeDeleteEntityListen
 
     @Override
     public void onBeforeUpdate(StockMovementLine entity, EntityManager entityManager) {
-        if(!persistence.getTools().isDirty(entity.getStockMovement(),"location","stockMovementType")) {
+        if((!persistence.getTools().isDirty(entity.getStockMovement()))||
+                PersistenceHelper.isNew(entity.getStockMovement())) {
             if (persistence.getTools().getDirtyFields(entity).contains("product") ||
                     persistence.getTools().getDirtyFields(entity).contains("quantity")) {
                 removeOldStockMovementLine(entity, entityManager);

@@ -25,8 +25,15 @@ public class StockMovementEntityListener implements BeforeUpdateEntityListener<S
 
     @Override
     public void onBeforeUpdate(StockMovement entity, EntityManager entityManager) {
-        if (persistence.getTools().getDirtyFields(entity).contains("location")||
-                persistence.getTools().getDirtyFields(entity).contains("stockMovementType")) {
+//        Boolean isLinesDirty = false;
+//        for (StockMovementLine line: entity.getStockMovementLine()) {
+//            if (persistence.getTools().isDirty(line)){
+//                isLinesDirty = true;
+//                break;
+//            }
+//        }
+        if ((persistence.getTools().getDirtyFields(entity).contains("location")||
+                persistence.getTools().getDirtyFields(entity).contains("stockMovementType"))) {
             removeOldStockMovementLines(entity, entityManager);
             addStockMovement(entity, entityManager);
         }
@@ -40,17 +47,17 @@ public class StockMovementEntityListener implements BeforeUpdateEntityListener<S
                     case in:
                         line.setQuantityBefore(0.0);
                         inventoryWorker.insertInventoryLine(line.getProduct(), stockMovement.getLocation(), line.getQuantity());
-                        line.setQuantityAfter(inventoryLine.getQuantity());
+                        line.setQuantityAfter(line.getQuantity());
                         break;
                     case out:
                         line.setQuantityBefore(0.0);
                         inventoryWorker.insertInventoryLine(line.getProduct(), stockMovement.getLocation(), line.getQuantity()*(-1));
-                        line.setQuantityAfter(inventoryLine.getQuantity());
+                        line.setQuantityAfter(line.getQuantity()*(-1));
                         break;
                     case adjustment:
                         line.setQuantityBefore(0.0);
                         inventoryWorker.insertInventoryLine(line.getProduct(), stockMovement.getLocation(), line.getQuantity());
-                        line.setQuantityAfter(inventoryLine.getQuantity());
+                        line.setQuantityAfter(line.getQuantity());
                 }
             }else{
                 switch (stockMovement.getStockMovementType()) {
