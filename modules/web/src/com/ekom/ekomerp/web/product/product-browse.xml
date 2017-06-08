@@ -7,7 +7,7 @@
     <dsContext>
         <groupDatasource id="productsDs"
                          class="com.ekom.ekomerp.entity.Product"
-                         view="productWithCategoryAndUnitAndLaboriousnessAndConsumption">
+                         view="productWithUnitAndCategory">
             <query>
                 <![CDATA[select e from ekomerp$Product e
 order by e.for_purchase, e.name ]]>

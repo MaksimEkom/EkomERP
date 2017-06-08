@@ -4,6 +4,7 @@ import com.ekom.ekomerp.entity.*;
 import com.haulmont.cuba.core.Persistence;
 import com.haulmont.cuba.core.Transaction;
 import com.haulmont.cuba.core.TypedQuery;
+import com.haulmont.cuba.core.global.PersistenceHelper;
 import org.springframework.stereotype.Component;
 import com.haulmont.cuba.core.listener.BeforeDeleteEntityListener;
 import com.haulmont.cuba.core.EntityManager;
@@ -15,6 +16,7 @@ import javax.inject.Inject;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 @Component("ekomerp_StockMovementEntityListener")
 public class StockMovementEntityListener implements BeforeUpdateEntityListener<StockMovement> {
@@ -23,23 +25,20 @@ public class StockMovementEntityListener implements BeforeUpdateEntityListener<S
     @Inject
     protected Persistence persistence;
 
+
     @Override
     public void onBeforeUpdate(StockMovement entity, EntityManager entityManager) {
-//        Boolean isLinesDirty = false;
-//        for (StockMovementLine line: entity.getStockMovementLine()) {
-//            if (persistence.getTools().isDirty(line)){
-//                isLinesDirty = true;
-//                break;
-//            }
-//        }
-        if ((persistence.getTools().getDirtyFields(entity).contains("location")||
-                persistence.getTools().getDirtyFields(entity).contains("stockMovementType"))) {
             removeOldStockMovementLines(entity, entityManager);
-            addStockMovement(entity, entityManager);
-        }
+            addOldStockMovementLines(entity, entityManager);
     }
-    private void addStockMovement(StockMovement stockMovement, EntityManager entityManager){
-        Set<StockMovementLine> stockMovementLines = stockMovement.getStockMovementLine();
+    private void addOldStockMovementLines(StockMovement stockMovement, EntityManager entityManager){
+        StockMovement stockMovementOld;
+        try (Transaction tx = persistence.createTransaction()) {
+            entityManager = persistence.getEntityManager();
+            stockMovementOld = entityManager.find(StockMovement.class, stockMovement.getId(), "stockMovement-edit");
+            tx.commit();
+        }
+        Set<StockMovementLine> stockMovementLines = stockMovementOld.getStockMovementLine();
         for (StockMovementLine line : stockMovementLines) {
             Inventory inventoryLine = inventoryWorker.findInventoryLine(line.getProduct(), stockMovement.getLocation());
             if (inventoryLine == null) {
@@ -58,6 +57,7 @@ public class StockMovementEntityListener implements BeforeUpdateEntityListener<S
                         line.setQuantityBefore(0.0);
                         inventoryWorker.insertInventoryLine(line.getProduct(), stockMovement.getLocation(), line.getQuantity());
                         line.setQuantityAfter(line.getQuantity());
+                        break;
                 }
             }else{
                 switch (stockMovement.getStockMovementType()) {
@@ -75,6 +75,7 @@ public class StockMovementEntityListener implements BeforeUpdateEntityListener<S
                         line.setQuantityBefore(inventoryLine.getQuantity());
                         inventoryWorker.increaseInventoryLine(inventoryLine, line.getQuantity());
                         line.setQuantityAfter(inventoryLine.getQuantity());
+                        break;
                 }
             }
         }
@@ -82,37 +83,33 @@ public class StockMovementEntityListener implements BeforeUpdateEntityListener<S
     private void removeStockMovement(StockMovement stockMovement, EntityManager entityManager) {
         Set<StockMovementLine> lines = stockMovement.getStockMovementLine();
         Inventory inventoryLine;
+        StockmovementTypeEnum typeEnum;
+        Location location;
+        if(persistence.getTools().getDirtyFields(stockMovement).contains("stockMovementType")) {
+            typeEnum = (StockmovementTypeEnum) persistence.getTools().getOldValue(stockMovement, "stockMovementType");
+        }
+        else {
+            typeEnum = stockMovement.getStockMovementType();
+        }
+        if(persistence.getTools().getDirtyFields(stockMovement).contains("location")){
+            location = (Location) persistence.getTools().getOldValue(stockMovement, "location");
+        }else{
+            location = stockMovement.getLocation();
+        }
+
         for (StockMovementLine line : lines) {
-            if(persistence.getTools().getDirtyFields(stockMovement).contains("location")) {
-                inventoryLine = inventoryWorker.findInventoryLine(line.getProduct(),
-                        (Location) persistence.getTools().getOldValue(stockMovement,"location"));
-            }else
-                inventoryLine = inventoryWorker.findInventoryLine(line.getProduct(), stockMovement.getLocation());
+            inventoryLine = inventoryWorker.findInventoryLine(line.getProduct(), location);
             if (inventoryLine != null) {
-                if(persistence.getTools().getDirtyFields(stockMovement).contains("stockMovementType")) {
-                    switch ( (StockmovementTypeEnum) persistence.getTools().getOldValue(stockMovement,"stockMovementType")) {
-                        case in:
-                            inventoryWorker.reduceInventoryLine(inventoryLine, line.getQuantity());
-                            break;
-                        case out:
-                            inventoryWorker.increaseInventoryLine(inventoryLine, line.getQuantity());
-                            break;
-                        case adjustment:
-                            inventoryWorker.reduceInventoryLine(inventoryLine, line.getQuantity());
-                            break;
-                    }
-                }else{
-                    switch (stockMovement.getStockMovementType()) {
-                        case in:
-                            inventoryWorker.reduceInventoryLine(inventoryLine, line.getQuantity());
-                            break;
-                        case out:
-                            inventoryWorker.increaseInventoryLine(inventoryLine, line.getQuantity());
-                            break;
-                        case adjustment:
-                            inventoryWorker.reduceInventoryLine(inventoryLine, line.getQuantity());
-                            break;
-                    }
+                switch (typeEnum) {
+                    case in:
+                        inventoryWorker.reduceInventoryLine(inventoryLine, line.getQuantity());
+                        break;
+                    case out:
+                        inventoryWorker.increaseInventoryLine(inventoryLine, line.getQuantity());
+                        break;
+                    case adjustment:
+                        inventoryWorker.reduceInventoryLine(inventoryLine, line.getQuantity());
+                        break;
                 }
             }
         }
@@ -127,4 +124,5 @@ public class StockMovementEntityListener implements BeforeUpdateEntityListener<S
             removeStockMovement(stockMovement,entityManager);
         }
     }
+
 }

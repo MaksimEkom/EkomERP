@@ -49,8 +49,9 @@ order by e.date desc]]>
                 <column property="consignment"/>
                 <column property="date"/>
                 <column property="stockMovementType"/>
+                <column editable="false"
+                        property="location"/>
                 <column property="notes"/>
-                <column property="number"/>
             </columns>
             <buttonsPanel>
                 <button id="createButton"

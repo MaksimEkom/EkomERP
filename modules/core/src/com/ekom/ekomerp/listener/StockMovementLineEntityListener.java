@@ -1,6 +1,7 @@
 package com.ekom.ekomerp.listener;
 
 import com.ekom.ekomerp.entity.Inventory;
+import com.ekom.ekomerp.entity.Product;
 import com.ekom.ekomerp.entity.StockMovement;
 import com.ekom.ekomerp.service.InventoryWorker;
 import com.haulmont.cuba.core.Persistence;
@@ -26,17 +27,11 @@ public class StockMovementLineEntityListener implements BeforeDeleteEntityListen
 
     @Override
     public void onBeforeDelete(StockMovementLine entity, EntityManager entityManager) {
-        if(!(persistence.getTools().isDirty(entity.getStockMovement()))||
-                PersistenceHelper.isNew(entity.getStockMovement())) {
             removeStockMovementLine(entity, entityManager);
-        }
     }
 
     @Override
     public void onBeforeInsert(StockMovementLine entity, EntityManager entityManager) {
-       if(!(persistence.getTools().isDirty(entity.getStockMovement()))||
-               PersistenceHelper.isNew(entity.getStockMovement())){
-
             if (inventoryWorker.findInventoryLine(entity.getProduct(), entity.getStockMovement().getLocation())==null){
                 entity.setQuantityBefore(0.0);
             }else {
@@ -44,13 +39,12 @@ public class StockMovementLineEntityListener implements BeforeDeleteEntityListen
             }
             addStockMovementLine(entity,entityManager);
             entity.setQuantityAfter(inventoryWorker.findInventoryLine(entity.getProduct(), entity.getStockMovement().getLocation()).getQuantity());
-       }
     }
 
     @Override
     public void onBeforeUpdate(StockMovementLine entity, EntityManager entityManager) {
-        if((!persistence.getTools().isDirty(entity.getStockMovement()))||
-                PersistenceHelper.isNew(entity.getStockMovement())) {
+//       if(!(persistence.getTools().isDirty(entity.getStockMovement()))||
+//                PersistenceHelper.isNew(entity.getStockMovement())) {
             if (persistence.getTools().getDirtyFields(entity).contains("product") ||
                     persistence.getTools().getDirtyFields(entity).contains("quantity")) {
                 removeOldStockMovementLine(entity, entityManager);
@@ -62,7 +56,7 @@ public class StockMovementLineEntityListener implements BeforeDeleteEntityListen
                 addStockMovementLine(entity, entityManager);
                 entity.setQuantityAfter(inventoryWorker.findInventoryLine(entity.getProduct(), entity.getStockMovement().getLocation()).getQuantity());
             }
-        }
+ //       }
     }
     private void addStockMovementLine(StockMovementLine stockMovementLine, EntityManager entityManager){
         Inventory inventoryLine = inventoryWorker.findInventoryLine(stockMovementLine.getProduct(), stockMovementLine.getStockMovement().getLocation());
@@ -96,27 +90,42 @@ public class StockMovementLineEntityListener implements BeforeDeleteEntityListen
         }
     }
     private void removeStockMovementLine(StockMovementLine stockMovementLine, EntityManager entityManager) {
+        Product product;
+        Double quantity;
+        if(persistence.getTools().getDirtyFields(stockMovementLine).contains("product")) {
+            product = (Product) persistence.getTools().getOldValue(stockMovementLine, "product");
+        }
+        else {
+            product = stockMovementLine.getProduct();
+        }
+        if(persistence.getTools().getDirtyFields(stockMovementLine).contains("quantity")){
+            quantity = (Double) persistence.getTools().getOldValue(stockMovementLine, "quantity");
+        }else{
+            quantity = stockMovementLine.getQuantity();
+        }
         Inventory inventoryLine;
-        inventoryLine = inventoryWorker.findInventoryLine(stockMovementLine.getProduct(), stockMovementLine.getStockMovement().getLocation());
+        inventoryLine = inventoryWorker.findInventoryLine(product, stockMovementLine.getStockMovement().getLocation());
         if (inventoryLine != null) {
             switch (stockMovementLine.getStockMovement().getStockMovementType()) {
                 case in:
-                    inventoryWorker.reduceInventoryLine(inventoryLine, stockMovementLine.getQuantity());
+                    inventoryWorker.reduceInventoryLine(inventoryLine, quantity);
                     break;
                 case out:
-                    inventoryWorker.increaseInventoryLine(inventoryLine, stockMovementLine.getQuantity());
+                    inventoryWorker.increaseInventoryLine(inventoryLine, quantity);
                     break;
                 case adjustment:
-                    inventoryWorker.reduceInventoryLine(inventoryLine, stockMovementLine.getQuantity());
+                    inventoryWorker.reduceInventoryLine(inventoryLine, quantity);
                     break;
             }
         }
     }
     private void removeOldStockMovementLine(StockMovementLine stockMovementLine, EntityManager entityManager) {
-        try (Transaction tx = persistence.createTransaction()) {
-            entityManager = persistence.getEntityManager();
-            stockMovementLine = entityManager.find(StockMovementLine.class, stockMovementLine.getId(), "stockMovementLine-edit");
-            tx.commit();
+        if (!persistence.getTools().isDirty(stockMovementLine.getStockMovement())){
+            try (Transaction tx = persistence.createTransaction()) {
+                entityManager = persistence.getEntityManager();
+                stockMovementLine = entityManager.find(StockMovementLine.class, stockMovementLine.getId(), "stockMovementLine-edit");
+                tx.commit();
+            }
         }
         if (stockMovementLine != null) {
             removeStockMovementLine(stockMovementLine,entityManager);

@@ -72,12 +72,6 @@
                 <property name="code"/>
             </property>
             <property name="quantity"/>
-            <property name="stockMovement"
-                      view="_minimal">
-                <property name="location"
-                          view="_minimal"/>
-                <property name="stockMovementType"/>
-            </property>
             <property name="quantityBefore"/>
             <property name="quantityAfter"/>
         </property>
@@ -286,6 +280,12 @@
         </property>
         <property name="code"/>
         <property name="unit"
+                  view="_minimal"/>
+    </view>
+    <view class="com.ekom.ekomerp.entity.Product"
+          extends="productWithUnit"
+          name="productWithUnitAndCategory">
+        <property name="category"
                   view="_minimal"/>
     </view>
 </views>
