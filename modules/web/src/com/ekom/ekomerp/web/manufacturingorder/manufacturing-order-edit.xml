@@ -69,7 +69,7 @@ order by e.name asc]]>
         </hbox>
         <table id="manufacturingOrderLineTable"
                editable="true"
-               height="300px"
+               stylename="borderless"
                width="100%">
             <actions>
                 <action id="create"/>

@@ -2,56 +2,59 @@
 <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
         caption="msg://browseCaption"
         class="com.ekom.ekomerp.web.manufacturingorder.ManufacturingOrderBrowse"
-        focusComponent="manufacturingOrdersTable"
-        lookupComponent="manufacturingOrdersTable"
         messagesPack="com.ekom.ekomerp.web.manufacturingorder">
     <dsContext>
         <groupDatasource id="manufacturingOrdersDs"
                          class="com.ekom.ekomerp.entity.ManufacturingOrder"
                          view="manufacturingOrder-view">
             <query>
-                <![CDATA[select e from ekomerp$ManufacturingOrder e]]>
+                <![CDATA[select e from ekomerp$ManufacturingOrder e
+order by e.date desc]]>
             </query>
         </groupDatasource>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="manufacturingOrdersTable"
+    <layout expand="manufacturingOrdersDataGrid"
             spacing="true">
         <filter id="filter"
-                applyTo="manufacturingOrdersTable"
-                datasource="manufacturingOrdersDs">
+                applyTo="manufacturingOrdersDataGrid"
+                datasource="manufacturingOrdersDs"
+                defaultMode="fts"
+                useMaxResults="false">
             <properties include=".*"/>
         </filter>
-        <groupTable id="manufacturingOrdersTable"
-                    width="100%">
+        <dataGrid id="manufacturingOrdersDataGrid"
+                  datasource="manufacturingOrdersDs"
+                  width="100%">
             <actions>
                 <action id="create"/>
                 <action id="edit"/>
                 <action id="remove"/>
+                <action id="refresh"/>
                 <action id="excel"/>
             </actions>
             <columns>
-                <column id="number"/>
-                <column id="date"/>
-                <column id="customer"/>
-                <column id="dateOfManufacture"/>
-                <column id="notes"/>
-                <column id="state"/>
+                <column property="number"/>
+                <column property="date"/>
+                <column editable="false"
+                        property="customer"/>
+                <column property="dateOfManufacture"/>
+                <column property="notes"/>
+                <column property="state"/>
             </columns>
-            <rows datasource="manufacturingOrdersDs"/>
-            <rowsCount/>
-            <buttonsPanel id="buttonsPanel"
-                          alwaysVisible="true">
-                <button id="createBtn"
-                        action="manufacturingOrdersTable.create"/>
-                <button id="editBtn"
-                        action="manufacturingOrdersTable.edit"/>
-                <button id="removeBtn"
-                        action="manufacturingOrdersTable.remove"/>
-                <button id="excelBtn"
-                        action="manufacturingOrdersTable.excel"/>
+            <buttonsPanel>
+                <button id="createButton"
+                        action="manufacturingOrdersDataGrid.create"/>
+                <button id="editButton"
+                        action="manufacturingOrdersDataGrid.edit"/>
+                <button id="removeButton"
+                        action="manufacturingOrdersDataGrid.remove"/>
+                <button id="excelButton"
+                        action="manufacturingOrdersDataGrid.excel"/>
+                <button id="refreshButton"
+                        action="manufacturingOrdersDataGrid.refresh"/>
             </buttonsPanel>
-        </groupTable>
+        </dataGrid>
     </layout>
 </window>

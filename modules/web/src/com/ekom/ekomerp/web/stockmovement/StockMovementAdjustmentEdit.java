@@ -64,17 +64,25 @@ public class StockMovementAdjustmentEdit extends AbstractEditor<StockMovement> {
             return productLookUpPickerField;
         });
 
-
         stockMovementLineDs.addItemPropertyChangeListener(e -> {
             StockMovementLine line = stockMovementLineDs.getItem();
             if (line!=null) {
                 List<Inventory> inventory = findInventoryByProductAndLocation(line.getProduct(), line.getStockMovement().getLocation());
                 if (e.getProperty() == "product") {
+                    int productExistCount = 0;
+                    for (StockMovementLine checkLine: stockMovementLineDs.getItems()){
+                        if(checkLine.getProduct() == line.getProduct()){
+                            productExistCount++;
+                        }
+                        if(productExistCount>1){
+                            showNotification("Строка с таким изделием уже существует! Измените выбранную строку!",NotificationType.ERROR);
+                            break;
+                        }
+                    }
                     if (inventory.isEmpty()) {
                         line.setQuantityBefore(0.0);
                     } else
                         line.setQuantityBefore(inventory.get(0).getQuantity());
-
                     line.setQuantityAfter(line.getQuantity() + line.getQuantityBefore());
                 } else if (e.getProperty() == "quantity") {
                     line.setQuantityAfter(line.getQuantity() + line.getQuantityBefore());
@@ -95,13 +103,9 @@ public class StockMovementAdjustmentEdit extends AbstractEditor<StockMovement> {
                     line.setQuantityBefore(inventory.get(0).getQuantity());
                 line.setQuantityAfter(line.getQuantity() + line.getQuantityBefore());
             }
-
             stockMovementLineTable.repaint();
         });
-
     }
-
-
 
     @Override
     protected boolean preCommit() {
@@ -109,7 +113,6 @@ public class StockMovementAdjustmentEdit extends AbstractEditor<StockMovement> {
         setNumberField();
         return super.preCommit();
     }
-
 
     private List<Inventory> findInventoryByProductAndLocation(Product product, Location location){
         LoadContext loadContext = LoadContext.create(Inventory.class).setQuery(LoadContext
@@ -149,10 +152,6 @@ public class StockMovementAdjustmentEdit extends AbstractEditor<StockMovement> {
         }
     }
 
-
-
-    
-
     public void onCreateButtonClick() {
         if(getItem().getLocation()!=null) {
             Collection<StockMovementLine> lines = stockMovementLineDs.getItems();
@@ -169,18 +168,15 @@ public class StockMovementAdjustmentEdit extends AbstractEditor<StockMovement> {
                     line.setStockMovement(getItem());
                     line.setQuantity(-1.0);
                     stockMovementLineDs.addItem(line);
-
                 }
             } else {
                 StockMovementLine line = metadata.create(StockMovementLine.class);
                 line.setStockMovement(getItem());
                 line.setQuantity(-1.0);
                 stockMovementLineDs.addItem(line);
-
             }
         }else{
-            showMessageDialog("Внимание", "Заполните поле Место хранения!", MessageType.WARNING);
+            showNotification("Заполните поле \"Место хранения\"!",NotificationType.ERROR);
         }
-
     }
 }
