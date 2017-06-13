@@ -11,6 +11,7 @@
         <item id="ekomerp$Country.browse"/>
         <item id="ekomerp$Region.browse"/>
         <item id="ekomerp$PaymentCondition.browse"/>
+        <item screen="ekomerp$PricingType.browse"/>
     </menu>
     <menu id="purchase"
           insertBefore="administration">

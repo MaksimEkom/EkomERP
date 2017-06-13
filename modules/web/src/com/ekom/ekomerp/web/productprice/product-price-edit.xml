@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="com.ekom.ekomerp.web.productprice.ProductPriceEdit"
+        datasource="productPriceDs"
+        focusComponent="fieldGroup"
+        messagesPack="com.ekom.ekomerp.web.productprice">
+    <dsContext>
+        <datasource id="productPriceDs"
+                    class="com.ekom.ekomerp.entity.ProductPrice"
+                    view="productPrice-edit"/>
+        <collectionDatasource id="pricingTypesDs"
+                              class="com.ekom.ekomerp.entity.PricingType"
+                              view="_local">
+            <query>
+                <![CDATA[select e from ekomerp$PricingType e]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <dialogMode closeable="true"
+                forceDialog="true"
+                height="200"
+                width="450"/>
+    <layout expand="windowActions"
+            spacing="true">
+        <fieldGroup id="fieldGroup"
+                    datasource="productPriceDs"
+                    width="500px">
+            <column width="350px">
+                <field optionsDatasource="pricingTypesDs"
+                       property="pricingType"/>
+                <field property="price"/>
+            </column>
+        </fieldGroup>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>

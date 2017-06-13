@@ -10,7 +10,7 @@
                          view="productWithUnitAndCategory">
             <query>
                 <![CDATA[select e from ekomerp$Product e
-order by e.for_purchase, e.name ]]>
+order by e.for_purchase, e.name]]>
             </query>
         </groupDatasource>
     </dsContext>

@@ -17,6 +17,8 @@ import com.haulmont.cuba.core.global.DeletePolicy;
 import java.util.Set;
 import javax.persistence.OneToMany;
 import com.haulmont.cuba.core.entity.FileDescriptor;
+import java.util.List;
+import javax.persistence.OrderBy;
 
 @NamePattern("%s|name")
 @Table(name = "EKOMERP_PRODUCT")
@@ -91,16 +93,20 @@ public class Product extends StandardEntity {
     @Column(name = "NOTES")
     protected String notes;
 
-    @Column(name = "PURCHASE_PRICE")
-    protected Double purchasePrice = 0.0;
 
-    public void setPurchasePrice(Double purchasePrice) {
-        this.purchasePrice = purchasePrice;
+    @Composition
+    @OnDelete(DeletePolicy.CASCADE)
+    @OneToMany(mappedBy = "product")
+    protected Set<ProductPrice> productPrice;
+
+    public Set<ProductPrice> getProductPrice() {
+        return productPrice;
     }
 
-    public Double getPurchasePrice() {
-        return purchasePrice;
+    public void setProductPrice(Set<ProductPrice> productPrice) {
+        this.productPrice = productPrice;
     }
+
 
 
     public void setNotes(String notes) {

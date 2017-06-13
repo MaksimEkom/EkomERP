@@ -75,7 +75,8 @@ public class StockMovementAdjustmentEdit extends AbstractEditor<StockMovement> {
                             productExistCount++;
                         }
                         if(productExistCount>1){
-                            showNotification("Строка с таким изделием уже существует! Измените выбранную строку!",NotificationType.ERROR);
+                            showNotification("Строка с таким изделием уже существует! Отредактируйте существуюшую строку!", NotificationType.ERROR);
+                            stockMovementLineDs.removeItem(checkLine);
                             break;
                         }
                     }

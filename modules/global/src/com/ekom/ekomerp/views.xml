@@ -51,6 +51,10 @@
         </property>
         <property name="image"
                   view="_minimal"/>
+        <property name="productPrice"
+                  view="_minimal">
+            <property name="price"/>
+        </property>
     </view>
     <view class="com.ekom.ekomerp.entity.Location"
           extends="_local"
@@ -190,7 +194,6 @@
                   view="_minimal">
             <property name="unit"
                       view="_minimal"/>
-            <property name="purchasePrice"/>
         </property>
         <property name="purchaseOrder"
                   view="_minimal"/>
@@ -287,5 +290,15 @@
           name="productWithUnitAndCategory">
         <property name="category"
                   view="_minimal"/>
+    </view>
+    <view class="com.ekom.ekomerp.entity.ProductPrice"
+          extends="_local"
+          name="productPrice-edit">
+        <property name="product"
+                  view="_minimal"/>
+        <property name="pricingType"
+                  view="_minimal">
+            <property name="name"/>
+        </property>
     </view>
 </views>

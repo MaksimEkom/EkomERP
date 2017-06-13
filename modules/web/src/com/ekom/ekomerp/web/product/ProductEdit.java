@@ -5,6 +5,7 @@ import com.ekom.ekomerp.entity.Laboriousness;
 import com.ekom.ekomerp.entity.StockMovementLine;
 import com.haulmont.cuba.core.entity.FileDescriptor;
 import com.haulmont.cuba.core.global.FileStorageException;
+import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.WindowManager;
 import com.haulmont.cuba.gui.components.*;
 import com.ekom.ekomerp.entity.Product;
@@ -40,7 +41,8 @@ public class ProductEdit extends AbstractEditor<Product> {
     private CollectionDatasource<StockMovementLine, UUID> stockMovementLinesDs;
     @Inject
     private CollectionDatasource<Consumption, UUID> consumptionDs;
-
+    @Inject
+    private Metadata metadata;
     //    @Named("stockMovementLinesTable.edit")
 //    private EditAction stockMovementLinesTableEdit;
 
@@ -105,10 +107,14 @@ public class ProductEdit extends AbstractEditor<Product> {
         ProductList window = (ProductList) openWindow("product-list", WindowManager.OpenType.DIALOG);
         // Add a listener that will be notified when the screen is closed by action with Window.COMMIT_ACTION_ID
         window.addCloseWithCommitListener(() -> {
+
             // Get a selected entity from the invoked screen and use it
             Set<Consumption> consumptionSet = window.getSelectedProduct().getConsumption();
             for (Consumption consumption : consumptionSet) {
-                consumptionDs.addItem(consumption);
+                Consumption cons = metadata.create(Consumption.class);
+                cons.setConsumableProduct(consumption.getConsumableProduct());
+                cons.setQuantity(consumption.getQuantity());
+                consumptionDs.addItem(cons);
             }
         });
     }
@@ -121,7 +127,10 @@ public class ProductEdit extends AbstractEditor<Product> {
             // Get a selected entity from the invoked screen and use it
             Set<Laboriousness> laboriousnessSet = window.getSelectedProduct().getLaboriousness();
             for (Laboriousness laboriousness : laboriousnessSet) {
-                laboriousnessDs.addItem(laboriousness);
+                Laboriousness lab = metadata.create(Laboriousness.class);
+                lab.setOperation(laboriousness.getOperation());
+                lab.setValue(laboriousness.getValue());
+                laboriousnessDs.addItem(lab);
             }
         });
     }

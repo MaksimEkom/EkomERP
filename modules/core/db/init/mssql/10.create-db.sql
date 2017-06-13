@@ -25,7 +25,6 @@
     FOR_PURCHASE tinyint,
     IMAGE_ID uniqueidentifier,
     NOTES varchar(max),
-    PURCHASE_PRICE double precision,
     --
     primary key nonclustered (ID)
 )^
@@ -417,3 +416,38 @@ create table EKOMERP_INVOICE_LINE (
     primary key nonclustered (ID)
 )^
 -- end EKOMERP_INVOICE_LINE
+-- begin EKOMERP_PRICING_TYPE
+create table EKOMERP_PRICING_TYPE (
+    ID uniqueidentifier,
+    VERSION integer not null,
+    CREATE_TS datetime2,
+    CREATED_BY varchar(50),
+    UPDATE_TS datetime2,
+    UPDATED_BY varchar(50),
+    DELETE_TS datetime2,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255) not null,
+    CODE varchar(255),
+    --
+    primary key nonclustered (ID)
+)^
+-- end EKOMERP_PRICING_TYPE
+-- begin EKOMERP_PRODUCT_PRICE
+create table EKOMERP_PRODUCT_PRICE (
+    ID uniqueidentifier,
+    VERSION integer not null,
+    CREATE_TS datetime2,
+    CREATED_BY varchar(50),
+    UPDATE_TS datetime2,
+    UPDATED_BY varchar(50),
+    DELETE_TS datetime2,
+    DELETED_BY varchar(50),
+    --
+    PRODUCT_ID uniqueidentifier,
+    PRICING_TYPE_ID uniqueidentifier,
+    PRICE double precision,
+    --
+    primary key nonclustered (ID)
+)^
+-- end EKOMERP_PRODUCT_PRICE

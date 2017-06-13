@@ -13,6 +13,8 @@
                                   property="laboriousness"/>
             <collectionDatasource id="consumptionDs"
                                   property="consumption"/>
+            <collectionDatasource id="productPriceDs"
+                                  property="productPrice"/>
         </datasource>
         <collectionDatasource id="unitsDs"
                               class="com.ekom.ekomerp.entity.Unit"
@@ -106,7 +108,6 @@ order by e.stockMovement.date]]>
                             <field id="docName"
                                    rows="2"
                                    width="250px"/>
-                            <field id="purchasePrice"/>
                         </column>
                         <column>
                             <field id="analog"
@@ -116,6 +117,32 @@ order by e.stockMovement.date]]>
                                    width="250px"/>
                         </column>
                     </fieldGroup>
+                </tab>
+                <tab caption="msg://Tab"
+                     margin="true,false,false,false"
+                     spacing="true">
+                    <table id="productPriceTable"
+                           height="400px"
+                           width="100%">
+                        <actions>
+                            <action id="create"/>
+                            <action id="edit"/>
+                            <action id="remove"/>
+                        </actions>
+                        <columns>
+                            <column id="pricingType"/>
+                            <column id="price"/>
+                        </columns>
+                        <rows datasource="productPriceDs"/>
+                        <buttonsPanel>
+                            <button id="createButton"
+                                    action="productPriceTable.create"/>
+                            <button id="editButton"
+                                    action="productPriceTable.edit"/>
+                            <button id="removeButton"
+                                    action="productPriceTable.remove"/>
+                        </buttonsPanel>
+                    </table>
                 </tab>
                 <tab caption="msg://Characteristics"
                      spacing="true">

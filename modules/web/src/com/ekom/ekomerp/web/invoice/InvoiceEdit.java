@@ -44,11 +44,11 @@ public class InvoiceEdit extends AbstractEditor<Invoice> {
         invoiceLineDs.addItemPropertyChangeListener(e -> {
             InvoiceLine item = invoiceLineDs.getItem();
             if(e.getProperty() == "product"){
-                if (item.getProduct().getPurchasePrice()!=null) {
-                    item.setPrice(item.getProduct().getPurchasePrice());
-                }else{
+//                if (item.getProduct().getPurchasePrice()!=null) {
+//                    item.setPrice(item.getProduct().getPurchasePrice());
+//                }else{
                     item.setPrice(0.0);
-                }
+//                }
                 invoiceLineTable.repaint();
             }
 

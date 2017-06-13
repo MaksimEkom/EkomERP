@@ -57,4 +57,8 @@
             template="com/ekom/ekomerp/web/stockmovement/stock-movement-adjustment-browse.xml"/>
     <screen id="product-list"
             template="com/ekom/ekomerp/web/product/product-list.xml"/>
+    <screen id="ekomerp$PricingType.browse"
+            template="com/ekom/ekomerp/web/pricingtype/pricing-type-browse.xml"/>
+    <screen id="ekomerp$ProductPrice.edit"
+            template="com/ekom/ekomerp/web/productprice/product-price-edit.xml"/>
 </screen-config>
