@@ -71,12 +71,12 @@ public class StockMovementAdjustmentEdit extends AbstractEditor<StockMovement> {
                 if (e.getProperty() == "product") {
                     int productExistCount = 0;
                     for (StockMovementLine checkLine: stockMovementLineDs.getItems()){
-                        if(checkLine.getProduct() == line.getProduct()){
+                        if(checkLine.getProduct().equals(line.getProduct())){
                             productExistCount++;
                         }
                         if(productExistCount>1){
                             showNotification("Строка с таким изделием уже существует! Отредактируйте существуюшую строку!", NotificationType.ERROR);
-                            stockMovementLineDs.removeItem(checkLine);
+                            stockMovementLineDs.removeItem(line);
                             break;
                         }
                     }
