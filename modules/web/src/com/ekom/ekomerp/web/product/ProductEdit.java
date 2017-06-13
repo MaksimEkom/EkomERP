@@ -78,14 +78,10 @@ public class ProductEdit extends AbstractEditor<Product> {
             getItem().setImage(null);
 
         });
-        super.init(params);
     }
     @Override
     protected void postInit() {
-        super.postInit();
-
         FileDescriptor productImageFile = getItem().getImage();
-
         if (productImageFile == null) {
             ResourceDataProvider dataProvider = new ResourceDataProvider(DEFAULT_PRODUCT_IMAGE_PATH);
             productImage.setSource(DEFAULT_PRODUCT_IMAGE_NAME, dataProvider);
@@ -112,6 +108,7 @@ public class ProductEdit extends AbstractEditor<Product> {
             Set<Consumption> consumptionSet = window.getSelectedProduct().getConsumption();
             for (Consumption consumption : consumptionSet) {
                 Consumption cons = metadata.create(Consumption.class);
+                cons.setProduct(getItem());
                 cons.setConsumableProduct(consumption.getConsumableProduct());
                 cons.setQuantity(consumption.getQuantity());
                 consumptionDs.addItem(cons);
@@ -128,6 +125,7 @@ public class ProductEdit extends AbstractEditor<Product> {
             Set<Laboriousness> laboriousnessSet = window.getSelectedProduct().getLaboriousness();
             for (Laboriousness laboriousness : laboriousnessSet) {
                 Laboriousness lab = metadata.create(Laboriousness.class);
+                lab.setProduct(getItem());
                 lab.setOperation(laboriousness.getOperation());
                 lab.setValue(laboriousness.getValue());
                 laboriousnessDs.addItem(lab);
