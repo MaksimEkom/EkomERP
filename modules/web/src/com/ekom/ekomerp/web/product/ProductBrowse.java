@@ -4,10 +4,8 @@ import com.ekom.ekomerp.entity.Product;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.core.global.View;
-import com.haulmont.cuba.gui.components.AbstractLookup;
-import com.haulmont.cuba.gui.components.Button;
-import com.haulmont.cuba.gui.components.ButtonsPanel;
-import com.haulmont.cuba.gui.components.Filter;
+import com.haulmont.cuba.gui.components.*;
+import com.haulmont.cuba.gui.data.Datasource;
 import com.haulmont.cuba.gui.data.GroupDatasource;
 
 import javax.inject.Inject;
@@ -30,49 +28,58 @@ public class ProductBrowse extends AbstractLookup {
     private ButtonsPanel buttonsPanel;
     @Inject
     private Filter productFilter;
+    @Inject
+    private DataGrid<Product> productsDataGrid;
+    @Inject
+    private CheckBox deacivatedCheckBox;
+    @Inject
+    private GroupDatasource<Product, UUID> activeProductsDs;
 
     @Override
     public void init(Map<String, Object> params) {
-
+        deacivatedCheckBox.setValue(false);
+        productsDataGrid.getColumn("active").setCollapsed(true);
+        activateButton.setVisible(false);
+        deactivateButton.setVisible(false);
+        deacivatedCheckBox.addValueChangeListener(e -> {
+            if (deacivatedCheckBox.getValue()==true){
+                productsDataGrid.setDatasource(productsDs);
+                productsDataGrid.getColumn("active").setCollapsed(false);
+                activateButton.setVisible(true);
+                deactivateButton.setVisible(true);
+            }else{
+                productsDataGrid.setDatasource(activeProductsDs);
+                productsDataGrid.getColumn("active").setCollapsed(true);
+                activateButton.setVisible(false);
+                deactivateButton.setVisible(false);
+            }
+        });
     }
 
     public void onDeactivateButtonClick() {
-//        Product pr = productsDs.getItem();
-//        UUID id = pr.getId();
-//        LoadContext<Product> loadContext = LoadContext.create(Product.class)
-//                .setQuery(LoadContext.createQuery("select p from ekomerp$Product p where p.id = :id")
-//                        .setParameter("id", id))
-//                .setView(View.LOCAL);
-//        List<Product> products = dataManager.loadList(loadContext);
-//        if (pr == null){
-//            showNotification("Выберите изделие для деактивации.", NotificationType.HUMANIZED);
-//            return;
-//        }
-//        Product product = products.get(0);
-//        product.setActive(false);
-//        dataManager.commit(product);
-//        productsDs.refresh();
 
-
-
+        Product product = productsDataGrid.getSingleSelected();
+        if (product == null){
+            showNotification("Выберите изделие для деактивации.", NotificationType.HUMANIZED);
+            return;
+        }else {
+            product.setActive(false);
+            dataManager.commit(product);
+            productsDs.refresh();
+        }
     }
 
     public void onActivateButtonClick() {
-//
-//        Product pr = productsDs.getItem();
-//        UUID id = pr.getId();
-//        LoadContext<Product> loadContext = LoadContext.create(Product.class)
-//                .setQuery(LoadContext.createQuery("select p from ekomerp$Product p where p.id = :id")
-//                        .setParameter("id", id))
-//                .setView(View.LOCAL);
-//        List<Product> products = dataManager.loadList(loadContext);
-//        if (pr == null){
-//            showNotification("Выберите изделие для активации.", NotificationType.HUMANIZED);
-//            return;
-//        }
-//        Product product = products.get(0);
-//        product.setActive(true);
-//        dataManager.commit(product);
-//        productsDs.refresh();
+
+        Product product = productsDataGrid.getSingleSelected();
+        if (product == null){
+            showNotification("Выберите изделие для активации.", NotificationType.HUMANIZED);
+            return;
+        }else {
+            product.setActive(true);
+            dataManager.commit(product);
+            productsDs.refresh();
+        }
     }
+
 }
