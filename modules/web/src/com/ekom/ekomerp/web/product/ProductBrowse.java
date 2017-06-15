@@ -45,14 +45,28 @@ public class ProductBrowse extends AbstractLookup {
             if (deacivatedCheckBox.getValue()==true){
                 productsDataGrid.setDatasource(productsDs);
                 productsDataGrid.getColumn("active").setCollapsed(false);
-                activateButton.setVisible(true);
-                deactivateButton.setVisible(true);
+                if(productsDataGrid.getSingleSelected() !=null){
+                    activateButton.setVisible(true);
+                    deactivateButton.setVisible(true);
+                }
+
             }else{
                 productsDataGrid.setDatasource(activeProductsDs);
                 productsDataGrid.getColumn("active").setCollapsed(true);
                 activateButton.setVisible(false);
                 deactivateButton.setVisible(false);
             }
+        });
+        productsDataGrid.addSelectionListener(event -> {
+           if(deacivatedCheckBox.getValue()==true) {
+               if (productsDataGrid.getSingleSelected().getActive() == true) {
+                   activateButton.setVisible(false);
+                   deactivateButton.setVisible(true);
+               } else {
+                   activateButton.setVisible(true);
+                   deactivateButton.setVisible(false);
+               }
+           }
         });
     }
 
@@ -66,6 +80,8 @@ public class ProductBrowse extends AbstractLookup {
             product.setActive(false);
             dataManager.commit(product);
             productsDs.refresh();
+            activateButton.setVisible(true);
+            deactivateButton.setVisible(false);
         }
     }
 
@@ -79,6 +95,8 @@ public class ProductBrowse extends AbstractLookup {
             product.setActive(true);
             dataManager.commit(product);
             productsDs.refresh();
+            activateButton.setVisible(false);
+            deactivateButton.setVisible(true);
         }
     }
 

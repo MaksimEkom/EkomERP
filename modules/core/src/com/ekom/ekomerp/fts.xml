@@ -67,5 +67,14 @@
         <entity class="com.ekom.ekomerp.entity.ProductPrice">
             <include re=".*"/>
         </entity>
+        <entity class="com.ekom.ekomerp.entity.Calculation">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.CalculationMaterialLine">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.CalculationLaboriousnessLine">
+            <include re=".*"/>
+        </entity>
     </entities>
 </fts-config>

@@ -25,5 +25,8 @@
         <class>com.ekom.ekomerp.entity.InvoiceLine</class>
         <class>com.ekom.ekomerp.entity.PricingType</class>
         <class>com.ekom.ekomerp.entity.ProductPrice</class>
+        <class>com.ekom.ekomerp.entity.Calculation</class>
+        <class>com.ekom.ekomerp.entity.CalculationMaterialLine</class>
+        <class>com.ekom.ekomerp.entity.CalculationLaboriousnessLine</class>
     </persistence-unit>
 </persistence>

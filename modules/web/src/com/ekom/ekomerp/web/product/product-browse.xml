@@ -57,7 +57,7 @@ where e.active = true]]>
                 <column property="analog"/>
                 <column property="notes"/>
             </columns>
-            <buttonsPanel>
+            <buttonsPanel id="buttonsPanel">
                 <button id="createButton"
                         action="productsDataGrid.create"/>
                 <button id="editButton"

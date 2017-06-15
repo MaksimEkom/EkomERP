@@ -28,6 +28,7 @@ public class Consumption extends StandardEntity {
     @Column(name = "QUANTITY", nullable = false)
     protected Double quantity;
 
+
     public void setProduct(Product product) {
         this.product = product;
     }
