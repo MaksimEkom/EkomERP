@@ -61,4 +61,8 @@
             template="com/ekom/ekomerp/web/pricingtype/pricing-type-browse.xml"/>
     <screen id="ekomerp$ProductPrice.edit"
             template="com/ekom/ekomerp/web/productprice/product-price-edit.xml"/>
+    <screen id="ekomerp$Calculation.browse"
+            template="com/ekom/ekomerp/web/calculation/calculation-browse.xml"/>
+    <screen id="ekomerp$Calculation.edit"
+            template="com/ekom/ekomerp/web/calculation/calculation-edit.xml"/>
 </screen-config>

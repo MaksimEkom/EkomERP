@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.ekom.ekomerp.web.calculation.CalculationBrowse"
+        messagesPack="com.ekom.ekomerp.web.calculation">
+    <dsContext>
+        <groupDatasource id="calculationsDs"
+                         class="com.ekom.ekomerp.entity.Calculation"
+                         view="calculation-view">
+            <query>
+                <![CDATA[select e from ekomerp$Calculation e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="calculationsDataGrid"
+            spacing="true">
+        <filter id="filter"
+                applyTo="calculationsDataGrid"
+                datasource="calculationsDs"
+                defaultMode="fts"
+                useMaxResults="false">
+            <properties include=".*"/>
+        </filter>
+        <dataGrid id="calculationsDataGrid"
+                  datasource="calculationsDs"
+                  width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+                <action id="refresh"/>
+            </actions>
+            <columns>
+                <column property="number"/>
+                <column property="name"/>
+                <column editable="false"
+                        property="date"/>
+                <column editable="false"
+                        property="product"/>
+            </columns>
+            <buttonsPanel>
+                <button id="createButton"
+                        action="calculationsDataGrid.create"/>
+                <button id="editButton"
+                        action="calculationsDataGrid.edit"/>
+                <button id="removeButton"
+                        action="calculationsDataGrid.remove"/>
+                <button id="refreshButton"
+                        action="calculationsDataGrid.refresh"/>
+            </buttonsPanel>
+        </dataGrid>
+    </layout>
+</window>

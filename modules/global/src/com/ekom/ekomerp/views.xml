@@ -301,4 +301,56 @@
             <property name="name"/>
         </property>
     </view>
+    <view class="com.ekom.ekomerp.entity.Calculation"
+          extends="_local"
+          name="calculation-edit">
+        <property name="product"
+                  view="_minimal">
+            <property name="code"/>
+            <property name="unit"
+                      view="_minimal"/>
+            <property name="category"
+                      view="_minimal"/>
+            <property name="laboriousness"
+                      view="_minimal">
+                <property name="product"
+                          view="_minimal"/>
+                <property name="operation"
+                          view="_minimal"/>
+                <property name="value"/>
+            </property>
+            <property name="consumption"
+                      view="_minimal">
+                <property name="product"
+                          view="_minimal"/>
+                <property name="consumableProduct"
+                          view="_minimal"/>
+                <property name="quantity"/>
+            </property>
+        </property>
+        <property name="consumptionLine"
+                  view="_minimal">
+            <property name="material"
+                      view="_minimal">
+                <property name="code"/>
+                <property name="unit"
+                          view="_minimal"/>
+            </property>
+            <property name="quantity"/>
+            <property name="price"/>
+        </property>
+        <property name="laboriousLine"
+                  view="_minimal">
+            <property name="operation"
+                      view="_minimal"/>
+            <property name="value"/>
+            <property name="price"/>
+        </property>
+    </view>
+    <view class="com.ekom.ekomerp.entity.Calculation"
+          extends="_local"
+          name="calculation-view">
+        <property name="product"
+                  view="_minimal"/>
+    </view>
 </views>

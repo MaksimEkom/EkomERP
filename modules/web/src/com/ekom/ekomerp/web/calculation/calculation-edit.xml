@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="com.ekom.ekomerp.web.calculation.CalculationEdit"
+        datasource="calculationDs"
+        messagesPack="com.ekom.ekomerp.web.calculation">
+    <dsContext>
+        <datasource id="calculationDs"
+                    class="com.ekom.ekomerp.entity.Calculation"
+                    view="calculation-edit">
+            <collectionDatasource id="consumptionLineDs"
+                                  property="consumptionLine"/>
+            <collectionDatasource id="laboriousLineDs"
+                                  property="laboriousLine"/>
+        </datasource>
+        <collectionDatasource id="productsDs"
+                              class="com.ekom.ekomerp.entity.Product"
+                              view="productWithUnitAndCategory">
+            <query>
+                <![CDATA[select e from ekomerp$Product e
+where e.active = true and e.for_sale = true
+order by e.name]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="scrollBox"
+            spacing="true">
+        <hbox width="100%">
+            <vbox>
+                <label stylename="h2 bold"
+                       value="msg://Calculation"/>
+                <label datasource="calculationDs"
+                       property="number"
+                       stylename="h1"/>
+            </vbox>
+            <dateField align="MIDDLE_LEFT"
+                       caption="msg://Date"
+                       datasource="calculationDs"
+                       property="date"
+                       width="300px"/>
+        </hbox>
+        <hbox margin="false,false,false,true"
+              width="100%">
+            <textField id="calculationNameTextField"
+                       datasource="calculationDs"
+                       height="40px"
+                       inputPrompt="msg://Name"
+                       property="name"
+                       width="50%"/>
+        </hbox>
+        <grid width="100%">
+            <columns count="2"/>
+            <rows>
+                <row>
+                    <lookupPickerField caption="msg://Product"
+                                       datasource="calculationDs"
+                                       optionsDatasource="productsDs"
+                                       property="product"
+                                       width="300px"/>
+                    <textField caption="msg://Category"
+                               datasource="productsDs"
+                               editable="false"
+                               property="category"
+                               width="300px"/>
+                </row>
+                <row>
+                    <textField caption="msg://Code"
+                               datasource="productsDs"
+                               editable="false"
+                               property="code"
+                               width="300px"/>
+                    <textField caption="msg://Unit"
+                               datasource="productsDs"
+                               editable="false"
+                               property="unit"
+                               width="300px"/>
+                </row>
+            </rows>
+        </grid>
+        <scrollBox id="scrollBox"
+                   height="100px">
+            <table id="consumptionTable"
+                   caption="msg://Materials"
+                   height="200px"
+                   width="100%">
+                <columns>
+                    <column id="material"/>
+                    <column id="material.code"/>
+                    <column id="material.unit"/>
+                    <column id="quantity"/>
+                    <column id="price"/>
+                    <column id="totalLinePrice"
+                            caption="msg://Sum"/>
+                </columns>
+                <rows datasource="consumptionLineDs"/>
+            </table>
+            <hbox align="MIDDLE_RIGHT"
+                  spacing="true"
+                  width="300px">
+                <label align="MIDDLE_RIGHT"
+                       value="msg://Sum:"/>
+                <label align="MIDDLE_LEFT"
+                       description="materialSumLabel"/>
+            </hbox>
+            <table id="laborTable"
+                   caption="msg://Salary"
+                   height="200px"
+                   width="100%">
+                <columns>
+                    <column id="operation"/>
+                    <column id="value"/>
+                    <column id="price"/>
+                    <column id="totalLaborPrice"
+                            caption="msg://Sum"/>
+                </columns>
+                <rows datasource="laboriousLineDs"/>
+            </table>
+            <hbox align="MIDDLE_RIGHT"
+                  spacing="true"
+                  width="300px">
+                <label align="MIDDLE_RIGHT"
+                       value="msg://Sum:"/>
+                <label/>
+            </hbox>
+            <hbox spacing="true">
+                <label align="MIDDLE_LEFT"
+                       value="msg://FSZN"
+                       width="100px"/>
+                <textField width="50px"/>
+                <label align="MIDDLE_LEFT"
+                       value="%:"/>
+                <label align="MIDDLE_LEFT"
+                       value="24"/>
+            </hbox>
+            <hbox spacing="true">
+                <label align="MIDDLE_LEFT"
+                       value="msg://BGS"
+                       width="100px"/>
+                <textField width="50px"/>
+                <label align="MIDDLE_LEFT"
+                       value="%:"/>
+                <label align="MIDDLE_LEFT"
+                       value="24"/>
+            </hbox>
+            <hbox spacing="true">
+                <label align="MIDDLE_LEFT"
+                       value="msg://Production and economic expenses"/>
+                <textField width="50px"/>
+                <label align="MIDDLE_LEFT"
+                       value="%:"/>
+                <label align="MIDDLE_LEFT"
+                       value="24"/>
+            </hbox>
+            <hbox align="TOP_RIGHT"
+                  spacing="true">
+                <label align="MIDDLE_LEFT"
+                       value="msg://Total production cost price"/>
+                <label align="MIDDLE_LEFT"
+                       value="24"
+                       width="100px"/>
+            </hbox>
+        </scrollBox>
+        <frame id="windowActions"
+               screen="extendedEditWindowActions"/>
+    </layout>
+</window>
