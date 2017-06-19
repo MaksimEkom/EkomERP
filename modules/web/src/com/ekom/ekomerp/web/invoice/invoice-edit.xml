@@ -121,21 +121,19 @@ order by e.name]]>
                                       spacing="true">
                                     <label align="MIDDLE_RIGHT"
                                            value="msg://Amount Untaxed"/>
-                                    <textField align="MIDDLE_RIGHT"
-                                               datasource="invoiceDs"
-                                               property="amountUntaxed"
-                                               stylename="borderless"
-                                               width="150px"/>
+                                    <label align="MIDDLE_RIGHT"
+                                           datasource="invoiceDs"
+                                           property="amountUntaxed"
+                                           width="150px"/>
                                 </hbox>
                                 <hbox align="MIDDLE_RIGHT"
                                       spacing="true">
                                     <label align="MIDDLE_RIGHT"
                                            value="msg://Tax"/>
-                                    <textField align="MIDDLE_RIGHT"
-                                               datasource="invoiceDs"
-                                               property="amountTax"
-                                               stylename="borderless"
-                                               width="150px"/>
+                                    <label align="MIDDLE_RIGHT"
+                                           datasource="invoiceDs"
+                                           property="amountTax"
+                                           width="150px"/>
                                 </hbox>
                                 <groupBox align="MIDDLE_RIGHT"
                                           spacing="true"
@@ -146,11 +144,10 @@ order by e.name]]>
                                         <label align="MIDDLE_RIGHT"
                                                stylename="h2 bold"
                                                value="msg://AmountTotal"/>
-                                        <textField align="MIDDLE_RIGHT"
-                                                   datasource="invoiceDs"
-                                                   property="amountTotal"
-                                                   stylename="borderless"
-                                                   width="140px"/>
+                                        <label align="MIDDLE_RIGHT"
+                                               datasource="invoiceDs"
+                                               property="amountTotal"
+                                               width="150px"/>
                                     </hbox>
                                 </groupBox>
                             </vbox>

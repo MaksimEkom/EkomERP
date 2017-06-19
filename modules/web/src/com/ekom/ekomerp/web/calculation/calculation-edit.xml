@@ -31,7 +31,8 @@ order by e.name]]>
             <vbox>
                 <label stylename="h2 bold"
                        value="msg://Calculation"/>
-                <label datasource="calculationDs"
+                <label id="calculationNumberLabel"
+                       datasource="calculationDs"
                        property="number"
                        stylename="h1"/>
             </vbox>
@@ -80,7 +81,7 @@ order by e.name]]>
             </rows>
         </grid>
         <scrollBox id="scrollBox"
-                   height="100px">
+                   height="503px">
             <table id="consumptionTable"
                    caption="msg://Materials"
                    height="200px"
@@ -90,7 +91,8 @@ order by e.name]]>
                     <column id="material.code"/>
                     <column id="material.unit"/>
                     <column id="quantity"/>
-                    <column id="price"/>
+                    <column id="price"
+                            editable="true"/>
                     <column id="totalLinePrice"
                             caption="msg://Sum"/>
                 </columns>
@@ -101,8 +103,9 @@ order by e.name]]>
                   width="300px">
                 <label align="MIDDLE_RIGHT"
                        value="msg://Sum:"/>
-                <label align="MIDDLE_LEFT"
-                       description="materialSumLabel"/>
+                <label id="materialSumLabel"
+                       align="MIDDLE_LEFT"
+                       value="0"/>
             </hbox>
             <table id="laborTable"
                    caption="msg://Salary"
@@ -122,45 +125,114 @@ order by e.name]]>
                   width="300px">
                 <label align="MIDDLE_RIGHT"
                        value="msg://Sum:"/>
-                <label/>
+                <label id="laborSumLabel"
+                       value="0"/>
             </hbox>
             <hbox spacing="true">
                 <label align="MIDDLE_LEFT"
                        value="msg://FSZN"
-                       width="100px"/>
-                <textField width="50px"/>
+                       width="200px"/>
+                <textField id="FSZNTextField"
+                           width="50px"/>
                 <label align="MIDDLE_LEFT"
                        value="%:"/>
                 <label align="MIDDLE_LEFT"
-                       value="24"/>
+                       value="0"/>
             </hbox>
             <hbox spacing="true">
                 <label align="MIDDLE_LEFT"
                        value="msg://BGS"
-                       width="100px"/>
-                <textField width="50px"/>
+                       width="200px"/>
+                <textField id="BGSTextField"
+                           width="50px"/>
                 <label align="MIDDLE_LEFT"
                        value="%:"/>
                 <label align="MIDDLE_LEFT"
-                       value="24"/>
+                       value="0"/>
             </hbox>
             <hbox spacing="true">
                 <label align="MIDDLE_LEFT"
-                       value="msg://Production and economic expenses"/>
-                <textField width="50px"/>
+                       value="msg://Production and economic expenses"
+                       width="200px"/>
+                <textField id="productionExpensesTextField"
+                           width="50px"/>
                 <label align="MIDDLE_LEFT"
                        value="%:"/>
                 <label align="MIDDLE_LEFT"
-                       value="24"/>
+                       value="0"/>
             </hbox>
             <hbox align="TOP_RIGHT"
                   spacing="true">
                 <label align="MIDDLE_LEFT"
                        value="msg://Total production cost price"/>
                 <label align="MIDDLE_LEFT"
-                       value="24"
+                       value="0"
                        width="100px"/>
             </hbox>
+            <hbox spacing="true">
+                <label align="MIDDLE_LEFT"
+                       value="msg://Commercial expenses"
+                       width="200px"/>
+                <textField id="commercialExpensesTextField"
+                           width="50px"/>
+                <label align="MIDDLE_LEFT"
+                       value="%:"/>
+                <label align="MIDDLE_LEFT"
+                       value="0"/>
+            </hbox>
+            <hbox align="TOP_RIGHT"
+                  spacing="true">
+                <label align="MIDDLE_LEFT"
+                       value="msg://Total cost"/>
+                <label align="MIDDLE_LEFT"
+                       value="0"
+                       width="100px"/>
+            </hbox>
+            <hbox spacing="true">
+                <label align="MIDDLE_LEFT"
+                       stylename="bold"
+                       value="msg://Profit"
+                       width="200px"/>
+                <textField id="profitTextField"
+                           width="50px"/>
+                <label align="MIDDLE_LEFT"
+                       value="%:"/>
+                <label align="MIDDLE_LEFT"
+                       stylename="bold"
+                       value="0"/>
+            </hbox>
+            <hbox align="TOP_RIGHT"
+                  margin="true"
+                  spacing="true">
+                <label value="msg://Selling Price Untaxed"/>
+                <label datasource="calculationDs"
+                       property="sellingPriceUntaxed"
+                       width="100px"/>
+            </hbox>
+            <hbox align="TOP_RIGHT"
+                  margin="true"
+                  spacing="true">
+                <label value="msg://TAX"/>
+                <label datasource="calculationDs"
+                       property="amountTax"
+                       width="100px"/>
+            </hbox>
+            <groupBox align="TOP_RIGHT"
+                      spacing="true"
+                      stylename="light"
+                      width="400px">
+                <hbox align="TOP_RIGHT"
+                      spacing="true">
+                    <label align="TOP_RIGHT"
+                           stylename="h2 bold"
+                           value="msg://Total Price with TAX"/>
+                    <label align="TOP_RIGHT"
+                           datasource="calculationDs"
+                           property="sellingPriceTotal"
+                           stylename="bold"
+                           width="100px"/>
+                </hbox>
+            </groupBox>
         </scrollBox>
         <frame id="windowActions"
                screen="extendedEditWindowActions"/>
