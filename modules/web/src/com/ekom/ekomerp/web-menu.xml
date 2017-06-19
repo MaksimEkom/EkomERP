@@ -24,6 +24,7 @@
     <menu id="accounting"
           insertBefore="administration">
         <item id="ekomerp$Invoice.browse"/>
+        <item screen="ekomerp$Calculation.browse"/>
     </menu>
     <menu id="inventory"
           insertBefore="administration">

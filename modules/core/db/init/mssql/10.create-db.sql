@@ -451,3 +451,65 @@ create table EKOMERP_PRODUCT_PRICE (
     primary key nonclustered (ID)
 )^
 -- end EKOMERP_PRODUCT_PRICE
+-- begin EKOMERP_CALCULATION
+create table EKOMERP_CALCULATION (
+    ID uniqueidentifier,
+    VERSION integer not null,
+    CREATE_TS datetime2,
+    CREATED_BY varchar(50),
+    UPDATE_TS datetime2,
+    UPDATED_BY varchar(50),
+    DELETE_TS datetime2,
+    DELETED_BY varchar(50),
+    --
+    NUMBER_ varchar(255) not null,
+    NAME varchar(255) not null,
+    PRODUCT_ID uniqueidentifier not null,
+    SELLING_PRICE_TOTAL double precision,
+    AMOUNT_TAX double precision,
+    SELLING_PRICE_UNTAXED double precision,
+    PROFIT double precision,
+    COST_PRICE double precision,
+    DATE_ datetime2,
+    --
+    primary key nonclustered (ID)
+)^
+-- end EKOMERP_CALCULATION
+-- begin EKOMERP_CALCULATION_MATERIAL_LINE
+create table EKOMERP_CALCULATION_MATERIAL_LINE (
+    ID uniqueidentifier,
+    VERSION integer not null,
+    CREATE_TS datetime2,
+    CREATED_BY varchar(50),
+    UPDATE_TS datetime2,
+    UPDATED_BY varchar(50),
+    DELETE_TS datetime2,
+    DELETED_BY varchar(50),
+    --
+    CALCULATION_ID uniqueidentifier,
+    MATERIAL_ID uniqueidentifier,
+    QUANTITY double precision,
+    PRICE double precision,
+    --
+    primary key nonclustered (ID)
+)^
+-- end EKOMERP_CALCULATION_MATERIAL_LINE
+-- begin EKOMERP_CALCULATION_LABORIOUSNESS_LINE
+create table EKOMERP_CALCULATION_LABORIOUSNESS_LINE (
+    ID uniqueidentifier,
+    VERSION integer not null,
+    CREATE_TS datetime2,
+    CREATED_BY varchar(50),
+    UPDATE_TS datetime2,
+    UPDATED_BY varchar(50),
+    DELETE_TS datetime2,
+    DELETED_BY varchar(50),
+    --
+    CALCULATION_ID uniqueidentifier,
+    OPERATION_ID uniqueidentifier,
+    VALUE_ double precision,
+    PRICE double precision,
+    --
+    primary key nonclustered (ID)
+)^
+-- end EKOMERP_CALCULATION_LABORIOUSNESS_LINE

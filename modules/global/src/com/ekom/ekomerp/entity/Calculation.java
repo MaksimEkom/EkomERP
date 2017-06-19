@@ -16,6 +16,9 @@ import com.haulmont.cuba.core.entity.annotation.OnDelete;
 import com.haulmont.cuba.core.global.DeletePolicy;
 import java.util.List;
 import javax.persistence.OneToMany;
+import java.util.Date;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @NamePattern("%s|name")
 @Table(name = "EKOMERP_CALCULATION")
@@ -24,14 +27,15 @@ public class Calculation extends StandardEntity {
     private static final long serialVersionUID = -1586564265695484585L;
 
     @Column(name = "NUMBER_", nullable = false)
-    protected String number;
+    protected String number = "Новый";
 
     @NotNull
     @Column(name = "NAME", nullable = false)
     protected String name;
 
+    @NotNull
     @Lookup(type = LookupType.DROPDOWN, actions = {"lookup", "open"})
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "PRODUCT_ID")
     protected Product product;
 
@@ -59,6 +63,19 @@ public class Calculation extends StandardEntity {
 
     @Column(name = "COST_PRICE")
     protected Double costPrice;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DATE_")
+    protected Date date = new Date(System.currentTimeMillis());
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
 
     public void setAmountTax(Double amountTax) {
         this.amountTax = amountTax;
