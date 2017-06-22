@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import java.util.Date;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import java.math.BigDecimal;
 
 @NamePattern("%s|name")
 @Table(name = "EKOMERP_CALCULATION")
@@ -45,10 +46,10 @@ public class Calculation extends StandardEntity {
     protected List<CalculationMaterialLine> consumptionLine;
 
     @Column(name = "SELLING_PRICE_TOTAL")
-    protected Double sellingPriceTotal;
+    protected BigDecimal sellingPriceTotal;
 
     @Column(name = "AMOUNT_TAX")
-    protected Double amountTax;
+    protected BigDecimal amountTax;
 
     @Composition
     @OnDelete(DeletePolicy.CASCADE)
@@ -56,17 +57,196 @@ public class Calculation extends StandardEntity {
     protected List<CalculationLaboriousnessLine> laboriousLine;
 
     @Column(name = "SELLING_PRICE_UNTAXED")
-    protected Double sellingPriceUntaxed;
+    protected BigDecimal sellingPriceUntaxed;
 
     @Column(name = "PROFIT")
-    protected Double profit;
+    protected BigDecimal profit;
 
     @Column(name = "COST_PRICE")
-    protected Double costPrice;
+    protected BigDecimal costPrice;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "DATE_")
     protected Date date = new Date(System.currentTimeMillis());
+
+    @Column(name = "FSZN_RATE")
+    protected BigDecimal fsznRate = BigDecimal.valueOf(34.0);
+
+    @Column(name = "BGS_RATE")
+    protected BigDecimal bgsRate = BigDecimal.valueOf(0.47);
+
+    @Column(name = "PRODUCTION_EXPENSES_RATE")
+    protected BigDecimal productionExpensesRate = BigDecimal.valueOf(500.0);
+
+    @Column(name = "COMMERCIAL_EXPENSES_RATE")
+    protected BigDecimal commercialExpensesRate = BigDecimal.valueOf(0.0);
+
+    @Column(name = "PROFIT_RATE")
+    protected BigDecimal profitRate = BigDecimal.valueOf(20.0);
+
+    @Column(name = "FSZN", precision = 19, scale = 4)
+    protected BigDecimal fszn;
+
+    @Column(name = "BGS", precision = 19, scale = 4)
+    protected BigDecimal bgs;
+
+    @Column(name = "PRODUCTION_EXPENSES")
+    protected BigDecimal productionExpenses;
+
+    @Column(name = "COMMERCIAL_EXPENSES")
+    protected BigDecimal commercialExpenses;
+
+    @Column(name = "MATERIAL_SUM")
+    protected BigDecimal materialSum;
+
+    @Column(name = "LABOR_SUM")
+    protected BigDecimal laborSum;
+
+    public BigDecimal getSellingPriceTotal() {
+        return sellingPriceTotal;
+    }
+
+    public void setSellingPriceTotal(BigDecimal sellingPriceTotal) {
+        this.sellingPriceTotal = sellingPriceTotal;
+    }
+
+
+    public BigDecimal getAmountTax() {
+        return amountTax;
+    }
+
+    public void setAmountTax(BigDecimal amountTax) {
+        this.amountTax = amountTax;
+    }
+
+
+    public BigDecimal getSellingPriceUntaxed() {
+        return sellingPriceUntaxed;
+    }
+
+    public void setSellingPriceUntaxed(BigDecimal sellingPriceUntaxed) {
+        this.sellingPriceUntaxed = sellingPriceUntaxed;
+    }
+
+
+    public BigDecimal getProfit() {
+        return profit;
+    }
+
+    public void setProfit(BigDecimal profit) {
+        this.profit = profit;
+    }
+
+
+    public BigDecimal getCostPrice() {
+        return costPrice;
+    }
+
+    public void setCostPrice(BigDecimal costPrice) {
+        this.costPrice = costPrice;
+    }
+
+
+    public BigDecimal getFsznRate() {
+        return fsznRate;
+    }
+
+    public void setFsznRate(BigDecimal fsznRate) {
+        this.fsznRate = fsznRate;
+    }
+
+
+    public BigDecimal getBgsRate() {
+        return bgsRate;
+    }
+
+    public void setBgsRate(BigDecimal bgsRate) {
+        this.bgsRate = bgsRate;
+    }
+
+
+    public BigDecimal getProductionExpensesRate() {
+        return productionExpensesRate;
+    }
+
+    public void setProductionExpensesRate(BigDecimal productionExpensesRate) {
+        this.productionExpensesRate = productionExpensesRate;
+    }
+
+
+    public BigDecimal getCommercialExpensesRate() {
+        return commercialExpensesRate;
+    }
+
+    public void setCommercialExpensesRate(BigDecimal commercialExpensesRate) {
+        this.commercialExpensesRate = commercialExpensesRate;
+    }
+
+
+    public BigDecimal getProfitRate() {
+        return profitRate;
+    }
+
+    public void setProfitRate(BigDecimal profitRate) {
+        this.profitRate = profitRate;
+    }
+
+
+    public BigDecimal getBgs() {
+        return bgs;
+    }
+
+    public void setBgs(BigDecimal bgs) {
+        this.bgs = bgs;
+    }
+
+
+    public BigDecimal getProductionExpenses() {
+        return productionExpenses;
+    }
+
+    public void setProductionExpenses(BigDecimal productionExpenses) {
+        this.productionExpenses = productionExpenses;
+    }
+
+
+    public BigDecimal getCommercialExpenses() {
+        return commercialExpenses;
+    }
+
+    public void setCommercialExpenses(BigDecimal commercialExpenses) {
+        this.commercialExpenses = commercialExpenses;
+    }
+
+
+    public BigDecimal getMaterialSum() {
+        return materialSum;
+    }
+
+    public void setMaterialSum(BigDecimal materialSum) {
+        this.materialSum = materialSum;
+    }
+
+
+    public BigDecimal getLaborSum() {
+        return laborSum;
+    }
+
+    public void setLaborSum(BigDecimal laborSum) {
+        this.laborSum = laborSum;
+    }
+
+
+    public BigDecimal getFszn() {
+        return fszn;
+    }
+
+    public void setFszn(BigDecimal fszn) {
+        this.fszn = fszn;
+    }
+
+
+
 
     public void setDate(Date date) {
         this.date = date;
@@ -77,14 +257,6 @@ public class Calculation extends StandardEntity {
     }
 
 
-    public void setAmountTax(Double amountTax) {
-        this.amountTax = amountTax;
-    }
-
-    public Double getAmountTax() {
-        return amountTax;
-    }
-
     public void setLaboriousLine(List<CalculationLaboriousnessLine> laboriousLine) {
         this.laboriousLine = laboriousLine;
     }
@@ -93,38 +265,6 @@ public class Calculation extends StandardEntity {
         return laboriousLine;
     }
 
-    public void setSellingPriceUntaxed(Double sellingPriceUntaxed) {
-        this.sellingPriceUntaxed = sellingPriceUntaxed;
-    }
-
-    public Double getSellingPriceUntaxed() {
-        return sellingPriceUntaxed;
-    }
-
-    public void setProfit(Double profit) {
-        this.profit = profit;
-    }
-
-    public Double getProfit() {
-        return profit;
-    }
-
-    public void setCostPrice(Double costPrice) {
-        this.costPrice = costPrice;
-    }
-
-    public Double getCostPrice() {
-        return costPrice;
-    }
-
-
-    public void setSellingPriceTotal(Double sellingPriceTotal) {
-        this.sellingPriceTotal = sellingPriceTotal;
-    }
-
-    public Double getSellingPriceTotal() {
-        return sellingPriceTotal;
-    }
 
 
     public void setConsumptionLine(List<CalculationMaterialLine> consumptionLine) {

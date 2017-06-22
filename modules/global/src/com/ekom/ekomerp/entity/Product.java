@@ -99,6 +99,28 @@ public class Product extends StandardEntity {
     @OneToMany(mappedBy = "product")
     protected Set<ProductPrice> productPrice;
 
+    public Set<Laboriousness> getLaboriousness() {
+        return laboriousness;
+    }
+
+    public void setLaboriousness(Set<Laboriousness> laboriousness) {
+        this.laboriousness = laboriousness;
+    }
+
+
+    public Set<Consumption> getConsumption() {
+        return consumption;
+    }
+
+    public void setConsumption(Set<Consumption> consumption) {
+        this.consumption = consumption;
+    }
+
+
+
+
+
+
     public Set<ProductPrice> getProductPrice() {
         return productPrice;
     }
@@ -153,22 +175,6 @@ public class Product extends StandardEntity {
     }
 
 
-    public void setConsumption(Set<Consumption> consumption) {
-        this.consumption = consumption;
-    }
-
-    public Set<Consumption> getConsumption() {
-        return consumption;
-    }
-
-
-    public void setLaboriousness(Set<Laboriousness> laboriousness) {
-        this.laboriousness = laboriousness;
-    }
-
-    public Set<Laboriousness> getLaboriousness() {
-        return laboriousness;
-    }
 
 
     public Unit getUnit() {

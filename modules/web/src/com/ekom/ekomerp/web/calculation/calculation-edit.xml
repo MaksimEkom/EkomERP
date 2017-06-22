@@ -55,7 +55,8 @@ order by e.name]]>
             <columns count="2"/>
             <rows>
                 <row>
-                    <lookupPickerField caption="msg://Product"
+                    <lookupPickerField id="productPickerField"
+                                       caption="msg://Product"
                                        datasource="calculationDs"
                                        optionsDatasource="productsDs"
                                        property="product"
@@ -84,6 +85,7 @@ order by e.name]]>
                    height="503px">
             <table id="consumptionTable"
                    caption="msg://Materials"
+                   editable="true"
                    height="200px"
                    width="100%">
                 <columns>
@@ -99,74 +101,87 @@ order by e.name]]>
                 <rows datasource="consumptionLineDs"/>
             </table>
             <hbox align="MIDDLE_RIGHT"
-                  spacing="true"
-                  width="300px">
+                  spacing="true">
                 <label align="MIDDLE_RIGHT"
                        value="msg://Sum:"/>
                 <label id="materialSumLabel"
                        align="MIDDLE_LEFT"
-                       value="0"/>
+                       datasource="calculationDs"
+                       property="materialSum"
+                       width="100px"/>
             </hbox>
             <table id="laborTable"
                    caption="msg://Salary"
+                   editable="true"
                    height="200px"
                    width="100%">
                 <columns>
                     <column id="operation"/>
                     <column id="value"/>
-                    <column id="price"/>
+                    <column id="price"
+                            editable="true"/>
                     <column id="totalLaborPrice"
                             caption="msg://Sum"/>
                 </columns>
                 <rows datasource="laboriousLineDs"/>
             </table>
             <hbox align="MIDDLE_RIGHT"
-                  spacing="true"
-                  width="300px">
+                  spacing="true">
                 <label align="MIDDLE_RIGHT"
                        value="msg://Sum:"/>
                 <label id="laborSumLabel"
-                       value="0"/>
+                       align="MIDDLE_RIGHT"
+                       datasource="calculationDs"
+                       property="laborSum"
+                       width="100px"/>
             </hbox>
             <hbox spacing="true">
                 <label align="MIDDLE_LEFT"
                        value="msg://FSZN"
                        width="200px"/>
                 <textField id="FSZNTextField"
+                           datasource="calculationDs"
+                           property="fsznRate"
                            width="50px"/>
                 <label align="MIDDLE_LEFT"
                        value="%:"/>
                 <label align="MIDDLE_LEFT"
-                       value="0"/>
+                       datasource="calculationDs"
+                       property="fszn"/>
             </hbox>
             <hbox spacing="true">
                 <label align="MIDDLE_LEFT"
                        value="msg://BGS"
                        width="200px"/>
                 <textField id="BGSTextField"
+                           datasource="calculationDs"
+                           property="bgsRate"
                            width="50px"/>
                 <label align="MIDDLE_LEFT"
                        value="%:"/>
                 <label align="MIDDLE_LEFT"
-                       value="0"/>
+                       datasource="calculationDs"
+                       property="bgs"/>
             </hbox>
             <hbox spacing="true">
                 <label align="MIDDLE_LEFT"
                        value="msg://Production and economic expenses"
                        width="200px"/>
                 <textField id="productionExpensesTextField"
+                           datasource="calculationDs"
+                           property="productionExpensesRate"
                            width="50px"/>
                 <label align="MIDDLE_LEFT"
                        value="%:"/>
                 <label align="MIDDLE_LEFT"
-                       value="0"/>
+                       datasource="calculationDs"
+                       property="productionExpenses"/>
             </hbox>
             <hbox align="TOP_RIGHT"
                   spacing="true">
                 <label align="MIDDLE_LEFT"
                        value="msg://Total production cost price"/>
                 <label align="MIDDLE_LEFT"
-                       value="0"
                        width="100px"/>
             </hbox>
             <hbox spacing="true">
@@ -174,18 +189,22 @@ order by e.name]]>
                        value="msg://Commercial expenses"
                        width="200px"/>
                 <textField id="commercialExpensesTextField"
+                           datasource="calculationDs"
+                           property="commercialExpensesRate"
                            width="50px"/>
                 <label align="MIDDLE_LEFT"
                        value="%:"/>
                 <label align="MIDDLE_LEFT"
-                       value="0"/>
+                       datasource="calculationDs"
+                       property="commercialExpenses"/>
             </hbox>
             <hbox align="TOP_RIGHT"
                   spacing="true">
                 <label align="MIDDLE_LEFT"
                        value="msg://Total cost"/>
                 <label align="MIDDLE_LEFT"
-                       value="0"
+                       datasource="calculationDs"
+                       property="costPrice"
                        width="100px"/>
             </hbox>
             <hbox spacing="true">
@@ -194,12 +213,15 @@ order by e.name]]>
                        value="msg://Profit"
                        width="200px"/>
                 <textField id="profitTextField"
+                           datasource="calculationDs"
+                           property="profitRate"
                            width="50px"/>
                 <label align="MIDDLE_LEFT"
                        value="%:"/>
                 <label align="MIDDLE_LEFT"
-                       stylename="bold"
-                       value="0"/>
+                       datasource="calculationDs"
+                       property="profit"
+                       stylename="bold"/>
             </hbox>
             <hbox align="TOP_RIGHT"
                   margin="true"

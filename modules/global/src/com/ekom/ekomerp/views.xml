@@ -9,6 +9,11 @@
             <property name="unit"
                       view="_minimal"/>
         </property>
+        <property name="product"
+                  view="_minimal">
+            <property name="code"/>
+            <property name="analog"/>
+        </property>
     </view>
     <view class="com.ekom.ekomerp.entity.Laboriousness"
           extends="_local"
@@ -290,6 +295,13 @@
           name="productWithUnitAndCategory">
         <property name="category"
                   view="_minimal"/>
+        <property name="laboriousness"
+                  view="laboriousness-edit">
+            <property name="product"
+                      view="_minimal"/>
+        </property>
+        <property name="consumption"
+                  view="consumption-edit"/>
     </view>
     <view class="com.ekom.ekomerp.entity.ProductPrice"
           extends="_local"
