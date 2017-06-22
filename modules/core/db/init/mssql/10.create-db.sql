@@ -481,7 +481,7 @@ create table EKOMERP_CALCULATION (
     PRODUCTION_EXPENSES decimal(19, 2),
     COMMERCIAL_EXPENSES decimal(19, 2),
     MATERIAL_SUM decimal(19, 2),
-    LABOR_SUM decimal(19, 2),
+    LABOR_SUM decimal(19, 3),
     --
     primary key nonclustered (ID)
 )^

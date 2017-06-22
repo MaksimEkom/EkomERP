@@ -4,6 +4,7 @@ import com.ekom.ekomerp.entity.*;
 import com.haulmont.cuba.core.app.PersistenceManagerService;
 import com.haulmont.cuba.core.app.UniqueNumbersService;
 import com.haulmont.cuba.core.global.DataManager;
+import com.haulmont.cuba.core.global.DatatypeFormatter;
 import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.data.CollectionDatasource;
@@ -15,6 +16,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 public class CalculationEdit extends AbstractEditor<Calculation> {
@@ -52,6 +54,8 @@ public class CalculationEdit extends AbstractEditor<Calculation> {
     private Table<CalculationLaboriousnessLine> laborTable;
     @Inject
     private ComponentsFactory componentsFactory;
+    @Inject
+    private DatatypeFormatter formatter;
 
     @Override
     public void init(Map<String, Object> params) {
@@ -191,9 +195,9 @@ public class CalculationEdit extends AbstractEditor<Calculation> {
     private void laborSumCount(){
         BigDecimal laborSum = BigDecimal.ZERO;
         for (CalculationLaboriousnessLine calculationLaboriousnessLine:laboriousLineDs.getItems()) {
-            laborSum = laborSum.add(new BigDecimal(calculationLaboriousnessLine.getPrice()*calculationLaboriousnessLine.getValue()));
+            laborSum = laborSum.add(new BigDecimal(calculationLaboriousnessLine.getPrice()*calculationLaboriousnessLine.getValue()).setScale(3,RoundingMode.HALF_UP));
         }
-        getItem().setLaborSum(laborSum);
+        getItem().setLaborSum(laborSum.setScale(3, RoundingMode.HALF_UP));
     }
     private void fsznCount(){
         getItem().setFszn(getItem().getLaborSum().multiply(getItem().getFsznRate().divide(BigDecimal.valueOf(100.0))));

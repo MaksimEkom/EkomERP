@@ -99,7 +99,7 @@ public class Calculation extends StandardEntity {
     @Column(name = "MATERIAL_SUM")
     protected BigDecimal materialSum;
 
-    @Column(name = "LABOR_SUM")
+    @Column(name = "LABOR_SUM", precision = 19, scale = 3)
     protected BigDecimal laborSum;
 
     public BigDecimal getSellingPriceTotal() {
