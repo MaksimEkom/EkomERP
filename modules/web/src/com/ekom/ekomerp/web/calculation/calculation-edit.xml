@@ -181,7 +181,8 @@ order by e.name]]>
                   spacing="true">
                 <label align="MIDDLE_LEFT"
                        value="msg://Total production cost price"/>
-                <label align="MIDDLE_LEFT"
+                <label id="totalProductionCostPriceLabel"
+                       align="MIDDLE_LEFT"
                        width="100px"/>
             </hbox>
             <hbox spacing="true">

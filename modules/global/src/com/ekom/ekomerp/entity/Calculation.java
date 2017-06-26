@@ -2,6 +2,9 @@ package com.ekom.ekomerp.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import com.ekom.ekomerp.FourDigitsScaleBigDecimal;
+import com.haulmont.chile.core.annotations.MetaProperty;
 import com.haulmont.cuba.core.entity.annotation.Lookup;
 import com.haulmont.cuba.core.entity.annotation.LookupType;
 import javax.persistence.Column;
@@ -84,21 +87,26 @@ public class Calculation extends StandardEntity {
     @Column(name = "PROFIT_RATE")
     protected BigDecimal profitRate = BigDecimal.valueOf(20.0);
 
+    @MetaProperty(datatype = FourDigitsScaleBigDecimal.NAME)
     @Column(name = "FSZN", precision = 19, scale = 4)
     protected BigDecimal fszn;
 
+    @MetaProperty(datatype = FourDigitsScaleBigDecimal.NAME)
     @Column(name = "BGS", precision = 19, scale = 4)
     protected BigDecimal bgs;
 
     @Column(name = "PRODUCTION_EXPENSES")
     protected BigDecimal productionExpenses;
 
+
     @Column(name = "COMMERCIAL_EXPENSES")
     protected BigDecimal commercialExpenses;
 
+    @MetaProperty(datatype = FourDigitsScaleBigDecimal.NAME)
     @Column(name = "MATERIAL_SUM")
     protected BigDecimal materialSum;
 
+    @MetaProperty(datatype = FourDigitsScaleBigDecimal.NAME)
     @Column(name = "LABOR_SUM", precision = 19, scale = 3)
     protected BigDecimal laborSum;
 

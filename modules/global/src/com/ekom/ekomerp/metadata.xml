@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <metadata xmlns="http://schemas.haulmont.com/cuba/metadata.xsd">
-
+    <datatypes>
+        <datatype class="com.ekom.ekomerp.FourDigitsScaleBigDecimal"
+                  format="#0.0000" decimalSeparator="." groupingSeparator=""/>
+    </datatypes>
     <metadata-model root-package="com.ekom.ekomerp" namespace="ekomerp"/>
 
 </metadata>

@@ -56,6 +56,8 @@ public class CalculationEdit extends AbstractEditor<Calculation> {
     private ComponentsFactory componentsFactory;
     @Inject
     private DatatypeFormatter formatter;
+    @Inject
+    private Label totalProductionCostPriceLabel;
 
     @Override
     public void init(Map<String, Object> params) {
@@ -82,25 +84,29 @@ public class CalculationEdit extends AbstractEditor<Calculation> {
             setLaboriousDataSource(getLaboriousnessSet(productPickerField.getValue()));
             materialSumCount();
             laborSumCount();
-//            productionExpensesCount();
+            productionExpensesCount();
             fsznCount();
             bgsCount();
+            totalProductionCostPriceLabel.setValue(totalProductionCostCount());
         });
         consumptionLineDs.addItemPropertyChangeListener(e -> {
             if(e.getProperty().equals("price")){
                 materialSumCount();
                 consumptionTable.repaint();
+                totalProductionCostPriceLabel.setValue(totalProductionCostCount());
             }
         });
         laboriousLineDs.addItemPropertyChangeListener(e -> {
             if(e.getProperty().equals("price")){
                 laborSumCount();
                 laborTable.repaint();
-//                productionExpensesCount();
+                productionExpensesCount();
                 fsznCount();
                 bgsCount();
+                totalProductionCostPriceLabel.setValue(totalProductionCostCount());
             }
         });
+
         super.init(params);
     }
 
@@ -198,6 +204,7 @@ public class CalculationEdit extends AbstractEditor<Calculation> {
             laborSum = laborSum.add(new BigDecimal(calculationLaboriousnessLine.getPrice()*calculationLaboriousnessLine.getValue()).setScale(3,RoundingMode.HALF_UP));
         }
         getItem().setLaborSum(laborSum.setScale(3, RoundingMode.HALF_UP));
+
     }
     private void fsznCount(){
         getItem().setFszn(getItem().getLaborSum().multiply(getItem().getFsznRate().divide(BigDecimal.valueOf(100.0))));
@@ -205,8 +212,12 @@ public class CalculationEdit extends AbstractEditor<Calculation> {
     private void bgsCount(){
         getItem().setBgs(getItem().getLaborSum().multiply(getItem().getBgsRate().divide(new BigDecimal(100.0))));
     }
-//    private void productionExpensesCount(){
-//        Double productionExpenses = 0.0;
-//        getItem().setProductionExpenses(getItem().getLaborSum()*getItem().getProductionExpensesRate()/100);
-//    }
+    private void productionExpensesCount(){
+        getItem().setProductionExpenses(getItem().getLaborSum().multiply(getItem().getProductionExpensesRate().divide(new BigDecimal(100.0))));
+    }
+    private BigDecimal totalProductionCostCount(){
+        BigDecimal totalProductionCost = BigDecimal.ZERO;
+        totalProductionCost = getItem().getMaterialSum().add(getItem().getLaborSum()).add(getItem().getFszn()).add(getItem().getBgs()).add(getItem().getProductionExpenses());
+        return totalProductionCost;
+    }
 }
