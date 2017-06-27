@@ -88,12 +88,23 @@ public class CalculationEdit extends AbstractEditor<Calculation> {
             fsznCount();
             bgsCount();
             totalProductionCostPriceLabel.setValue(totalProductionCostCount());
+            commercialExpensesCount();
+            totalCostCount();
+            profitCount();
+            untaxedPriceCount();
+            taxCount();
+            sellingPriceCount();
         });
         consumptionLineDs.addItemPropertyChangeListener(e -> {
             if(e.getProperty().equals("price")){
                 materialSumCount();
                 consumptionTable.repaint();
                 totalProductionCostPriceLabel.setValue(totalProductionCostCount());
+                totalCostCount();
+                profitCount();
+                untaxedPriceCount();
+                taxCount();
+                sellingPriceCount();
             }
         });
         laboriousLineDs.addItemPropertyChangeListener(e -> {
@@ -104,9 +115,67 @@ public class CalculationEdit extends AbstractEditor<Calculation> {
                 fsznCount();
                 bgsCount();
                 totalProductionCostPriceLabel.setValue(totalProductionCostCount());
+                commercialExpensesCount();
+                totalCostCount();
+                profitCount();
+                untaxedPriceCount();
+                taxCount();
+                sellingPriceCount();
             }
         });
 
+        FSZNTextField.addValueChangeListener(e -> {
+            if(productPickerField.getValue()!=null) {
+                fsznCount();
+                totalProductionCostPriceLabel.setValue(totalProductionCostCount());
+                totalCostCount();
+                profitCount();
+                untaxedPriceCount();
+                taxCount();
+                sellingPriceCount();
+            }
+        });
+        BGSTextField.addValueChangeListener(e -> {
+            if(productPickerField.getValue()!=null) {
+                bgsCount();
+                totalProductionCostPriceLabel.setValue(totalProductionCostCount());
+                totalCostCount();
+                profitCount();
+                untaxedPriceCount();
+                taxCount();
+                sellingPriceCount();
+            }
+
+        });
+        productionExpensesTextField.addValueChangeListener(e -> {
+            if(productPickerField.getValue()!=null) {
+                productionExpensesCount();
+                totalProductionCostPriceLabel.setValue(totalProductionCostCount());
+                totalCostCount();
+                profitCount();
+                untaxedPriceCount();
+                taxCount();
+                sellingPriceCount();
+            }
+        });
+        commercialExpensesTextField.addValueChangeListener(e -> {
+            if(productPickerField.getValue()!=null) {
+                commercialExpensesCount();
+                totalCostCount();
+                profitCount();
+                untaxedPriceCount();
+                taxCount();
+                sellingPriceCount();
+            }
+        });
+        profitTextField.addValueChangeListener(e -> {
+            if(productPickerField.getValue()!=null) {
+                profitCount();
+                untaxedPriceCount();
+                taxCount();
+                sellingPriceCount();
+            }
+        });
         super.init(params);
     }
 
@@ -207,17 +276,40 @@ public class CalculationEdit extends AbstractEditor<Calculation> {
 
     }
     private void fsznCount(){
-        getItem().setFszn(getItem().getLaborSum().multiply(getItem().getFsznRate().divide(BigDecimal.valueOf(100.0))));
+        getItem().setFszn(getItem().getLaborSum().multiply(getItem().getFsznRate().divide(new BigDecimal("100.0"))));
     }
     private void bgsCount(){
-        getItem().setBgs(getItem().getLaborSum().multiply(getItem().getBgsRate().divide(new BigDecimal(100.0))));
+        getItem().setBgs(getItem().getLaborSum().multiply(getItem().getBgsRate().divide(new BigDecimal("100.0"))));
     }
     private void productionExpensesCount(){
-        getItem().setProductionExpenses(getItem().getLaborSum().multiply(getItem().getProductionExpensesRate().divide(new BigDecimal(100.0))));
+        getItem().setProductionExpenses(getItem().getLaborSum().multiply(getItem().getProductionExpensesRate().divide(new BigDecimal("100.0"))));
     }
     private BigDecimal totalProductionCostCount(){
         BigDecimal totalProductionCost = BigDecimal.ZERO;
         totalProductionCost = getItem().getMaterialSum().add(getItem().getLaborSum()).add(getItem().getFszn()).add(getItem().getBgs()).add(getItem().getProductionExpenses());
         return totalProductionCost;
     }
-}
+    private void commercialExpensesCount(){
+        getItem().setCommercialExpenses(getItem().getLaborSum().multiply(getItem().getCommercialExpensesRate().divide(new BigDecimal("100.0"))));
+    }
+    private void totalCostCount(){
+
+       getItem().setCostPrice(getItem().getMaterialSum().add(getItem().getLaborSum()).add(getItem().getFszn()).add(getItem().getBgs()).add(getItem().getProductionExpenses()).add(getItem().getCommercialExpenses()));
+
+    }
+    private void profitCount(){
+        getItem().setProfit(getItem().getCostPrice().multiply(getItem().getProfitRate().divide(new BigDecimal("100.0"))));
+    }
+    private void untaxedPriceCount(){
+        getItem().setSellingPriceUntaxed(getItem().getCostPrice().add(getItem().getProfit()));
+
+    }
+    private void taxCount(){
+        getItem().setAmountTax(getItem().getSellingPriceUntaxed().multiply(new BigDecimal("0.2")));
+
+    }
+    private void sellingPriceCount(){
+        getItem().setSellingPriceTotal(getItem().getSellingPriceUntaxed().add(getItem().getAmountTax()));
+
+    }
+};

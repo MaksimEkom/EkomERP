@@ -24,7 +24,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.math.BigDecimal;
 
-@NamePattern("%s|name")
+@NamePattern("%s - %s|number,name")
 @Table(name = "EKOMERP_CALCULATION")
 @Entity(name = "ekomerp$Calculation")
 public class Calculation extends StandardEntity {

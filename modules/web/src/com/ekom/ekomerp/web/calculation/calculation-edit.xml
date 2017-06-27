@@ -249,10 +249,10 @@ order by e.name]]>
                     <label align="TOP_RIGHT"
                            stylename="h2 bold"
                            value="msg://Total Price with TAX"/>
-                    <label align="TOP_RIGHT"
+                    <label align="MIDDLE_RIGHT"
                            datasource="calculationDs"
                            property="sellingPriceTotal"
-                           stylename="bold"
+                           stylename="h2 bold"
                            width="100px"/>
                 </hbox>
             </groupBox>
