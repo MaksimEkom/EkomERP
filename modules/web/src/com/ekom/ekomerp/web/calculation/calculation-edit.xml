@@ -257,7 +257,12 @@ order by e.name]]>
                 </hbox>
             </groupBox>
         </scrollBox>
-        <frame id="windowActions"
-               screen="extendedEditWindowActions"/>
+        <hbox spacing="true">
+            <frame id="windowActions"
+                   screen="extendedEditWindowActions"/>
+            <button id="printButton"
+                    caption="msg://Print calculation"
+                    icon="icons/reports-print.png"/>
+        </hbox>
     </layout>
 </window>

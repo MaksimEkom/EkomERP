@@ -13,7 +13,8 @@
                               class="com.ekom.ekomerp.entity.Operation"
                               view="_minimal">
             <query>
-                <![CDATA[select e from ekomerp$Operation e]]>
+                <![CDATA[select e from ekomerp$Operation e
+order by e.code ]]>
             </query>
         </collectionDatasource>
     </dsContext>

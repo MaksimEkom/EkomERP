@@ -9,6 +9,7 @@ import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.data.CollectionDatasource;
 import com.haulmont.cuba.gui.xml.layout.ComponentsFactory;
+import com.haulmont.reports.gui.actions.EditorPrintFormAction;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -58,9 +59,12 @@ public class CalculationEdit extends AbstractEditor<Calculation> {
     private DatatypeFormatter formatter;
     @Inject
     private Label totalProductionCostPriceLabel;
+    @Inject
+    private Button printButton;
 
     @Override
     public void init(Map<String, Object> params) {
+        printButton.setAction(new EditorPrintFormAction("report",this,null));
         consumptionTable.addGeneratedColumn("totalLinePrice", new Table.ColumnGenerator<CalculationMaterialLine>() {
             @Override
             public Component generateCell(CalculationMaterialLine entity) {
