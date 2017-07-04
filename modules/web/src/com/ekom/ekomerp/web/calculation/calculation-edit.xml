@@ -125,6 +125,21 @@ order by e.name]]>
                 </columns>
                 <rows datasource="laboriousLineDs"/>
             </table>
+            <hbox spacing="true">
+                <label align="MIDDLE_LEFT"
+                       value="msg://Increment"
+                       width="200px"/>
+                <textField id="salaryIncrementField"
+                           datasource="calculationDs"
+                           property="salaryIncrementRate"
+                           width="50px"/>
+                <label align="MIDDLE_LEFT"
+                       value="%:"/>
+                <label id="incrementLabel"
+                       align="MIDDLE_LEFT"
+                       datasource="calculationDs"
+                       property="salaryIncrement"/>
+            </hbox>
             <hbox align="MIDDLE_RIGHT"
                   spacing="true">
                 <label align="MIDDLE_RIGHT"

@@ -61,6 +61,8 @@ public class CalculationEdit extends AbstractEditor<Calculation> {
     private Label totalProductionCostPriceLabel;
     @Inject
     private Button printButton;
+    @Inject
+    private TextField salaryIncrementField;
 
     @Override
     public void init(Map<String, Object> params) {

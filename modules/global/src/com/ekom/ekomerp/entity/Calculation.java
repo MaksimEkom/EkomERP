@@ -110,6 +110,30 @@ public class Calculation extends StandardEntity {
     @Column(name = "LABOR_SUM", precision = 19, scale = 3)
     protected BigDecimal laborSum;
 
+    @Column(name = "SALARY_INCREMENT_RATE")
+    protected BigDecimal salaryIncrementRate = BigDecimal.valueOf(40.0);
+
+    @Column(name = "SALARY_INCREMENT", precision = 19, scale = 4)
+    protected BigDecimal salaryIncrement;
+
+    public void setSalaryIncrement(BigDecimal salaryIncrement) {
+        this.salaryIncrement = salaryIncrement;
+    }
+
+    public BigDecimal getSalaryIncrement() {
+        return salaryIncrement;
+    }
+
+
+    public void setSalaryIncrementRate(BigDecimal salaryIncrementRate) {
+        this.salaryIncrementRate = salaryIncrementRate;
+    }
+
+    public BigDecimal getSalaryIncrementRate() {
+        return salaryIncrementRate;
+    }
+
+
     public BigDecimal getSellingPriceTotal() {
         return sellingPriceTotal;
     }

@@ -320,14 +320,16 @@
     <view class="com.ekom.ekomerp.entity.Calculation"
           extends="_local"
           name="calculation-edit">
-        <property name="product"
+        <property fetch="BATCH"
+                  name="product"
                   view="_minimal">
             <property name="code"/>
             <property name="unit"
                       view="_minimal"/>
             <property name="category"
                       view="_minimal"/>
-            <property name="laboriousness"
+            <property fetch="BATCH"
+                      name="laboriousness"
                       view="_minimal">
                 <property name="product"
                           view="_minimal"/>
@@ -335,7 +337,8 @@
                           view="_minimal"/>
                 <property name="value"/>
             </property>
-            <property name="consumption"
+            <property fetch="BATCH"
+                      name="consumption"
                       view="_minimal">
                 <property name="product"
                           view="_minimal"/>
