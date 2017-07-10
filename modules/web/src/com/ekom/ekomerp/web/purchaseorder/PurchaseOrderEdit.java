@@ -62,11 +62,8 @@ private static final String PROCESS_CODE = "purchase";
         purchaseOrderLineDs.addItemPropertyChangeListener(e -> {
             PurchaseOrderLine item = purchaseOrderLineDs.getItem();
             if(e.getProperty() == "product"){
-//                if (item.getProduct().getPurchasePrice()!=null) {
-//                    item.setPrice(item.getProduct().getPurchasePrice());
-//                }else{
+
                     item.setPrice(0.0);
-//                }
                 purchaseOrderLineTable.repaint();
             }
 
