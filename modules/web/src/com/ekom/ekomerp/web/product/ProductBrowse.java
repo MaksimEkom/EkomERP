@@ -45,11 +45,15 @@ public class ProductBrowse extends AbstractLookup {
     public void init(Map<String, Object> params) {
         deacivatedCheckBox.setValue(false);
         productsDataGrid.getColumn("active").setCollapsed(true);
+        productsDataGrid.repaint();
         activateButton.setVisible(false);
         deactivateButton.setVisible(false);
+        productFilter.setDatasource(activeProductsDs);
         deacivatedCheckBox.addValueChangeListener(e -> {
             if (deacivatedCheckBox.getValue() == true) {
                 productsDataGrid.setDatasource(productsDs);
+                productFilter.setDatasource(productsDs);
+                productFilter.setApplyTo(productsDataGrid);
                 productsDataGrid.getColumn("active").setCollapsed(false);
                 if (productsDataGrid.getSingleSelected() != null) {
                     activateButton.setVisible(true);
@@ -58,19 +62,23 @@ public class ProductBrowse extends AbstractLookup {
 
             } else {
                 productsDataGrid.setDatasource(activeProductsDs);
+                productFilter.setDatasource(activeProductsDs);
+                productFilter.setApplyTo(productsDataGrid);
                 productsDataGrid.getColumn("active").setCollapsed(true);
                 activateButton.setVisible(false);
                 deactivateButton.setVisible(false);
             }
         });
         productsDataGrid.addSelectionListener(event -> {
-            if (deacivatedCheckBox.getValue() == true) {
-                if (productsDataGrid.getSingleSelected().getActive() == true) {
-                    activateButton.setVisible(false);
-                    deactivateButton.setVisible(true);
-                } else {
-                    activateButton.setVisible(true);
-                    deactivateButton.setVisible(false);
+            if(productsDataGrid.getSingleSelected()!=null) {
+                if (deacivatedCheckBox.getValue() == true) {
+                    if (productsDataGrid.getSingleSelected().getActive() == true) {
+                        activateButton.setVisible(false);
+                        deactivateButton.setVisible(true);
+                    } else {
+                        activateButton.setVisible(true);
+                        deactivateButton.setVisible(false);
+                    }
                 }
             }
         });
