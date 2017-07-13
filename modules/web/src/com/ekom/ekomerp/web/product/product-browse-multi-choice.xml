@@ -10,8 +10,8 @@
                          view="productWithUnitAndCategory">
             <query>
                 <![CDATA[select e from ekomerp$Product e
-where e.active = true
-order by  e.for_purchase, e.name]]>
+where e.active = true and e.for_purchase = true
+order by e.name]]>
             </query>
         </groupDatasource>
     </dsContext>
