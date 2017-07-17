@@ -90,6 +90,7 @@ public class CalculationEdit extends AbstractEditor<Calculation> {
             setLaboriousDataSource(getLaboriousnessSet(productPickerField.getValue()));
             materialSumCount();
             laborSumCount();
+            salaryIncrementCount();
             productionExpensesCount();
             fsznCount();
             bgsCount();
@@ -116,6 +117,7 @@ public class CalculationEdit extends AbstractEditor<Calculation> {
         laboriousLineDs.addItemPropertyChangeListener(e -> {
             if(e.getProperty().equals("price")){
                 laborSumCount();
+                salaryIncrementCount();
                 laborTable.repaint();
                 productionExpensesCount();
                 fsznCount();
@@ -132,54 +134,94 @@ public class CalculationEdit extends AbstractEditor<Calculation> {
 
         FSZNTextField.addValueChangeListener(e -> {
             if(productPickerField.getValue()!=null) {
-                fsznCount();
-                totalProductionCostPriceLabel.setValue(totalProductionCostCount());
-                totalCostCount();
-                profitCount();
-                untaxedPriceCount();
-                taxCount();
-                sellingPriceCount();
+                if(FSZNTextField.getValue()!=null) {
+                    fsznCount();
+                    totalProductionCostPriceLabel.setValue(totalProductionCostCount());
+                    totalCostCount();
+                    profitCount();
+                    untaxedPriceCount();
+                    taxCount();
+                    sellingPriceCount();
+                }else{
+                    getItem().setFsznRate(new BigDecimal("0.0" ));
+                }
             }
         });
         BGSTextField.addValueChangeListener(e -> {
             if(productPickerField.getValue()!=null) {
-                bgsCount();
-                totalProductionCostPriceLabel.setValue(totalProductionCostCount());
-                totalCostCount();
-                profitCount();
-                untaxedPriceCount();
-                taxCount();
-                sellingPriceCount();
+                if(BGSTextField.getValue()!=null) {
+                    bgsCount();
+                    totalProductionCostPriceLabel.setValue(totalProductionCostCount());
+                    totalCostCount();
+                    profitCount();
+                    untaxedPriceCount();
+                    taxCount();
+                    sellingPriceCount();
+                }else{
+                    getItem().setBgsRate(new BigDecimal("0.0" ));
+                }
             }
 
         });
         productionExpensesTextField.addValueChangeListener(e -> {
             if(productPickerField.getValue()!=null) {
-                productionExpensesCount();
-                totalProductionCostPriceLabel.setValue(totalProductionCostCount());
-                totalCostCount();
-                profitCount();
-                untaxedPriceCount();
-                taxCount();
-                sellingPriceCount();
+                if(productionExpensesTextField.getValue()!=null) {
+                    productionExpensesCount();
+                    totalProductionCostPriceLabel.setValue(totalProductionCostCount());
+                    totalCostCount();
+                    profitCount();
+                    untaxedPriceCount();
+                    taxCount();
+                    sellingPriceCount();
+                }else {
+                    getItem().setProductionExpensesRate(new BigDecimal("0.0" ));
+                }
             }
         });
         commercialExpensesTextField.addValueChangeListener(e -> {
             if(productPickerField.getValue()!=null) {
-                commercialExpensesCount();
-                totalCostCount();
-                profitCount();
-                untaxedPriceCount();
-                taxCount();
-                sellingPriceCount();
+                if (commercialExpensesTextField != null) {
+                    commercialExpensesCount();
+                    totalCostCount();
+                    profitCount();
+                    untaxedPriceCount();
+                    taxCount();
+                    sellingPriceCount();
+                } else {
+                    getItem().setCommercialExpensesRate(new BigDecimal("0.0" ));
+                }
             }
         });
         profitTextField.addValueChangeListener(e -> {
+            if (productPickerField.getValue() != null) {
+                if (profitTextField.getValue() != null) {
+                    profitCount();
+                    untaxedPriceCount();
+                    taxCount();
+                    sellingPriceCount();
+                } else {
+                    getItem().setProfitRate(new BigDecimal("0.0" ));
+                }
+            }
+
+        });
+        salaryIncrementField.addValueChangeListener(e -> {
             if(productPickerField.getValue()!=null) {
-                profitCount();
-                untaxedPriceCount();
-                taxCount();
-                sellingPriceCount();
+                if(salaryIncrementField.getValue()!=null) {
+                    salaryIncrementCount();
+                    productionExpensesCount();
+                    fsznCount();
+                    bgsCount();
+                    totalProductionCostPriceLabel.setValue(totalProductionCostCount());
+                    commercialExpensesCount();
+                    totalCostCount();
+                    profitCount();
+                    untaxedPriceCount();
+                    taxCount();
+                    sellingPriceCount();
+                }else{
+                    getItem().setSalaryIncrementRate(new BigDecimal("0.0" ));
+                }
             }
         });
         super.init(params);
@@ -282,25 +324,25 @@ public class CalculationEdit extends AbstractEditor<Calculation> {
 
     }
     private void fsznCount(){
-        getItem().setFszn(getItem().getLaborSum().multiply(getItem().getFsznRate().divide(new BigDecimal("100.0"))));
+        getItem().setFszn(getItem().getLaborSum().add(getItem().getSalaryIncrement()).multiply(getItem().getFsznRate().divide(new BigDecimal("100.0"))));
     }
     private void bgsCount(){
-        getItem().setBgs(getItem().getLaborSum().multiply(getItem().getBgsRate().divide(new BigDecimal("100.0"))));
+        getItem().setBgs(getItem().getLaborSum().add(getItem().getSalaryIncrement()).multiply(getItem().getBgsRate().divide(new BigDecimal("100.0"))));
     }
     private void productionExpensesCount(){
-        getItem().setProductionExpenses(getItem().getLaborSum().multiply(getItem().getProductionExpensesRate().divide(new BigDecimal("100.0"))));
+        getItem().setProductionExpenses(getItem().getLaborSum().add(getItem().getSalaryIncrement()).multiply(getItem().getProductionExpensesRate().divide(new BigDecimal("100.0"))));
     }
     private BigDecimal totalProductionCostCount(){
         BigDecimal totalProductionCost = BigDecimal.ZERO;
-        totalProductionCost = getItem().getMaterialSum().add(getItem().getLaborSum()).add(getItem().getFszn()).add(getItem().getBgs()).add(getItem().getProductionExpenses());
+        totalProductionCost = getItem().getMaterialSum().add(getItem().getLaborSum()).add(getItem().getSalaryIncrement()).add(getItem().getFszn()).add(getItem().getBgs()).add(getItem().getProductionExpenses());
         return totalProductionCost;
     }
     private void commercialExpensesCount(){
-        getItem().setCommercialExpenses(getItem().getLaborSum().multiply(getItem().getCommercialExpensesRate().divide(new BigDecimal("100.0"))));
+        getItem().setCommercialExpenses(getItem().getLaborSum().add(getItem().getSalaryIncrement()).multiply(getItem().getCommercialExpensesRate().divide(new BigDecimal("100.0"))));
     }
     private void totalCostCount(){
 
-       getItem().setCostPrice(getItem().getMaterialSum().add(getItem().getLaborSum()).add(getItem().getFszn()).add(getItem().getBgs()).add(getItem().getProductionExpenses()).add(getItem().getCommercialExpenses()));
+       getItem().setCostPrice(getItem().getMaterialSum().add(getItem().getLaborSum()).add(getItem().getSalaryIncrement()).add(getItem().getFszn()).add(getItem().getBgs()).add(getItem().getProductionExpenses()).add(getItem().getCommercialExpenses()));
 
     }
     private void profitCount(){
@@ -317,5 +359,8 @@ public class CalculationEdit extends AbstractEditor<Calculation> {
     private void sellingPriceCount(){
         getItem().setSellingPriceTotal(getItem().getSellingPriceUntaxed().add(getItem().getAmountTax()));
 
+    }
+    private void salaryIncrementCount(){
+        getItem().setSalaryIncrement(getItem().getLaborSum().multiply(getItem().getSalaryIncrementRate().divide(new BigDecimal("100.0"))));
     }
 };

@@ -125,6 +125,16 @@ order by e.name]]>
                 </columns>
                 <rows datasource="laboriousLineDs"/>
             </table>
+            <hbox align="MIDDLE_RIGHT"
+                  spacing="true">
+                <label align="MIDDLE_RIGHT"
+                       value="msg://Sum:"/>
+                <label id="laborSumLabel"
+                       align="MIDDLE_RIGHT"
+                       datasource="calculationDs"
+                       property="laborSum"
+                       width="100px"/>
+            </hbox>
             <hbox spacing="true">
                 <label align="MIDDLE_LEFT"
                        value="msg://Increment"
@@ -139,16 +149,6 @@ order by e.name]]>
                        align="MIDDLE_LEFT"
                        datasource="calculationDs"
                        property="salaryIncrement"/>
-            </hbox>
-            <hbox align="MIDDLE_RIGHT"
-                  spacing="true">
-                <label align="MIDDLE_RIGHT"
-                       value="msg://Sum:"/>
-                <label id="laborSumLabel"
-                       align="MIDDLE_RIGHT"
-                       datasource="calculationDs"
-                       property="laborSum"
-                       width="100px"/>
             </hbox>
             <hbox spacing="true">
                 <label align="MIDDLE_LEFT"

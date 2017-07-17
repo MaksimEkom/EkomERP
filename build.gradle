@@ -219,3 +219,8 @@ task wrapper(type: Wrapper) {
 }
 
 apply from: 'extra.gradle'
+
+task buildUberJar(type: CubaUberJarBuilding) {
+    coreJettyEnvPath = 'modules/core/web/META-INF/jetty-env.xml'
+    appProperties = ['cuba.automaticDatabaseUpdate' : true]
+}
