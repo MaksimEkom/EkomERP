@@ -13,6 +13,7 @@ import com.haulmont.bpm.gui.procactions.ProcActionsFrame;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
@@ -63,7 +64,7 @@ private static final String PROCESS_CODE = "purchase";
             PurchaseOrderLine item = purchaseOrderLineDs.getItem();
             if(e.getProperty() == "product"){
 
-                    item.setPrice(0.0);
+                    item.setPrice(new BigDecimal("0.0"));
                 purchaseOrderLineTable.repaint();
             }
 
@@ -117,38 +118,38 @@ private static final String PROCESS_CODE = "purchase";
         return super.preCommit();
     }
 
-    private Double calculateTax() {
-        return calculateSubtotal()*0.2;
+    private BigDecimal calculateTax() {
+        return calculateSubtotal().multiply(new BigDecimal("0.2"));
     }
 
-    private Double calculateTotal() {
-        return calculateSubtotal()+calculateTax();
+    private BigDecimal calculateTotal() {
+        return calculateSubtotal().add(calculateTax());
     }
 
-    private Double calculateSubtotal() {
-        return (purchaseOrderLineDs.getItem().getPrice()*purchaseOrderLineDs.getItem().getQuantity());
+    private BigDecimal calculateSubtotal() {
+        return (purchaseOrderLineDs.getItem().getPrice().multiply(purchaseOrderLineDs.getItem().getQuantity()));
     }
-    private Double calculateAmountTax() {
+    private BigDecimal calculateAmountTax() {
         Collection<PurchaseOrderLine> orderLines = purchaseOrderLineDs.getItems();
-        double amountTax = 0.0;
+        BigDecimal amountTax = new BigDecimal("0.0");
         if(orderLines!=null) {
             for (PurchaseOrderLine line : orderLines) {
-               amountTax+=line.getTax();
+               amountTax = amountTax.add(line.getTax());
             }
         }
         return amountTax;
     }
 
-    private Double calculateAmountTotal() {
-        return calculateAmountUntaxed()+calculateAmountTax();
+    private BigDecimal calculateAmountTotal() {
+        return calculateAmountUntaxed().add(calculateAmountTax());
     }
 
-    private Double calculateAmountUntaxed() {
+    private BigDecimal calculateAmountUntaxed() {
         Collection<PurchaseOrderLine> orderLines = purchaseOrderLineDs.getItems();
-        double amountUntaxed = 0.0;
+        BigDecimal amountUntaxed = new BigDecimal("0.0");
         if(orderLines!=null) {
             for (PurchaseOrderLine line : orderLines) {
-                amountUntaxed+=line.getSubtotal();
+                amountUntaxed = amountUntaxed.add(line.getSubtotal());
             }
         }
         return amountUntaxed;

@@ -12,6 +12,7 @@ import com.haulmont.cuba.gui.data.CollectionDatasource;
 import com.haulmont.cuba.gui.xml.layout.ComponentsFactory;
 
 import javax.inject.Inject;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
@@ -45,7 +46,7 @@ public class InvoiceEdit extends AbstractEditor<Invoice> {
             InvoiceLine item = invoiceLineDs.getItem();
             if(e.getProperty() == "product"){
 
-                    item.setPrice(0.0);
+                    item.setPrice(new BigDecimal("0.0"));
                 invoiceLineTable.repaint();
             }
 
@@ -90,38 +91,38 @@ public class InvoiceEdit extends AbstractEditor<Invoice> {
             invoiceLineDs.addItem(line);
         }
     }
-    private Double calculateTax() {
-        return calculateSubtotal()*0.2;
+    private BigDecimal calculateTax() {
+        return calculateSubtotal().multiply(new BigDecimal("0.2"));
     }
 
-    private Double calculateTotal() {
-        return calculateSubtotal()+calculateTax();
+    private BigDecimal calculateTotal() {
+        return calculateSubtotal().add(calculateTax());
     }
 
-    private Double calculateSubtotal() {
-        return (invoiceLineDs.getItem().getPrice()*invoiceLineDs.getItem().getQuantity());
+    private BigDecimal calculateSubtotal() {
+        return (invoiceLineDs.getItem().getPrice().multiply(invoiceLineDs.getItem().getQuantity()));
     }
-    private Double calculateAmountTax() {
+    private BigDecimal calculateAmountTax() {
         Collection<InvoiceLine> invoiceLines = invoiceLineDs.getItems();
-        double amountTax = 0.0;
+        BigDecimal amountTax = new BigDecimal("0.0");
         if(invoiceLines!=null) {
             for (InvoiceLine line : invoiceLines) {
-                amountTax+=line.getTax();
+                amountTax = amountTax.add(line.getTax());
             }
         }
         return amountTax;
     }
 
-    private Double calculateAmountTotal() {
-        return calculateAmountUntaxed()+calculateAmountTax();
+    private BigDecimal calculateAmountTotal() {
+        return calculateAmountUntaxed().add(calculateAmountTax());
     }
 
-    private Double calculateAmountUntaxed() {
+    private  BigDecimal calculateAmountUntaxed() {
         Collection<InvoiceLine> orderLines = invoiceLineDs.getItems();
-        double amountUntaxed = 0.0;
+        BigDecimal amountUntaxed = new  BigDecimal("0.0");
         if(orderLines!=null) {
             for (InvoiceLine line : orderLines) {
-                amountUntaxed+=line.getSubtotal();
+                amountUntaxed= amountUntaxed.add(line.getSubtotal());
             }
         }
         return amountUntaxed;

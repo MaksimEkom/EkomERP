@@ -19,6 +19,7 @@ import java.util.Date;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import com.haulmont.chile.core.annotations.NamePattern;
+import java.math.BigDecimal;
 
 @NamePattern("%s|number")
 @Table(name = "EKOMERP_PURCHASE_ORDER")
@@ -44,13 +45,13 @@ public class PurchaseOrder extends StandardEntity {
     protected Set<PurchaseOrderLine> purchaseOrderLine;
 
     @Column(name = "AMOUNT_UNTAXED")
-    protected Double amountUntaxed;
+    protected BigDecimal amountUntaxed;
 
     @Column(name = "AMOUNT_TAX")
-    protected Double amountTax;
+    protected BigDecimal amountTax;
 
     @Column(name = "AMOUNT_WITH_TAX")
-    protected Double amountWithTax;
+    protected BigDecimal amountWithTax;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "DATE_", nullable = false)
@@ -67,6 +68,33 @@ public class PurchaseOrder extends StandardEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PAYMENT_CONDITION_ID")
     protected PaymentCondition paymentCondition;
+
+    public BigDecimal getAmountUntaxed() {
+        return amountUntaxed;
+    }
+
+    public void setAmountUntaxed(BigDecimal amountUntaxed) {
+        this.amountUntaxed = amountUntaxed;
+    }
+
+
+    public BigDecimal getAmountWithTax() {
+        return amountWithTax;
+    }
+
+    public void setAmountWithTax(BigDecimal amountWithTax) {
+        this.amountWithTax = amountWithTax;
+    }
+
+    public BigDecimal getAmountTax() {
+        return amountTax;
+    }
+
+    public void setAmountTax(BigDecimal amountTax) {
+        this.amountTax = amountTax;
+    }
+
+
 
     public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
@@ -104,32 +132,14 @@ public class PurchaseOrder extends StandardEntity {
 
 
 
-    public void setAmountUntaxed(Double amountUntaxed) {
-        this.amountUntaxed = amountUntaxed;
-    }
 
 
-    public void setAmountTax(Double amountTax) {
-        this.amountTax = amountTax;
-    }
 
 
-    public void setAmountWithTax(Double amountWithTax) {
-        this.amountWithTax = amountWithTax;
-    }
 
 
-    public Double getAmountUntaxed() {
-        return amountUntaxed;
-    }
 
-    public Double getAmountTax() {
-        return amountTax;
-    }
 
-    public Double getAmountWithTax() {
-        return amountWithTax;
-    }
 
 
     public void setPurchaseOrderLine(Set<PurchaseOrderLine> purchaseOrderLine) {

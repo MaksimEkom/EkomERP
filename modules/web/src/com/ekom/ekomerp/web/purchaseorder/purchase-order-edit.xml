@@ -30,6 +30,12 @@ order by e.name asc
 ]]>
             </query>
         </collectionDatasource>
+        <collectionDatasource id="paymentConditionsDs"
+                              class="com.ekom.ekomerp.entity.PaymentCondition">
+            <query>
+                <![CDATA[select e from ekomerp$PaymentCondition e]]>
+            </query>
+        </collectionDatasource>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
@@ -73,7 +79,7 @@ order by e.name asc
                        property="date"
                        width="200px"/>
         </hbox>
-        <tabSheet height="400px">
+        <tabSheet height="500px">
             <tab id="tab"
                  caption="msg://Products"
                  expand="purchaseOrderLineTable"
@@ -81,7 +87,6 @@ order by e.name asc
                 <table id="purchaseOrderLineTable"
                        columnControlVisible="false"
                        editable="true"
-                       height="400px"
                        reorderingAllowed="false"
                        settingsEnabled="false"
                        stylename="borderless"
@@ -130,7 +135,7 @@ order by e.name asc
                             <textArea datasource="purchaseOrderDs"
                                       inputPrompt="msg://Notes"
                                       property="notes"
-                                      width="400px"/>
+                                      width="100%"/>
                             <vbox spacing="true">
                                 <hbox align="MIDDLE_RIGHT"
                                       spacing="true">
@@ -202,7 +207,9 @@ order by e.name asc
                                       spacing="true"
                                       width="100%">
                                     <label value="msg://Payment condition"/>
-                                    <lookupPickerField/>
+                                    <lookupPickerField datasource="purchaseOrderDs"
+                                                       optionsDatasource="paymentConditionsDs"
+                                                       property="paymentCondition"/>
                                 </hbox>
                             </vbox>
                         </row>
@@ -211,6 +218,7 @@ order by e.name asc
             </tab>
         </tabSheet>
         <frame id="windowActions"
+               align="BOTTOM_LEFT"
                screen="extendedEditWindowActions"/>
     </layout>
 </window>

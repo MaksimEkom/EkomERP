@@ -2,11 +2,15 @@ package com.ekom.ekomerp.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import com.ekom.ekomerp.FourDigitsScaleBigDecimal;
+import com.haulmont.chile.core.annotations.MetaProperty;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.math.BigDecimal;
 
 @Table(name = "EKOMERP_PURCHASE_ORDER_LINE")
 @Entity(name = "ekomerp$PurchaseOrderLine")
@@ -17,42 +21,76 @@ public class PurchaseOrderLine extends StandardEntity {
     @JoinColumn(name = "PRODUCT_ID")
     protected Product product;
 
-    @Column(name = "QUANTITY", nullable = false)
-    protected Double quantity = 1.0;
+    @MetaProperty(mandatory = true, datatype = FourDigitsScaleBigDecimal.NAME)
+    @Column(name = "QUANTITY", nullable = false, precision = 19, scale = 4)
+    protected BigDecimal quantity = new BigDecimal("1.0");
 
     @Column(name = "PRICE", nullable = false)
-    protected Double price;
+    protected BigDecimal price;
 
     @Column(name = "SUBTOTAL")
-    protected Double subtotal;
+    protected BigDecimal subtotal;
 
     @Column(name = "TAX")
-    protected Double tax;
+    protected BigDecimal tax;
 
     @Column(name = "TOTAL")
-    protected Double total;
+    protected BigDecimal total;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PURCHASE_ORDER_ID")
     protected PurchaseOrder purchaseOrder;
 
-    public void setTax(Double tax) {
-        this.tax = tax;
+    public BigDecimal getSubtotal() {
+        return subtotal;
     }
 
-    public Double getTax() {
-        return tax;
-    }
-
-
-    public void setSubtotal(Double subtotal) {
+    public void setSubtotal(BigDecimal subtotal) {
         this.subtotal = subtotal;
     }
 
 
-    public void setTotal(Double total) {
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
+
+
+    public BigDecimal getTax() {
+        return tax;
+    }
+
+    public void setTax(BigDecimal tax) {
+        this.tax = tax;
+    }
+
+
+    public BigDecimal getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(BigDecimal quantity) {
+        this.quantity = quantity;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+
+
+
+
+
+
+
 
 
     public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
@@ -72,29 +110,11 @@ public class PurchaseOrderLine extends StandardEntity {
         return product;
     }
 
-    public void setQuantity(Double quantity) {
-        this.quantity = quantity;
-    }
 
-    public Double getQuantity() {
-        return quantity;
-    }
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
 
-    public Double getPrice() {
-        return price;
-    }
 
-    public Double getSubtotal() {
-        return subtotal;
-    }
 
-    public Double getTotal() {
-        return total;
-    }
 
 
 }

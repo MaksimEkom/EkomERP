@@ -19,6 +19,7 @@ import com.haulmont.cuba.core.entity.annotation.LookupType;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.math.BigDecimal;
 
 @NamePattern("%s|number")
 @Table(name = "EKOMERP_INVOICE")
@@ -52,13 +53,13 @@ public class Invoice extends StandardEntity {
     protected String origin;
 
     @Column(name = "AMOUNT_UNTAXED")
-    protected Double amountUntaxed;
+    protected BigDecimal amountUntaxed;
 
     @Column(name = "AMOUNT_TAX")
-    protected Double amountTax;
+    protected BigDecimal amountTax;
 
     @Column(name = "AMOUNT_TOTAL")
-    protected Double amountTotal;
+    protected BigDecimal amountTotal;
 
     @Lob
     @Column(name = "NOTES")
@@ -68,6 +69,33 @@ public class Invoice extends StandardEntity {
     @OnDelete(DeletePolicy.CASCADE)
     @OneToMany(mappedBy = "invoice")
     protected Set<InvoiceLine> invoiceLine;
+
+    public BigDecimal getAmountUntaxed() {
+        return amountUntaxed;
+    }
+
+    public void setAmountUntaxed(BigDecimal amountUntaxed) {
+        this.amountUntaxed = amountUntaxed;
+    }
+
+
+    public BigDecimal getAmountTax() {
+        return amountTax;
+    }
+
+    public void setAmountTax(BigDecimal amountTax) {
+        this.amountTax = amountTax;
+    }
+
+    public BigDecimal getAmountTotal() {
+        return amountTotal;
+    }
+
+    public void setAmountTotal(BigDecimal amountTotal) {
+        this.amountTotal = amountTotal;
+    }
+
+
 
     public Partner getPartner() {
         return partner;
@@ -111,29 +139,11 @@ public class Invoice extends StandardEntity {
         return origin;
     }
 
-    public void setAmountUntaxed(Double amountUntaxed) {
-        this.amountUntaxed = amountUntaxed;
-    }
 
-    public Double getAmountUntaxed() {
-        return amountUntaxed;
-    }
 
-    public void setAmountTax(Double amountTax) {
-        this.amountTax = amountTax;
-    }
 
-    public Double getAmountTax() {
-        return amountTax;
-    }
 
-    public void setAmountTotal(Double amountTotal) {
-        this.amountTotal = amountTotal;
-    }
 
-    public Double getAmountTotal() {
-        return amountTotal;
-    }
 
     public void setNotes(String notes) {
         this.notes = notes;

@@ -2,8 +2,6 @@
 <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
         caption="msg://browseCaption"
         class="com.ekom.ekomerp.web.invoice.InvoiceBrowse"
-        focusComponent="invoicesTable"
-        lookupComponent="invoicesTable"
         messagesPack="com.ekom.ekomerp.web.invoice">
     <dsContext>
         <groupDatasource id="invoicesDs"
@@ -16,51 +14,51 @@
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="invoicesTable"
+    <layout expand="invoicesDataGrid"
             spacing="true">
         <filter id="filter"
-                applyTo="invoicesTable"
-                datasource="invoicesDs">
+                applyTo="invoicesDataGrid"
+                datasource="invoicesDs"
+                defaultMode="fts"
+                useMaxResults="false">
             <properties include=".*"/>
         </filter>
-        <groupTable id="invoicesTable"
-                    presentations="true"
-                    width="100%">
+        <dataGrid id="invoicesDataGrid"
+                  datasource="invoicesDs"
+                  width="100%">
             <actions>
                 <action id="create"/>
                 <action id="edit"/>
                 <action id="remove"/>
-                <action id="excel"/>
                 <action id="refresh"/>
+                <action id="excel"/>
             </actions>
             <columns>
-                <column id="number"/>
-                <column id="date"/>
-                <column id="dueDate"/>
-                <column id="partner"/>
-                <column id="state"/>
-                <column id="type"/>
-                <column id="origin"/>
-                <column id="amountUntaxed"/>
-                <column id="amountTax"/>
-                <column id="amountTotal"/>
-                <column id="notes"/>
+                <column property="number"/>
+                <column property="date"/>
+                <column property="dueDate"/>
+                <column editable="false"
+                        property="partner"/>
+                <column property="state"/>
+                <column property="type"/>
+                <column property="origin"/>
+                <column property="amountUntaxed"/>
+                <column property="amountTax"/>
+                <column property="amountTotal"/>
+                <column property="notes"/>
             </columns>
-            <rows datasource="invoicesDs"/>
-            <rowsCount/>
-            <buttonsPanel id="buttonsPanel"
-                          alwaysVisible="true">
-                <button id="createBtn"
-                        action="invoicesTable.create"/>
-                <button id="editBtn"
-                        action="invoicesTable.edit"/>
-                <button id="removeBtn"
-                        action="invoicesTable.remove"/>
-                <button id="excelBtn"
-                        action="invoicesTable.excel"/>
-                <button id="refreshBtn"
-                        action="invoicesTable.refresh"/>
+            <buttonsPanel>
+                <button id="createButton"
+                        action="invoicesDataGrid.create"/>
+                <button id="editButton"
+                        action="invoicesDataGrid.edit"/>
+                <button id="removeButton"
+                        action="invoicesDataGrid.remove"/>
+                <button id="excelButton"
+                        action="invoicesDataGrid.excel"/>
+                <button id="refreshButton"
+                        action="invoicesDataGrid.refresh"/>
             </buttonsPanel>
-        </groupTable>
+        </dataGrid>
     </layout>
 </window>

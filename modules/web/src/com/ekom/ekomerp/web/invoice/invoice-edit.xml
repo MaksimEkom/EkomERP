@@ -77,7 +77,8 @@ order by e.name]]>
                  spacing="true">
                 <table id="invoiceLineTable"
                        editable="true"
-                       height="200px"
+                       height="300px"
+                       stylename="borderless"
                        width="100%">
                     <actions>
                         <action id="create"/>
@@ -115,7 +116,7 @@ order by e.name]]>
                             <textArea datasource="invoiceDs"
                                       inputPrompt="msg://Notes"
                                       property="notes"
-                                      width="400px"/>
+                                      width="100%"/>
                             <vbox spacing="true">
                                 <hbox align="MIDDLE_RIGHT"
                                       spacing="true">
@@ -157,6 +158,7 @@ order by e.name]]>
             </tab>
         </tabSheet>
         <frame id="windowActions"
+               align="BOTTOM_LEFT"
                screen="extendedEditWindowActions"/>
     </layout>
 </window>

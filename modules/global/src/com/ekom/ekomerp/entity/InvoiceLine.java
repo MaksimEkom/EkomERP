@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.math.BigDecimal;
 
 @Table(name = "EKOMERP_INVOICE_LINE")
 @Entity(name = "ekomerp$InvoiceLine")
@@ -19,48 +20,75 @@ public class InvoiceLine extends StandardEntity {
     @JoinColumn(name = "PRODUCT_ID")
     protected Product product;
 
-    @Column(name = "QUANTITY", nullable = false)
-    protected Double quantity = 1.0;
+    @Column(name = "QUANTITY", nullable = false, precision = 19, scale = 4)
+    protected BigDecimal quantity = new BigDecimal("1.0");
 
     @Column(name = "PRICE", nullable = false)
-    protected Double price;
+    protected BigDecimal price;
 
     @Column(name = "SUBTOTAL")
-    protected Double subtotal;
+    protected BigDecimal subtotal;
 
     @Column(name = "TAX")
-    protected Double tax;
+    protected BigDecimal tax;
 
     @Column(name = "TOTAL")
-    protected Double total;
+    protected BigDecimal total;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "INVOICE_ID")
     protected Invoice invoice;
 
-    public void setSubtotal(Double subtotal) {
-        this.subtotal = subtotal;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public Double getSubtotal() {
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+
+    public BigDecimal getSubtotal() {
         return subtotal;
     }
 
-    public void setTax(Double tax) {
-        this.tax = tax;
+    public void setSubtotal(BigDecimal subtotal) {
+        this.subtotal = subtotal;
     }
 
-    public Double getTax() {
+
+    public BigDecimal getTax() {
         return tax;
     }
 
-    public void setTotal(Double total) {
+    public void setTax(BigDecimal tax) {
+        this.tax = tax;
+    }
+
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 
-    public Double getTotal() {
-        return total;
+    public BigDecimal getQuantity() {
+        return quantity;
     }
+
+    public void setQuantity(BigDecimal quantity) {
+        this.quantity = quantity;
+    }
+
+
+
+
+
+
+
+
 
     public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
@@ -79,21 +107,9 @@ public class InvoiceLine extends StandardEntity {
         return product;
     }
 
-    public void setQuantity(Double quantity) {
-        this.quantity = quantity;
-    }
 
-    public Double getQuantity() {
-        return quantity;
-    }
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
 
-    public Double getPrice() {
-        return price;
-    }
 
 
 }

@@ -2,57 +2,60 @@
 <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
         caption="msg://browseCaption"
         class="com.ekom.ekomerp.web.purchaseorder.PurchaseOrderBrowse"
-        focusComponent="purchaseOrdersTable"
-        lookupComponent="purchaseOrdersTable"
         messagesPack="com.ekom.ekomerp.web.purchaseorder">
     <dsContext>
         <groupDatasource id="purchaseOrdersDs"
                          class="com.ekom.ekomerp.entity.PurchaseOrder"
                          view="_local">
             <query>
-                <![CDATA[select e from ekomerp$PurchaseOrder e]]>
+                <![CDATA[select e from ekomerp$PurchaseOrder e
+order by e.number desc]]>
             </query>
         </groupDatasource>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="purchaseOrdersTable"
+    <layout expand="purchaseOrdersDataGrid"
             spacing="true">
         <filter id="filter"
-                applyTo="purchaseOrdersTable"
-                datasource="purchaseOrdersDs">
+                applyTo="purchaseOrdersDataGrid"
+                datasource="purchaseOrdersDs"
+                defaultMode="fts"
+                useMaxResults="false">
             <properties include=".*"/>
         </filter>
-        <groupTable id="purchaseOrdersTable"
-                    width="100%">
+        <dataGrid id="purchaseOrdersDataGrid"
+                  datasource="purchaseOrdersDs"
+                  width="100%">
             <actions>
                 <action id="create"/>
                 <action id="edit"/>
                 <action id="remove"/>
+                <action id="refresh"/>
                 <action id="excel"/>
             </actions>
             <columns>
-                <column id="number"/>
-                <column id="state"/>
-                <column id="notes"/>
-                <column id="amountUntaxed"/>
-                <column id="amountTax"/>
-                <column id="amountWithTax"/>
-                <column id="date"/>
+                <column property="number"/>
+                <column property="state"/>
+                <column property="notes"/>
+                <column property="amountUntaxed"/>
+                <column property="amountTax"/>
+                <column property="amountWithTax"/>
+                <column property="date"/>
+                <column property="deliveryDate"/>
             </columns>
-            <rows datasource="purchaseOrdersDs"/>
-            <rowsCount/>
-            <buttonsPanel id="buttonsPanel"
-                          alwaysVisible="true">
-                <button id="createBtn"
-                        action="purchaseOrdersTable.create"/>
-                <button id="editBtn"
-                        action="purchaseOrdersTable.edit"/>
-                <button id="removeBtn"
-                        action="purchaseOrdersTable.remove"/>
-                <button id="excelBtn"
-                        action="purchaseOrdersTable.excel"/>
+            <buttonsPanel>
+                <button id="createButton"
+                        action="purchaseOrdersDataGrid.create"/>
+                <button id="editButton"
+                        action="purchaseOrdersDataGrid.edit"/>
+                <button id="removeButton"
+                        action="purchaseOrdersDataGrid.remove"/>
+                <button id="excelButton"
+                        action="purchaseOrdersDataGrid.excel"/>
+                <button id="refreshButton"
+                        action="purchaseOrdersDataGrid.refresh"/>
             </buttonsPanel>
-        </groupTable>
+        </dataGrid>
     </layout>
 </window>

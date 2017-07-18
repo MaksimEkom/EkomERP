@@ -304,7 +304,6 @@
                   view="consumption-edit"/>
         <property name="productPrice"
                   view="_minimal">
-            <property name="price"/>
         </property>
     </view>
     <view class="com.ekom.ekomerp.entity.ProductPrice"

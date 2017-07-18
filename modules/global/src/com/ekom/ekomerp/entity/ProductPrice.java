@@ -10,8 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.chile.core.annotations.NamePattern;
+import java.math.BigDecimal;
 
-@NamePattern("%s - %s|product,pricingType")
+@NamePattern("%s - %s|pricingType,price")
 @Table(name = "EKOMERP_PRODUCT_PRICE")
 @Entity(name = "ekomerp$ProductPrice")
 public class ProductPrice extends StandardEntity {
@@ -28,7 +29,16 @@ public class ProductPrice extends StandardEntity {
     protected PricingType pricingType;
 
     @Column(name = "PRICE")
-    protected Double price;
+    protected BigDecimal price;
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+
 
     public void setProduct(Product product) {
         this.product = product;
@@ -46,13 +56,7 @@ public class ProductPrice extends StandardEntity {
         return pricingType;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
 
-    public Double getPrice() {
-        return price;
-    }
 
 
 }

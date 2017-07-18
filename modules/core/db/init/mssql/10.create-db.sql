@@ -279,9 +279,9 @@ create table EKOMERP_PURCHASE_ORDER (
     VENDOR_ID uniqueidentifier not null,
     STATE varchar(50),
     NOTES varchar(max),
-    AMOUNT_UNTAXED double precision,
-    AMOUNT_TAX double precision,
-    AMOUNT_WITH_TAX double precision,
+    AMOUNT_UNTAXED decimal(19, 2),
+    AMOUNT_TAX decimal(19, 2),
+    AMOUNT_WITH_TAX decimal(19, 2),
     DATE_ datetime2 not null,
     NUMBER_ varchar(255) not null,
     DELIVERY_DATE datetime2,
@@ -302,11 +302,11 @@ create table EKOMERP_PURCHASE_ORDER_LINE (
     DELETED_BY varchar(50),
     --
     PRODUCT_ID uniqueidentifier not null,
-    QUANTITY double precision not null,
-    PRICE double precision not null,
-    SUBTOTAL double precision,
-    TAX double precision,
-    TOTAL double precision,
+    QUANTITY decimal(19, 4) not null,
+    PRICE decimal(19, 2) not null,
+    SUBTOTAL decimal(19, 2),
+    TAX decimal(19, 2),
+    TOTAL decimal(19, 2),
     PURCHASE_ORDER_ID uniqueidentifier,
     --
     primary key nonclustered (ID)
@@ -386,9 +386,9 @@ create table EKOMERP_INVOICE (
     STATE varchar(50),
     TYPE_ varchar(50),
     ORIGIN varchar(255),
-    AMOUNT_UNTAXED double precision,
-    AMOUNT_TAX double precision,
-    AMOUNT_TOTAL double precision,
+    AMOUNT_UNTAXED decimal(19, 2),
+    AMOUNT_TAX decimal(19, 2),
+    AMOUNT_TOTAL decimal(19, 2),
     NOTES varchar(max),
     --
     primary key nonclustered (ID)
@@ -406,11 +406,11 @@ create table EKOMERP_INVOICE_LINE (
     DELETED_BY varchar(50),
     --
     PRODUCT_ID uniqueidentifier not null,
-    QUANTITY double precision not null,
-    PRICE double precision not null,
-    SUBTOTAL double precision,
-    TAX double precision,
-    TOTAL double precision,
+    QUANTITY decimal(19, 4) not null,
+    PRICE decimal(19, 2) not null,
+    SUBTOTAL decimal(19, 2),
+    TAX decimal(19, 2),
+    TOTAL decimal(19, 2),
     INVOICE_ID uniqueidentifier,
     --
     primary key nonclustered (ID)
@@ -446,7 +446,7 @@ create table EKOMERP_PRODUCT_PRICE (
     --
     PRODUCT_ID uniqueidentifier,
     PRICING_TYPE_ID uniqueidentifier,
-    PRICE double precision,
+    PRICE decimal(19, 2),
     --
     primary key nonclustered (ID)
 )^
