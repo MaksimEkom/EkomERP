@@ -51,7 +51,9 @@ public class ProductBrowse extends AbstractLookup {
         productFilter.setDatasource(activeProductsDs);
         deacivatedCheckBox.addValueChangeListener(e -> {
             if (deacivatedCheckBox.getValue() == true) {
+                productsDs.refresh();
                 productsDataGrid.setDatasource(productsDs);
+                productsDataGrid.repaint();
                 productFilter.setDatasource(productsDs);
                 productFilter.setApplyTo(productsDataGrid);
                 productsDataGrid.getColumn("active").setCollapsed(false);
@@ -61,7 +63,9 @@ public class ProductBrowse extends AbstractLookup {
                 }
 
             } else {
+                activeProductsDs.refresh();
                 productsDataGrid.setDatasource(activeProductsDs);
+                productsDataGrid.repaint();
                 productFilter.setDatasource(activeProductsDs);
                 productFilter.setApplyTo(productsDataGrid);
                 productsDataGrid.getColumn("active").setCollapsed(true);
