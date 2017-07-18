@@ -26,6 +26,7 @@ buildscript {
 }
 
 def globalModule = project(':ekomerp-global')
+def webThemesModule= project(':ekomerp-web-themes')
 def coreModule = project(':ekomerp-core')
 def guiModule = project(':ekomerp-gui')
 def webModule = project(':ekomerp-web')
@@ -86,6 +87,27 @@ configure(globalModule) {
     
     
 }
+configure(webThemesModule) {
+    apply(plugin: 'java')
+    apply(plugin: 'maven')
+    apply(plugin: 'cuba')
+
+    appModuleType = 'web-themes'
+
+    buildDir = file('../build/scss-themes')
+
+    sourceSets {
+        main {
+            java {
+                srcDir '.'
+            }
+            resources {
+                srcDir '.'
+            }
+        }
+    }
+}
+
 
 configure(coreModule) {
 
@@ -193,6 +215,9 @@ configure(webModule) {
         appName = 'ekomerp'
         appJars('ekomerp-global', 'ekomerp-gui', 'ekomerp-web')
     }
+    task buildScssThemes(type: CubaWebScssThemeCreation)
+    task deployThemes(type: CubaDeployThemeTask, dependsOn: buildScssThemes)
+    assemble.dependsOn buildScssThemes
 }
 
 
@@ -219,3 +244,8 @@ task wrapper(type: Wrapper) {
 }
 
 apply from: 'extra.gradle'
+
+task buildUberJar(type: CubaUberJarBuilding) {
+    coreJettyEnvPath = 'modules/core/web/META-INF/jetty-env.xml'
+    appProperties = ['cuba.automaticDatabaseUpdate' : true]
+}

@@ -1,6 +1,7 @@
 rootProject.name = 'EkomERP'
-include(':ekomerp-global', ':ekomerp-core', ':ekomerp-gui', ':ekomerp-web')
+include(':ekomerp-global', ':ekomerp-core', ':ekomerp-gui', ':ekomerp-web', 'ekomerp-web-themes')
 project(':ekomerp-global').projectDir = new File(settingsDir, 'modules/global')
 project(':ekomerp-core').projectDir = new File(settingsDir, 'modules/core')
 project(':ekomerp-gui').projectDir = new File(settingsDir, 'modules/gui')
 project(':ekomerp-web').projectDir = new File(settingsDir, 'modules/web')
+project(':ekomerp-web-themes').projectDir = new File(settingsDir, 'modules/web/themes')
