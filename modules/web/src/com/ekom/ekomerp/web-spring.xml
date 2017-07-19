@@ -12,6 +12,8 @@
             <map>
                 <entry key="ekomerp_InventoryService"
                        value="com.ekom.ekomerp.service.InventoryService"/>
+                <entry key="ekomerp_InvoiceService"
+                       value="com.ekom.ekomerp.service.InvoiceService"/>
             </map>
         </property>
     </bean>

@@ -15,12 +15,12 @@ public class InventoryServiceBean implements InventoryService {
     protected InventoryWorker inventoryWorker;
 
 
+
     public void insertInventoryLine(Product product, Location location, double quantity){
         inventoryWorker.insertInventoryLine(product,location,quantity);
     }
 
     public Inventory findInventoryLine(Product product, Location location){
-
         return inventoryWorker.findInventoryLine(product,location);
     }
     public void increaseInventoryLine(Inventory inventoryLine, double quantity){

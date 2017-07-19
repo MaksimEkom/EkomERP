@@ -3,6 +3,7 @@ package com.ekom.ekomerp.web.purchaseorder;
 import com.ekom.ekomerp.entity.Product;
 import com.ekom.ekomerp.entity.PurchaseOrderLine;
 import com.ekom.ekomerp.entity.PurchaseOrderState;
+import com.ekom.ekomerp.service.InvoiceService;
 import com.haulmont.cuba.core.app.UniqueNumbersService;
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.components.*;
@@ -53,6 +54,8 @@ private static final String PROCESS_CODE = "purchase";
     private Button confirmButton;
     @Inject
     private Button discardButton;
+    @Inject
+    private InvoiceService invoiceService;
 
     @Override
     public void init(Map<String, Object> params) {
@@ -211,6 +214,7 @@ private static final String PROCESS_CODE = "purchase";
         confirmButton.setVisible(false);
         discardButton.setVisible(true);
         commit();
+        invoiceService.createInvoiceFromPurcheseOrder(getItem());
     }
 
     public void onDiscardButtonClick() {

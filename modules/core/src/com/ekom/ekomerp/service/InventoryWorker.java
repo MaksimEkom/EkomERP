@@ -29,6 +29,7 @@ public class InventoryWorker {
 
     /**
      * Поиск строки по коду места хранения и коду продукта.
+     *
      */
     public Inventory findInventoryLine(Product product, Location location) {
             EntityManager em = persistence.getEntityManager();
