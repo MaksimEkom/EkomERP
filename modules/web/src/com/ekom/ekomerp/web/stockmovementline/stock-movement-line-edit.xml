@@ -19,7 +19,7 @@ order by e.name]]>
         </collectionDatasource>
     </dsContext>
     <dialogMode forceDialog="true"
-                height="200"
+                height="300"
                 width="700"/>
     <layout expand="windowActions"
             spacing="true">
@@ -37,6 +37,10 @@ order by e.name]]>
                        property="quantity"/>
             </column>
         </fieldGroup>
+        <hbox spacing="true">
+            <label value="msg://Quantity in stock:"/>
+            <label id="quantityInStockLabel"/>
+        </hbox>
         <frame id="windowActions"
                screen="editWindowActions"/>
     </layout>
