@@ -66,12 +66,19 @@ private static final String PROCESS_CODE = "purchase";
     private FileUploadingAPI fileUploadingAPI;
     @Inject
     private DataSupplier dataSupplier;
+    @Inject
+    private DateField purchaseOrderDateField;
+    @Inject
+    private ResizableTextArea notesTextArea;
+    @Inject
+    private DateField deliveryDateField;
+    @Inject
+    private LookupPickerField paymentConditionPickerField;
 
     @Override
     public void init(Map<String, Object> params) {
 
         vendorField.removeAction(vendorField.getOpenAction());
-
         invoiceUpload.setUploadButtonCaption(null);
         invoiceUpload.setClearButtonCaption(null);
         invoiceUpload.addFileUploadSucceedListener(event -> {
@@ -136,10 +143,12 @@ private static final String PROCESS_CODE = "purchase";
             purchaseOrderLabel.setValue("Заказ на поставку");
             discardButton.setVisible(true);
             confirmButton.setVisible(false);
+            blockOrder(true);
         }else{
             purchaseOrderLabel.setValue("Запрос цен");
             confirmButton.setVisible(true);
             discardButton.setVisible(false);
+            blockOrder(false);
         }
         super.postInit();
     }
@@ -245,17 +254,41 @@ private static final String PROCESS_CODE = "purchase";
         discardButton.setVisible(true);
         commit();
         invoiceService.createInvoiceFromPurcheseOrder(getItem());
+        blockOrder(true);
     }
 
     public void onDiscardButtonClick() {
         getItem().setState(PurchaseOrderState.draft);
-        purchaseOrderLabel.setValue("Заказ на поставку");
+        purchaseOrderLabel.setValue("Зарос цен");
         confirmButton.setVisible(true);
         discardButton.setVisible(false);
         commit();
+        blockOrder(false);
+
     }
 
     public void blockOrder(boolean block){
-        
+        vendorField.setEditable(!block);
+        purchaseOrderDateField.setEditable(!block);
+        purchaseOrderLineTable.setEditable(!block);
+        notesTextArea.setEditable(!block);
+        deliveryDateField.setEditable(!block);
+        paymentConditionPickerField.setEditable(!block);
+        invoiceUpload.setEditable(!block);
+        purchaseOrderLineTable.getButtonsPanel().setEnabled(!block);
+        if(block){
+        purchaseOrderLineTable.removeGeneratedColumn("product");
+        }else{
+            purchaseOrderLineTable.addGeneratedColumn("product", entity -> {
+                LookupPickerField productLookUpPickerField = componentsFactory.createComponent(LookupPickerField.class);
+                productLookUpPickerField.setOptionsDatasource(productsDs);
+                productLookUpPickerField.setDatasource(purchaseOrderLineTable.getItemDatasource(entity),"product");
+                productLookUpPickerField.addLookupAction();
+                productLookUpPickerField.setWidth("100%");
+                return productLookUpPickerField;
+            });
+        }
+
+
     }
 }

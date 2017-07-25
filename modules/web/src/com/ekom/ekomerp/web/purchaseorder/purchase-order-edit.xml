@@ -133,7 +133,8 @@ order by e.name asc
                     <columns count="2"/>
                     <rows>
                         <row>
-                            <textArea datasource="purchaseOrderDs"
+                            <textArea id="notesTextArea"
+                                      datasource="purchaseOrderDs"
                                       inputPrompt="msg://Notes"
                                       property="notes"
                                       width="100%"/>
@@ -197,7 +198,8 @@ order by e.name asc
                                       spacing="true">
                                     <label align="MIDDLE_LEFT"
                                            value="msg://Delivery date"/>
-                                    <dateField datasource="purchaseOrderDs"
+                                    <dateField id="deliveryDateField"
+                                               datasource="purchaseOrderDs"
                                                height="33px"
                                                property="date"
                                                width="150px"/>
@@ -208,20 +210,25 @@ order by e.name asc
                                       spacing="true"
                                       width="100%">
                                     <label value="msg://Payment condition"/>
-                                    <lookupPickerField datasource="purchaseOrderDs"
+                                    <lookupPickerField id="paymentConditionPickerField"
+                                                       datasource="purchaseOrderDs"
                                                        optionsDatasource="paymentConditionsDs"
                                                        property="paymentCondition"/>
                                 </hbox>
                             </vbox>
                         </row>
                         <row>
-                            <upload id="invoiceUpload"
-                                    clearButtonIcon="icons/clear.png"
-                                    datasource="purchaseOrderDs"
-                                    property="invoiceFile"
-                                    showClearButton="true"
-                                    showFileName="true"
-                                    uploadButtonIcon="icons/upload.png"/>
+                            <hbox spacing="true">
+                                <label align="MIDDLE_LEFT"
+                                       value="msg://Invoice file"/>
+                                <upload id="invoiceUpload"
+                                        clearButtonIcon="icons/clear.png"
+                                        datasource="purchaseOrderDs"
+                                        property="invoiceFile"
+                                        showClearButton="true"
+                                        showFileName="true"
+                                        uploadButtonIcon="icons/upload.png"/>
+                            </hbox>
                         </row>
                     </rows>
                 </grid>
