@@ -71,7 +71,7 @@ order by e.name]]>
                            width="200px"/>
             </vbox>
         </hbox>
-        <tabSheet>
+        <tabSheet height="400px">
             <tab id="invoiceLineTab"
                  caption="msg://Invoice"
                  spacing="true">
@@ -155,6 +155,18 @@ order by e.name]]>
                         </row>
                     </rows>
                 </grid>
+            </tab>
+            <tab id="fileTab"
+                 caption="msg://FileTab"
+                 margin="true,false,false,false"
+                 spacing="true">
+                <upload id="invoiceUpload"
+                        clearButtonIcon="icons/clear.png"
+                        datasource="invoiceDs"
+                        property="invoiceFile"
+                        showClearButton="true"
+                        showFileName="true"
+                        uploadButtonIcon="icons/upload.png"/>
             </tab>
         </tabSheet>
         <frame id="windowActions"

@@ -286,6 +286,7 @@ create table EKOMERP_PURCHASE_ORDER (
     NUMBER_ varchar(255) not null,
     DELIVERY_DATE datetime2,
     PAYMENT_CONDITION_ID uniqueidentifier,
+    INVOICE_FILE_ID uniqueidentifier,
     --
     primary key nonclustered (ID)
 )^
@@ -390,6 +391,7 @@ create table EKOMERP_INVOICE (
     AMOUNT_TAX decimal(19, 2),
     AMOUNT_TOTAL decimal(19, 2),
     NOTES varchar(max),
+    INVOICE_FILE_ID uniqueidentifier,
     --
     primary key nonclustered (ID)
 )^

@@ -1,2 +1,0 @@
-alter table EKOMERP_CALCULATION add SALARY_INCREMENT_RATE decimal(19, 2) ;
-alter table EKOMERP_CALCULATION add SALARY_INCREMENT decimal(19, 4) ;

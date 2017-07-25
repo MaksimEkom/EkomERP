@@ -191,6 +191,8 @@
         </property>
         <property name="paymentCondition"
                   view="_minimal"/>
+        <property name="invoiceFile"
+                  view="_minimal"/>
     </view>
     <view class="com.ekom.ekomerp.entity.PurchaseOrderLine"
           extends="_local"
@@ -252,6 +254,8 @@
             <property name="invoice"
                       view="_minimal"/>
         </property>
+        <property name="invoiceFile"
+                  view="_minimal"/>
     </view>
     <view class="com.ekom.ekomerp.entity.Product"
           extends="_local"

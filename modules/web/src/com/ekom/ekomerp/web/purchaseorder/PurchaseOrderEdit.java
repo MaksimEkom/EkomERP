@@ -5,10 +5,14 @@ import com.ekom.ekomerp.entity.PurchaseOrderLine;
 import com.ekom.ekomerp.entity.PurchaseOrderState;
 import com.ekom.ekomerp.service.InvoiceService;
 import com.haulmont.cuba.core.app.UniqueNumbersService;
+import com.haulmont.cuba.core.entity.FileDescriptor;
+import com.haulmont.cuba.core.global.FileStorageException;
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.components.*;
 import com.ekom.ekomerp.entity.PurchaseOrder;
 import com.haulmont.cuba.gui.data.CollectionDatasource;
+import com.haulmont.cuba.gui.data.DataSupplier;
+import com.haulmont.cuba.gui.upload.FileUploadingAPI;
 import com.haulmont.cuba.gui.xml.layout.ComponentsFactory;
 import com.haulmont.bpm.gui.procactions.ProcActionsFrame;
 
@@ -56,11 +60,37 @@ private static final String PROCESS_CODE = "purchase";
     private Button discardButton;
     @Inject
     private InvoiceService invoiceService;
+    @Inject
+    private FileUploadField invoiceUpload;
+    @Inject
+    private FileUploadingAPI fileUploadingAPI;
+    @Inject
+    private DataSupplier dataSupplier;
 
     @Override
     public void init(Map<String, Object> params) {
 
         vendorField.removeAction(vendorField.getOpenAction());
+
+        invoiceUpload.setUploadButtonCaption(null);
+        invoiceUpload.setClearButtonCaption(null);
+        invoiceUpload.addFileUploadSucceedListener(event -> {
+            FileDescriptor fd = invoiceUpload.getFileDescriptor();
+            try {
+                // save file to FileStorage
+                fileUploadingAPI.putFileIntoStorage(invoiceUpload.getFileId(), fd);
+            } catch (FileStorageException e) {
+                throw new RuntimeException("Ошибка сохранения файла в хранилище", e);
+            }
+            // save file descriptor to database
+
+            FileDescriptor commitedFile =  dataSupplier.commit(fd);
+            getItem().setInvoiceFile(commitedFile);
+            showNotification("Загруженный файл: " + invoiceUpload.getFileName(), NotificationType.HUMANIZED);
+        });
+
+        invoiceUpload.addFileUploadErrorListener(event ->
+                showNotification("Ошибка загрузки файла", NotificationType.HUMANIZED));
 
 
         purchaseOrderLineDs.addItemPropertyChangeListener(e -> {
@@ -223,5 +253,9 @@ private static final String PROCESS_CODE = "purchase";
         confirmButton.setVisible(true);
         discardButton.setVisible(false);
         commit();
+    }
+
+    public void blockOrder(boolean block){
+        
     }
 }

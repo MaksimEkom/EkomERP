@@ -41,6 +41,7 @@ public class InvoiceWorker {
             invoice.setAmountUntaxed(purchaseOrder.getAmountUntaxed());
             invoice.setAmountTax(purchaseOrder.getAmountTax());
             invoice.setAmountTotal(purchaseOrder.getAmountWithTax());
+            invoice.setInvoiceFile(purchaseOrder.getInvoiceFile());
             em.persist(invoice);
             tx.commit();
             Set<PurchaseOrderLine> purchaseOrderLines = purchaseOrder.getPurchaseOrderLine();

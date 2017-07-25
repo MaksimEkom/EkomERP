@@ -20,6 +20,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import com.haulmont.chile.core.annotations.NamePattern;
 import java.math.BigDecimal;
+import com.haulmont.cuba.core.entity.FileDescriptor;
 
 @NamePattern("%s|number")
 @Table(name = "EKOMERP_PURCHASE_ORDER")
@@ -68,6 +69,19 @@ public class PurchaseOrder extends StandardEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PAYMENT_CONDITION_ID")
     protected PaymentCondition paymentCondition;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "INVOICE_FILE_ID")
+    protected FileDescriptor invoiceFile;
+
+    public void setInvoiceFile(FileDescriptor invoiceFile) {
+        this.invoiceFile = invoiceFile;
+    }
+
+    public FileDescriptor getInvoiceFile() {
+        return invoiceFile;
+    }
+
 
     public BigDecimal getAmountUntaxed() {
         return amountUntaxed;

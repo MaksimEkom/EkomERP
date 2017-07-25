@@ -3,12 +3,17 @@ package com.ekom.ekomerp.web.invoice;
 import com.ekom.ekomerp.entity.InvoiceLine;
 import com.ekom.ekomerp.entity.Product;
 import com.haulmont.cuba.core.app.UniqueNumbersService;
+import com.haulmont.cuba.core.entity.FileDescriptor;
+import com.haulmont.cuba.core.global.FileStorageException;
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.components.AbstractEditor;
 import com.ekom.ekomerp.entity.Invoice;
+import com.haulmont.cuba.gui.components.FileUploadField;
 import com.haulmont.cuba.gui.components.LookupPickerField;
 import com.haulmont.cuba.gui.components.Table;
 import com.haulmont.cuba.gui.data.CollectionDatasource;
+import com.haulmont.cuba.gui.data.DataSupplier;
+import com.haulmont.cuba.gui.upload.FileUploadingAPI;
 import com.haulmont.cuba.gui.xml.layout.ComponentsFactory;
 
 import javax.inject.Inject;
@@ -30,9 +35,37 @@ public class InvoiceEdit extends AbstractEditor<Invoice> {
     private Table<InvoiceLine> invoiceLineTable;
     @Inject
     private UniqueNumbersService uniqueNumbersService;
+    @Inject
+    private FileUploadField invoiceUpload;
+    @Inject
+    private DataSupplier dataSupplier;
+    @Inject
+    private FileUploadingAPI fileUploadingAPI;
 
     @Override
     public void init(Map<String, Object> params) {
+
+        invoiceUpload.addFileUploadSucceedListener(event -> {
+            FileDescriptor fd = invoiceUpload.getFileDescriptor();
+
+            invoiceUpload.setUploadButtonCaption(null);
+            invoiceUpload.setClearButtonCaption(null);
+            try {
+                // save file to FileStorage
+                fileUploadingAPI.putFileIntoStorage(invoiceUpload.getFileId(), fd);
+            } catch (FileStorageException e) {
+                throw new RuntimeException("Ошибка сохранения файла в хранилище", e);
+            }
+            // save file descriptor to database
+
+            FileDescriptor commitedFile =  dataSupplier.commit(fd);
+            getItem().setInvoiceFile(commitedFile);
+            showNotification("Загруженный файл: " + invoiceUpload.getFileName(), NotificationType.HUMANIZED);
+        });
+
+        invoiceUpload.addFileUploadErrorListener(event ->
+                showNotification("Ошибка загрузки файла", NotificationType.HUMANIZED));
+
         invoiceLineTable.addGeneratedColumn("product", entity -> {
             LookupPickerField productLookUpPickerField = componentsFactory.createComponent(LookupPickerField.class);
             productLookUpPickerField.setOptionsDatasource(productsDs);

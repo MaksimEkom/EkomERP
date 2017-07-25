@@ -79,7 +79,7 @@ order by e.name asc
                        property="date"
                        width="200px"/>
         </hbox>
-        <tabSheet height="500px">
+        <tabSheet height="400px">
             <tab id="tab"
                  caption="msg://Products"
                  expand="purchaseOrderLineTable"
@@ -87,6 +87,7 @@ order by e.name asc
                 <table id="purchaseOrderLineTable"
                        columnControlVisible="false"
                        editable="true"
+                       height="400px"
                        reorderingAllowed="false"
                        settingsEnabled="false"
                        stylename="borderless"
@@ -212,6 +213,15 @@ order by e.name asc
                                                        property="paymentCondition"/>
                                 </hbox>
                             </vbox>
+                        </row>
+                        <row>
+                            <upload id="invoiceUpload"
+                                    clearButtonIcon="icons/clear.png"
+                                    datasource="purchaseOrderDs"
+                                    property="invoiceFile"
+                                    showClearButton="true"
+                                    showFileName="true"
+                                    uploadButtonIcon="icons/upload.png"/>
                         </row>
                     </rows>
                 </grid>
