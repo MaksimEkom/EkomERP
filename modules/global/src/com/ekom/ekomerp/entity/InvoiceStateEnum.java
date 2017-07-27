@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 public enum InvoiceStateEnum implements EnumClass<String> {
 
     open("open"),
+    approved("approved"),
     paid("paid");
 
     private String id;

@@ -1,16 +1,14 @@
 package com.ekom.ekomerp.web.invoice;
 
 import com.ekom.ekomerp.entity.InvoiceLine;
+import com.ekom.ekomerp.entity.InvoiceStateEnum;
 import com.ekom.ekomerp.entity.Product;
 import com.haulmont.cuba.core.app.UniqueNumbersService;
 import com.haulmont.cuba.core.entity.FileDescriptor;
 import com.haulmont.cuba.core.global.FileStorageException;
 import com.haulmont.cuba.core.global.Metadata;
-import com.haulmont.cuba.gui.components.AbstractEditor;
+import com.haulmont.cuba.gui.components.*;
 import com.ekom.ekomerp.entity.Invoice;
-import com.haulmont.cuba.gui.components.FileUploadField;
-import com.haulmont.cuba.gui.components.LookupPickerField;
-import com.haulmont.cuba.gui.components.Table;
 import com.haulmont.cuba.gui.data.CollectionDatasource;
 import com.haulmont.cuba.gui.data.DataSupplier;
 import com.haulmont.cuba.gui.upload.FileUploadingAPI;
@@ -41,6 +39,12 @@ public class InvoiceEdit extends AbstractEditor<Invoice> {
     private DataSupplier dataSupplier;
     @Inject
     private FileUploadingAPI fileUploadingAPI;
+    @Inject
+    private Label invoiceLabel;
+    @Inject
+    private Button approveButton;
+    @Inject
+    private Button discardButton;
 
     @Override
     public void init(Map<String, Object> params) {
@@ -194,4 +198,20 @@ public class InvoiceEdit extends AbstractEditor<Invoice> {
             }
         }
     }
+    
+    public void onApproveButtonClick() {
+        getItem().setState(InvoiceStateEnum.approved);
+        approveButton.setVisible(false);
+        discardButton.setVisible(true);
+        commit();
+    }
+
+    public void onDiscardButtonClick() {
+        getItem().setState(InvoiceStateEnum.open);
+        approveButton.setVisible(true);
+        discardButton.setVisible(false);
+        commit();
+    }
+
+
 }

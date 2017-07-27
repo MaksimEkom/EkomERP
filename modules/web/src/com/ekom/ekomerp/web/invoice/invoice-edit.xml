@@ -42,7 +42,18 @@ order by e.name]]>
                        property="number"
                        stylename="h1"/>
             </vbox>
-            <vbox spacing="true"/>
+            <vbox spacing="true">
+                <button id="approveButton"
+                        align="TOP_RIGHT"
+                        caption="msg://Approve invoice"
+                        invoke="onApproveButtonClick"
+                        width="200px"/>
+                <button id="discardButton"
+                        align="TOP_RIGHT"
+                        caption="msg://Discard invoice"
+                        invoke="onDiscardButtonClick"
+                        width="200px"/>
+            </vbox>
         </hbox>
         <hbox margin="true"
               spacing="true"

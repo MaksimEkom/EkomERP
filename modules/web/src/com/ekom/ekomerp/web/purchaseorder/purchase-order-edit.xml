@@ -79,7 +79,8 @@ order by e.name asc
                        property="date"
                        width="200px"/>
         </hbox>
-        <tabSheet height="400px">
+        <tabSheet id="tabSheet"
+                  height="400px">
             <tab id="tab"
                  caption="msg://Products"
                  expand="purchaseOrderLineTable"
@@ -185,10 +186,12 @@ order by e.name asc
                     </rows>
                 </grid>
             </tab>
-            <tab caption="msg://Delivery and Payment"
+            <tab id="deliveryAndPaymentTab"
+                 caption="msg://Delivery and Payment"
                  margin="true"
                  spacing="true">
-                <grid spacing="true"
+                <grid id="grid"
+                      spacing="true"
                       width="100%">
                     <columns count="2"/>
                     <rows>
