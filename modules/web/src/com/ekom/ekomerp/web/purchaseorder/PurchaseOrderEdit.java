@@ -1,15 +1,14 @@
 package com.ekom.ekomerp.web.purchaseorder;
 
-import com.ekom.ekomerp.entity.Product;
-import com.ekom.ekomerp.entity.PurchaseOrderLine;
-import com.ekom.ekomerp.entity.PurchaseOrderState;
+import com.ekom.ekomerp.entity.*;
 import com.ekom.ekomerp.service.InvoiceService;
 import com.haulmont.cuba.core.app.UniqueNumbersService;
 import com.haulmont.cuba.core.entity.FileDescriptor;
+import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.FileStorageException;
+import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.components.*;
-import com.ekom.ekomerp.entity.PurchaseOrder;
 import com.haulmont.cuba.gui.data.CollectionDatasource;
 import com.haulmont.cuba.gui.data.DataSupplier;
 import com.haulmont.cuba.gui.upload.FileUploadingAPI;
@@ -19,9 +18,7 @@ import com.haulmont.bpm.gui.procactions.ProcActionsFrame;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class PurchaseOrderEdit extends AbstractEditor<PurchaseOrder> {
 
@@ -74,6 +71,8 @@ private static final String PROCESS_CODE = "purchase";
     private DateField deliveryDateField;
     @Inject
     private LookupPickerField paymentConditionPickerField;
+    @Inject
+    private DataManager dataManager;
 
     @Override
     public void init(Map<String, Object> params) {
@@ -258,12 +257,16 @@ private static final String PROCESS_CODE = "purchase";
     }
 
     public void onDiscardButtonClick() {
-        getItem().setState(PurchaseOrderState.draft);
-        purchaseOrderLabel.setValue("Зарос цен");
-        confirmButton.setVisible(true);
-        discardButton.setVisible(false);
-        commit();
-        blockOrder(false);
+        if(findInvoiceByOrigin(getItem()).isEmpty()) {
+            getItem().setState(PurchaseOrderState.draft);
+            purchaseOrderLabel.setValue("Зарос цен");
+            confirmButton.setVisible(true);
+            discardButton.setVisible(false);
+            commit();
+            blockOrder(false);
+        }else{
+            showNotification("Невозможно отменить заказ. Счет на оплату заказа утвержден.",NotificationType.ERROR);
+        }
 
     }
 
@@ -288,7 +291,15 @@ private static final String PROCESS_CODE = "purchase";
                 return productLookUpPickerField;
             });
         }
+    }
 
+    public List<Invoice> findInvoiceByOrigin(PurchaseOrder purchaseOrder){
+        LoadContext loadContext = LoadContext.create(Invoice.class).setQuery(LoadContext
+                .createQuery("select i from ekomerp$Invoice i where i.origin = :purchaseOrderNumber and i.state <> :state ")
+                .setParameter("purchaseOrderNumber",purchaseOrder.getNumber())
+                .setParameter("state",InvoiceStateEnum.open))
+                .setView("invoice-view");
 
+        return dataManager.loadList(loadContext);
     }
 }

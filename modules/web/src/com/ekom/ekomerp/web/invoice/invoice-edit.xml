@@ -59,7 +59,8 @@ order by e.name]]>
               spacing="true"
               width="100%">
             <vbox spacing="true">
-                <lookupPickerField caption="msg://Partner"
+                <lookupPickerField id="partnerPickerField"
+                                   caption="msg://Partner"
                                    datasource="invoiceDs"
                                    optionsDatasource="partnersDs"
                                    property="partner"
@@ -71,7 +72,8 @@ order by e.name]]>
                            width="300px"/>
             </vbox>
             <vbox spacing="true">
-                <dateField caption="msg://Date"
+                <dateField id="invoiceDateField"
+                           caption="msg://Date"
                            datasource="invoiceDs"
                            property="date"
                            width="200px"/>
@@ -85,6 +87,7 @@ order by e.name]]>
         <tabSheet height="400px">
             <tab id="invoiceLineTab"
                  caption="msg://Invoice"
+                 expand="invoiceLineTable"
                  spacing="true">
                 <table id="invoiceLineTable"
                        editable="true"
@@ -124,7 +127,8 @@ order by e.name]]>
                     <columns count="2"/>
                     <rows>
                         <row>
-                            <textArea datasource="invoiceDs"
+                            <textArea id="notesTextArea"
+                                      datasource="invoiceDs"
                                       inputPrompt="msg://Notes"
                                       property="notes"
                                       width="100%"/>

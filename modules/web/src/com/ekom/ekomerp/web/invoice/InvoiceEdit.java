@@ -45,6 +45,16 @@ public class InvoiceEdit extends AbstractEditor<Invoice> {
     private Button approveButton;
     @Inject
     private Button discardButton;
+    @Inject
+    private TextField originField;
+    @Inject
+    private DateField invoiceDateField;
+    @Inject
+    private DateField dueDateField;
+    @Inject
+    private LookupPickerField partnerPickerField;
+    @Inject
+    private ResizableTextArea notesTextArea;
 
     @Override
     public void init(Map<String, Object> params) {
@@ -104,6 +114,20 @@ public class InvoiceEdit extends AbstractEditor<Invoice> {
             }
         });
         super.init(params);
+    }
+
+    @Override
+    protected void postInit() {
+        if(getItem().getState()==InvoiceStateEnum.approved){
+            discardButton.setVisible(true);
+            approveButton.setVisible(false);
+
+        }else{
+            approveButton.setVisible(true);
+            discardButton.setVisible(false);
+
+        }
+        super.postInit();
     }
 
     public void onCreateButtonClick() {
@@ -203,6 +227,7 @@ public class InvoiceEdit extends AbstractEditor<Invoice> {
         getItem().setState(InvoiceStateEnum.approved);
         approveButton.setVisible(false);
         discardButton.setVisible(true);
+        blockInvoice(true);
         commit();
     }
 
@@ -210,8 +235,28 @@ public class InvoiceEdit extends AbstractEditor<Invoice> {
         getItem().setState(InvoiceStateEnum.open);
         approveButton.setVisible(true);
         discardButton.setVisible(false);
+        blockInvoice(false);
         commit();
     }
-
-
+    public void blockInvoice(boolean block) {
+        partnerPickerField.setEditable(!block);
+        dueDateField.setEditable(!block);
+        invoiceDateField.setEditable(!block);
+        invoiceUpload.setEditable(!block);
+        notesTextArea.setEditable(!block);
+        originField.setEditable(!block);
+        invoiceLineTable.getButtonsPanel().setEnabled(!block);
+        if (block) {
+            invoiceLineTable.removeGeneratedColumn("product");
+        } else {
+            invoiceLineTable.addGeneratedColumn("product", entity -> {
+                LookupPickerField productLookUpPickerField = componentsFactory.createComponent(LookupPickerField.class);
+                productLookUpPickerField.setOptionsDatasource(productsDs);
+                productLookUpPickerField.setDatasource(invoiceLineTable.getItemDatasource(entity), "product");
+                productLookUpPickerField.addLookupAction();
+                productLookUpPickerField.setWidth("100%");
+                return productLookUpPickerField;
+            });
+        }
+    }
 }
