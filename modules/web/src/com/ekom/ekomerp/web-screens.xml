@@ -67,4 +67,8 @@
             template="com/ekom/ekomerp/web/calculation/calculation-edit.xml"/>
     <screen id="ekomerp$Product.browse.MultiChoice"
             template="com/ekom/ekomerp/web/product/product-browse-multi-choice.xml"/>
+    <screen id="ekomerp$Payment.browse"
+            template="com/ekom/ekomerp/web/payment/payment-browse.xml"/>
+    <screen id="ekomerp$Payment.edit"
+            template="com/ekom/ekomerp/web/payment/payment-edit.xml"/>
 </screen-config>

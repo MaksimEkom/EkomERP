@@ -10,6 +10,8 @@
                     view="invoice-view">
             <collectionDatasource id="invoiceLineDs"
                                   property="invoiceLine"/>
+            <collectionDatasource id="paymentsDs"
+                                  property="payments"/>
         </datasource>
         <collectionDatasource id="partnersDs"
                               class="com.ekom.ekomerp.entity.Partner"
@@ -182,6 +184,37 @@ order by e.name]]>
                         showClearButton="true"
                         showFileName="true"
                         uploadButtonIcon="icons/upload.png"/>
+            </tab>
+            <tab id="Payments"
+                 caption="msg://Payments"
+                 margin="true,false,false,false"
+                 spacing="true">
+                <table id="paymentsTable"
+                       height="100%"
+                       width="100%">
+                    <actions>
+                        <action id="create"/>
+                        <action id="edit"/>
+                        <action id="remove"/>
+                    </actions>
+                    <columns>
+                        <column id="number"/>
+                        <column id="date"/>
+                        <column id="paymentMethod"/>
+                        <column id="notes"/>
+                        <column id="amount"/>
+                    </columns>
+                    <rows datasource="paymentsDs"/>
+                    <buttonsPanel id="buttonsPanel">
+                        <button id="paymentsCreateButton"
+                                action="paymentsTable.create"
+                                caption="msg://Create"/>
+                        <button id="paymnetsEditButton"
+                                action="paymentsTable.edit"/>
+                        <button id="paymnetsRemoveButton"
+                                action="paymentsTable.remove"/>
+                    </buttonsPanel>
+                </table>
             </tab>
         </tabSheet>
         <frame id="windowActions"

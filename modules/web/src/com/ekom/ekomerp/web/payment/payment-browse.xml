@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.ekom.ekomerp.web.payment.PaymentBrowse"
+        focusComponent="paymentsTable"
+        lookupComponent="paymentsTable"
+        messagesPack="com.ekom.ekomerp.web.payment">
+    <dsContext>
+        <groupDatasource id="paymentsDs"
+                         class="com.ekom.ekomerp.entity.Payment"
+                         view="_local">
+            <query>
+                <![CDATA[select e from ekomerp$Payment e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="paymentsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="paymentsTable"
+                datasource="paymentsDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="paymentsTable"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+            </actions>
+            <columns>
+                <column id="number"/>
+                <column id="date"/>
+                <column id="paymentMethod"/>
+                <column id="notes"/>
+                <column id="paymentType"/>
+                <column id="amount"/>
+            </columns>
+            <rows datasource="paymentsDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="paymentsTable.create"/>
+                <button id="editBtn"
+                        action="paymentsTable.edit"/>
+                <button id="removeBtn"
+                        action="paymentsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

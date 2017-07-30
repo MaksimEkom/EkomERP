@@ -21,6 +21,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 import com.haulmont.cuba.core.entity.FileDescriptor;
+import java.util.List;
 
 @NamePattern("%s|number")
 @Table(name = "EKOMERP_INVOICE")
@@ -74,6 +75,20 @@ public class Invoice extends StandardEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "INVOICE_FILE_ID")
     protected FileDescriptor invoiceFile;
+
+    @Composition
+    @OnDelete(DeletePolicy.CASCADE)
+    @OneToMany(mappedBy = "invoice")
+    protected List<Payment> payments;
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
 
     public void setInvoiceFile(FileDescriptor invoiceFile) {
         this.invoiceFile = invoiceFile;

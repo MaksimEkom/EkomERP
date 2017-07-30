@@ -76,5 +76,8 @@
         <entity class="com.ekom.ekomerp.entity.CalculationLaboriousnessLine">
             <include re=".*"/>
         </entity>
+        <entity class="com.ekom.ekomerp.entity.Payment">
+            <include re=".*"/>
+        </entity>
     </entities>
 </fts-config>

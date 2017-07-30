@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="com.ekom.ekomerp.web.payment.PaymentEdit"
+        datasource="paymentDs"
+        focusComponent="paymentFieldGroup"
+        messagesPack="com.ekom.ekomerp.web.payment">
+    <dsContext>
+        <datasource id="paymentDs"
+                    class="com.ekom.ekomerp.entity.Payment"
+                    view="payment-view"/>
+    </dsContext>
+    <dialogMode forceDialog="true"
+                height="AUTO"
+                modal="true"
+                width="AUTO"/>
+    <layout expand="windowActions"
+            spacing="true">
+        <fieldGroup id="paymentFieldGroup"
+                    datasource="paymentDs"
+                    width="100%">
+            <column width="250px">
+                <field property="number"/>
+                <field property="paymentMethod"/>
+                <field property="amount"/>
+            </column>
+            <column>
+                <field property="date"/>
+                <field property="notes"
+                       rows="5"/>
+            </column>
+        </fieldGroup>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>

@@ -1,14 +1,13 @@
 package com.ekom.ekomerp.web.invoice;
 
-import com.ekom.ekomerp.entity.InvoiceLine;
-import com.ekom.ekomerp.entity.InvoiceStateEnum;
-import com.ekom.ekomerp.entity.Product;
+import com.ekom.ekomerp.entity.*;
+import com.ekom.ekomerp.web.payment.PaymentEdit;
 import com.haulmont.cuba.core.app.UniqueNumbersService;
 import com.haulmont.cuba.core.entity.FileDescriptor;
 import com.haulmont.cuba.core.global.FileStorageException;
 import com.haulmont.cuba.core.global.Metadata;
+import com.haulmont.cuba.gui.WindowManager;
 import com.haulmont.cuba.gui.components.*;
-import com.ekom.ekomerp.entity.Invoice;
 import com.haulmont.cuba.gui.data.CollectionDatasource;
 import com.haulmont.cuba.gui.data.DataSupplier;
 import com.haulmont.cuba.gui.upload.FileUploadingAPI;
@@ -18,6 +17,7 @@ import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 public class InvoiceEdit extends AbstractEditor<Invoice> {
@@ -55,6 +55,8 @@ public class InvoiceEdit extends AbstractEditor<Invoice> {
     private LookupPickerField partnerPickerField;
     @Inject
     private ResizableTextArea notesTextArea;
+    @Inject
+    private CollectionDatasource<Payment, UUID> paymentsDs;
 
     @Override
     public void init(Map<String, Object> params) {
@@ -259,4 +261,5 @@ public class InvoiceEdit extends AbstractEditor<Invoice> {
             });
         }
     }
+
 }

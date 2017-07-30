@@ -256,6 +256,14 @@
         </property>
         <property name="invoiceFile"
                   view="_minimal"/>
+        <property name="payments"
+                  view="_minimal">
+            <property name="date"/>
+            <property name="paymentMethod"/>
+            <property name="notes"/>
+            <property name="paymentType"/>
+            <property name="amount"/>
+        </property>
     </view>
     <view class="com.ekom.ekomerp.entity.Product"
           extends="_local"
@@ -373,6 +381,12 @@
           extends="_local"
           name="calculation-view">
         <property name="product"
+                  view="_minimal"/>
+    </view>
+    <view class="com.ekom.ekomerp.entity.Payment"
+          extends="_local"
+          name="payment-view">
+        <property name="invoice"
                   view="_minimal"/>
     </view>
 </views>
