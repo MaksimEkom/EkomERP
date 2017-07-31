@@ -304,7 +304,7 @@ create table EKOMERP_PURCHASE_ORDER_LINE (
     --
     PRODUCT_ID uniqueidentifier not null,
     QUANTITY decimal(19, 4) not null,
-    PRICE decimal(19, 2) not null,
+    PRICE decimal(19, 4) not null,
     SUBTOTAL decimal(19, 2),
     TAX decimal(19, 2),
     TOTAL decimal(19, 2),
@@ -392,6 +392,8 @@ create table EKOMERP_INVOICE (
     AMOUNT_TOTAL decimal(19, 2),
     NOTES varchar(max),
     INVOICE_FILE_ID uniqueidentifier,
+    PAID decimal(19, 2),
+    DEBT decimal(19, 2),
     --
     primary key nonclustered (ID)
 )^
@@ -409,7 +411,7 @@ create table EKOMERP_INVOICE_LINE (
     --
     PRODUCT_ID uniqueidentifier not null,
     QUANTITY decimal(19, 4) not null,
-    PRICE decimal(19, 2) not null,
+    PRICE decimal(19, 4) not null,
     SUBTOTAL decimal(19, 2),
     TAX decimal(19, 2),
     TOTAL decimal(19, 2),

@@ -21,7 +21,7 @@ public class Payment extends StandardEntity {
     private static final long serialVersionUID = 4494133011794964916L;
 
     @Column(name = "NUMBER_")
-    protected String number;
+    protected String number = "Новый";
 
     @Temporal(TemporalType.DATE)
     @Column(name = "DATE_")

@@ -2,6 +2,9 @@ package com.ekom.ekomerp.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import com.ekom.ekomerp.FourDigitsScaleBigDecimal;
+import com.haulmont.chile.core.annotations.MetaProperty;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.cuba.core.entity.annotation.Lookup;
 import com.haulmont.cuba.core.entity.annotation.LookupType;
@@ -23,7 +26,8 @@ public class InvoiceLine extends StandardEntity {
     @Column(name = "QUANTITY", nullable = false, precision = 19, scale = 4)
     protected BigDecimal quantity = new BigDecimal("1.0");
 
-    @Column(name = "PRICE", nullable = false)
+    @MetaProperty(mandatory = true, datatype = FourDigitsScaleBigDecimal.NAME)
+    @Column(name = "PRICE", nullable = false, precision = 19, scale = 4)
     protected BigDecimal price;
 
     @Column(name = "SUBTOTAL")
@@ -81,13 +85,6 @@ public class InvoiceLine extends StandardEntity {
     public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
     }
-
-
-
-
-
-
-
 
 
     public void setInvoice(Invoice invoice) {

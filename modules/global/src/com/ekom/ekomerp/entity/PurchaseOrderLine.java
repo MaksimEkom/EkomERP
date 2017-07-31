@@ -24,8 +24,9 @@ public class PurchaseOrderLine extends StandardEntity {
     @MetaProperty(mandatory = true, datatype = FourDigitsScaleBigDecimal.NAME)
     @Column(name = "QUANTITY", nullable = false, precision = 19, scale = 4)
     protected BigDecimal quantity = new BigDecimal("1.0");
-
-    @Column(name = "PRICE", nullable = false)
+    
+    @MetaProperty(mandatory = true, datatype = FourDigitsScaleBigDecimal.NAME)
+    @Column(name = "PRICE", nullable = false, precision = 19, scale = 4)
     protected BigDecimal price;
 
     @Column(name = "SUBTOTAL")

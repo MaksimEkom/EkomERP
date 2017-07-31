@@ -20,7 +20,8 @@
                     datasource="paymentDs"
                     width="100%">
             <column width="250px">
-                <field property="number"/>
+                <field editable="false"
+                       property="number"/>
                 <field property="paymentMethod"/>
                 <field property="amount"/>
             </column>

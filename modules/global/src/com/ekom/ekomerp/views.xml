@@ -264,6 +264,8 @@
             <property name="paymentType"/>
             <property name="amount"/>
         </property>
+        <property name="paid"/>
+        <property name="debt"/>
     </view>
     <view class="com.ekom.ekomerp.entity.Product"
           extends="_local"
@@ -387,6 +389,8 @@
           extends="_local"
           name="payment-view">
         <property name="invoice"
-                  view="_minimal"/>
+                  view="_minimal">
+            <property name="type"/>
+        </property>
     </view>
 </views>

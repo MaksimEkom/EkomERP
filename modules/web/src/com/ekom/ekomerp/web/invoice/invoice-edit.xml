@@ -168,6 +168,33 @@ order by e.name]]>
                                                width="150px"/>
                                     </hbox>
                                 </groupBox>
+                                <hbox id="paidHBox"
+                                      align="MIDDLE_RIGHT"
+                                      height="18px"
+                                      spacing="true">
+                                    <label align="MIDDLE_RIGHT"
+                                           value="msg://Paid"/>
+                                    <label align="MIDDLE_RIGHT"
+                                           datasource="invoiceDs"
+                                           property="paid"
+                                           width="150px"/>
+                                </hbox>
+                                <groupBox id="debtGroupBox"
+                                          align="MIDDLE_RIGHT"
+                                          spacing="true"
+                                          stylename="light"
+                                          width="300px">
+                                    <hbox align="MIDDLE_RIGHT"
+                                          spacing="true">
+                                        <label align="MIDDLE_RIGHT"
+                                               stylename="h2 bold"
+                                               value="msg://Debt"/>
+                                        <label align="MIDDLE_RIGHT"
+                                               datasource="invoiceDs"
+                                               property="debt"
+                                               width="150px"/>
+                                    </hbox>
+                                </groupBox>
                             </vbox>
                         </row>
                     </rows>

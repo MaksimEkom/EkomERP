@@ -22,6 +22,8 @@ import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 import com.haulmont.cuba.core.entity.FileDescriptor;
 import java.util.List;
+import com.haulmont.chile.core.annotations.MetaProperty;
+import javax.persistence.Transient;
 
 @NamePattern("%s|number")
 @Table(name = "EKOMERP_INVOICE")
@@ -80,6 +82,37 @@ public class Invoice extends StandardEntity {
     @OnDelete(DeletePolicy.CASCADE)
     @OneToMany(mappedBy = "invoice")
     protected List<Payment> payments;
+
+    @Column(name = "PAID")
+    protected BigDecimal paid = new BigDecimal("0.0");
+
+    @Column(name = "DEBT")
+    protected BigDecimal debt = new BigDecimal("0.0");
+
+    public BigDecimal getPaid() {
+        return paid;
+    }
+
+    public void setPaid(BigDecimal paid) {
+        this.paid = paid;
+    }
+
+
+    public BigDecimal getDebt() {
+        return debt;
+    }
+
+    public void setDebt(BigDecimal debt) {
+        this.debt = debt;
+    }
+
+
+
+
+
+
+
+
 
     public void setPayments(List<Payment> payments) {
         this.payments = payments;

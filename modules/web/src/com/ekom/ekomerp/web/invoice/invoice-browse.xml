@@ -46,6 +46,10 @@
                 <column property="amountTax"/>
                 <column property="amountTotal"/>
                 <column property="notes"/>
+                <column editable="false"
+                        property="paid"/>
+                <column editable="false"
+                        property="debt"/>
             </columns>
             <buttonsPanel>
                 <button id="createButton"

@@ -13,15 +13,6 @@
 order by  e.for_purchase, e.name]]>
             </query>
         </groupDatasource>
-        <groupDatasource id="activeProductsDs"
-                         class="com.ekom.ekomerp.entity.Product"
-                         view="productWithUnitAndCategory">
-            <query>
-                <![CDATA[select e from ekomerp$Product e
-where e.active = true
-order by  e.for_purchase, e.name]]>
-            </query>
-        </groupDatasource>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
@@ -29,13 +20,13 @@ order by  e.for_purchase, e.name]]>
             spacing="true">
         <filter id="productFilter"
                 applyTo="productsDataGrid"
-                datasource="activeProductsDs"
+                datasource="productsDs"
                 defaultMode="fts"
                 useMaxResults="false">
             <properties include=".*"/>
         </filter>
         <dataGrid id="productsDataGrid"
-                  datasource="activeProductsDs"
+                  datasource="productsDs"
                   width="100%">
             <actions>
                 <action id="create"/>
@@ -45,21 +36,20 @@ order by  e.for_purchase, e.name]]>
                 <action id="refresh"/>
             </actions>
             <columns>
-                <column id="active"
-                        property="active"/>
-                <column property="name"/>
                 <column property="code"/>
-                <column editable="false"
-                        property="unit"/>
+                <column property="name"/>
                 <column property="fullName"/>
                 <column property="docName"/>
-                <column editable="false"
-                        property="category"/>
                 <column property="description"/>
+                <column property="height"/>
+                <column property="width"/>
+                <column property="depth"/>
+                <column property="active"/>
                 <column property="analog"/>
+                <column property="weight"/>
+                <column property="for_sale"/>
+                <column property="for_purchase"/>
                 <column property="notes"/>
-                <column editable="false"
-                        property="productPrice"/>
             </columns>
             <buttonsPanel id="buttonsPanel">
                 <button id="createButton"
@@ -72,15 +62,6 @@ order by  e.for_purchase, e.name]]>
                         action="productsDataGrid.excel"/>
                 <button id="refreshButton"
                         action="productsDataGrid.refresh"/>
-                <button id="activateButton"
-                        caption="msg://Activate"
-                        invoke="onActivateButtonClick"/>
-                <button id="deactivateButton"
-                        caption="msg://Deactivate"
-                        invoke="onDeactivateButtonClick"/>
-                <checkBox id="deacivatedCheckBox"
-                          align="MIDDLE_LEFT"
-                          caption="msg://Show deactivated"/>
             </buttonsPanel>
         </dataGrid>
     </layout>

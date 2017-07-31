@@ -57,9 +57,14 @@ public class InvoiceEdit extends AbstractEditor<Invoice> {
     private ResizableTextArea notesTextArea;
     @Inject
     private CollectionDatasource<Payment, UUID> paymentsDs;
+    @Inject
+    private GroupBoxLayout debtGroupBox;
+    @Inject
+    private HBoxLayout paidHBox;
 
     @Override
     public void init(Map<String, Object> params) {
+
 
         invoiceUpload.addFileUploadSucceedListener(event -> {
             FileDescriptor fd = invoiceUpload.getFileDescriptor();
@@ -115,20 +120,49 @@ public class InvoiceEdit extends AbstractEditor<Invoice> {
                 getItem().setAmountTotal(calculateAmountTotal());
             }
         });
+        paymentsDs.addCollectionChangeListener(e -> {
+            calculatePaid();
+            calculateDebt();
+            if(getItem().getPaid().compareTo(new BigDecimal("0.0"))==0){
+                debtGroupBox.setVisible(false);
+                paidHBox.setVisible(false);
+            }else{
+                debtGroupBox.setVisible(true);
+                paidHBox.setVisible(true);
+            }
+            if (getItem().getDebt().compareTo(new BigDecimal("0.0"))==0){
+                getItem().setState(InvoiceStateEnum.paid);
+            }
+            if (getItem().getDebt().compareTo(new BigDecimal("0.0"))==1){
+                getItem().setState(InvoiceStateEnum.approved);
+            }
+        });
         super.init(params);
     }
 
     @Override
     protected void postInit() {
-        if(getItem().getState()==InvoiceStateEnum.approved){
+        calculatePaid();
+        calculateDebt();
+
+        if(getItem().getPaid().compareTo(new BigDecimal("0.0"))==0){
+            debtGroupBox.setVisible(false);
+            paidHBox.setVisible(false);
+        }else{
+            debtGroupBox.setVisible(true);
+            paidHBox.setVisible(true);
+        }
+        if(getItem().getState()==InvoiceStateEnum.approved||getItem().getState()==InvoiceStateEnum.paid){
             discardButton.setVisible(true);
             approveButton.setVisible(false);
 
-        }else{
+        }else if (getItem().getState()==InvoiceStateEnum.open){
             approveButton.setVisible(true);
             discardButton.setVisible(false);
 
         }
+
+
         super.postInit();
     }
 
@@ -247,6 +281,7 @@ public class InvoiceEdit extends AbstractEditor<Invoice> {
         invoiceUpload.setEditable(!block);
         notesTextArea.setEditable(!block);
         originField.setEditable(!block);
+        invoiceLineTable.setEditable(!block);
         invoiceLineTable.getButtonsPanel().setEnabled(!block);
         if (block) {
             invoiceLineTable.removeGeneratedColumn("product");
@@ -260,6 +295,19 @@ public class InvoiceEdit extends AbstractEditor<Invoice> {
                 return productLookUpPickerField;
             });
         }
+    }
+
+    private void calculatePaid(){
+        Collection<Payment> payments = getItem().getPayments();
+        BigDecimal paid = new BigDecimal("0.0");
+        for (Payment payment: payments) {
+            paid = paid.add(payment.getAmount());
+        }
+        getItem().setPaid(paid);
+    }
+
+    private void calculateDebt(){
+        getItem().setDebt(getItem().getAmountTotal().subtract(getItem().getPaid()));
     }
 
 }
