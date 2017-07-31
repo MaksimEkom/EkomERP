@@ -15,6 +15,7 @@ import com.haulmont.cuba.gui.xml.layout.ComponentsFactory;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -112,6 +113,14 @@ public class InvoiceEdit extends AbstractEditor<Invoice> {
                 getItem().setAmountUntaxed(calculateAmountUntaxed());
                 getItem().setAmountTotal(calculateAmountTotal());
             }
+            if((e.getProperty() == "subtotal" ) && invoiceLineDs.getItem().getProduct()!=null){
+                item.setPrice(item.getSubtotal().divide(item.getQuantity(),4, RoundingMode.HALF_UP));
+                item.setTax(calculateTax());
+                item.setTotal(calculateTotal());
+                getItem().setAmountTax(calculateAmountTax());
+                getItem().setAmountUntaxed(calculateAmountUntaxed());
+                getItem().setAmountTotal(calculateAmountTotal());
+            }
         });
         invoiceLineDs.addCollectionChangeListener(e -> {
             if(e.getOperation() == CollectionDatasource.Operation.REMOVE) {
@@ -121,20 +130,22 @@ public class InvoiceEdit extends AbstractEditor<Invoice> {
             }
         });
         paymentsDs.addCollectionChangeListener(e -> {
-            calculatePaid();
-            calculateDebt();
-            if(getItem().getPaid().compareTo(new BigDecimal("0.0"))==0){
-                debtGroupBox.setVisible(false);
-                paidHBox.setVisible(false);
-            }else{
-                debtGroupBox.setVisible(true);
-                paidHBox.setVisible(true);
-            }
-            if (getItem().getDebt().compareTo(new BigDecimal("0.0"))==0){
-                getItem().setState(InvoiceStateEnum.paid);
-            }
-            if (getItem().getDebt().compareTo(new BigDecimal("0.0"))==1){
-                getItem().setState(InvoiceStateEnum.approved);
+            if(paymentsDs.size()!=0&&invoiceLineDs.size()!=0) {
+                calculatePaid();
+                calculateDebt();
+                if (getItem().getPaid().compareTo(new BigDecimal("0.0")) == 0) {
+                    debtGroupBox.setVisible(false);
+                    paidHBox.setVisible(false);
+                } else {
+                    debtGroupBox.setVisible(true);
+                    paidHBox.setVisible(true);
+                }
+                if (getItem().getDebt().compareTo(new BigDecimal("0.0")) == 0) {
+                    getItem().setState(InvoiceStateEnum.paid);
+                }
+                if (getItem().getDebt().compareTo(new BigDecimal("0.0")) == 1) {
+                    getItem().setState(InvoiceStateEnum.approved);
+                }
             }
         });
         super.init(params);
@@ -142,9 +153,10 @@ public class InvoiceEdit extends AbstractEditor<Invoice> {
 
     @Override
     protected void postInit() {
-        calculatePaid();
-        calculateDebt();
-
+        if (paymentsDs.size()!=0&&invoiceLineDs.size()!=0) {
+            calculatePaid();
+            calculateDebt();
+        }
         if(getItem().getPaid().compareTo(new BigDecimal("0.0"))==0){
             debtGroupBox.setVisible(false);
             paidHBox.setVisible(false);

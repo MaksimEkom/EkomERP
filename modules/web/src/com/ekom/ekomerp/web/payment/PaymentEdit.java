@@ -23,10 +23,12 @@ public class PaymentEdit extends AbstractEditor<Payment> {
 
     @Override
     protected boolean preCommit() {
-        if (getItem().getInvoice().getType().equals(InvoiceTypeEnum.in)){
-            getItem().setPaymentType(PaymentTypeEnum.Inbound);
-        }else if(getItem().getInvoice().getType().equals(InvoiceTypeEnum.out)){
-            getItem().setPaymentType(PaymentTypeEnum.Outbound);
+        if(getItem().getInvoice().getType()!=null) {
+            if (getItem().getInvoice().getType().equals(InvoiceTypeEnum.in)) {
+                getItem().setPaymentType(PaymentTypeEnum.Inbound);
+            } else if (getItem().getInvoice().getType().equals(InvoiceTypeEnum.out)) {
+                getItem().setPaymentType(PaymentTypeEnum.Outbound);
+            }
         }
         setNumberField();
         return super.preCommit();

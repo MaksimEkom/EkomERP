@@ -26,8 +26,7 @@ public class InvoiceLine extends StandardEntity {
     @Column(name = "QUANTITY", nullable = false, precision = 19, scale = 4)
     protected BigDecimal quantity = new BigDecimal("1.0");
 
-    @MetaProperty(mandatory = true, datatype = FourDigitsScaleBigDecimal.NAME)
-    @Column(name = "PRICE", nullable = false, precision = 19, scale = 4)
+    @Column(name = "PRICE", nullable = false)
     protected BigDecimal price;
 
     @Column(name = "SUBTOTAL")

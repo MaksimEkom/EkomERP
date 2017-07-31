@@ -112,7 +112,8 @@ order by e.name asc
                                 align="RIGHT"
                                 editable="true"/>
                         <column id="subtotal"
-                                align="RIGHT"/>
+                                align="RIGHT"
+                                editable="true"/>
                         <column id="tax"
                                 align="RIGHT"/>
                         <column id="total"

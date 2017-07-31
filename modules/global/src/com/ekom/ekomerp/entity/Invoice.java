@@ -106,14 +106,6 @@ public class Invoice extends StandardEntity {
         this.debt = debt;
     }
 
-
-
-
-
-
-
-
-
     public void setPayments(List<Payment> payments) {
         this.payments = payments;
     }

@@ -18,6 +18,7 @@ import com.haulmont.bpm.gui.procactions.ProcActionsFrame;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 public class PurchaseOrderEdit extends AbstractEditor<PurchaseOrder> {
@@ -109,6 +110,14 @@ private static final String PROCESS_CODE = "purchase";
 
             if((e.getProperty() == "quantity" || e.getProperty() == "price") && purchaseOrderLineDs.getItem().getProduct()!=null){
                 item.setSubtotal(calculateSubtotal());
+                item.setTax(calculateTax());
+                item.setTotal(calculateTotal());
+                getItem().setAmountTax(calculateAmountTax());
+                getItem().setAmountUntaxed(calculateAmountUntaxed());
+                getItem().setAmountWithTax(calculateAmountTotal());
+            }
+            if((e.getProperty() == "subtotal" ) && purchaseOrderLineDs.getItem().getProduct()!=null){
+                item.setPrice(item.getSubtotal().divide(item.getQuantity(),4,RoundingMode.HALF_UP));
                 item.setTax(calculateTax());
                 item.setTotal(calculateTotal());
                 getItem().setAmountTax(calculateAmountTax());
