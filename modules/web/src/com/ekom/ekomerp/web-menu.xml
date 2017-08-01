@@ -13,9 +13,14 @@
         <item id="ekomerp$PaymentCondition.browse"/>
         <item screen="ekomerp$PricingType.browse"/>
     </menu>
+    <menu id="sales"
+          insertBefore="administration">
+        <item screen="ekomerp$Customer.browse"/>
+    </menu>
     <menu id="purchase"
           insertBefore="administration">
         <item id="ekomerp$PurchaseOrder.browse"/>
+        <item screen="ekomerp$Vendor.browse"/>
     </menu>
     <menu id="manufacture"
           insertBefore="administration">

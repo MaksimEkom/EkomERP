@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.ekom.ekomerp.web.partner.VendorBrowse"
+        focusComponent="partnersTable"
+        lookupComponent="partnersTable"
+        messagesPack="com.ekom.ekomerp.web.vendor">
+    <dsContext>
+        <groupDatasource id="partnersDs"
+                         class="com.ekom.ekomerp.entity.Partner"
+                         view="partnerWithParentView">
+            <query>
+                <![CDATA[select e from ekomerp$Partner e
+where e.vendor = true
+order by e.name]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="partnersTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="partnersTable"
+                datasource="partnersDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="partnersTable"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+            </actions>
+            <columns>
+                <column id="name"/>
+                <column id="partnerType"/>
+                <column id="customer"/>
+                <column id="vendor"/>
+                <column id="email"/>
+                <column id="website"/>
+                <column id="active"/>
+                <column id="position"/>
+                <column id="phone"/>
+                <column id="mobile"/>
+                <column id="fax"/>
+                <column id="parent"/>
+                <column id="street"/>
+                <column id="city"/>
+                <column id="region"/>
+                <column id="country"/>
+                <column id="zip"/>
+                <column id="addressType"/>
+                <column id="unp"/>
+            </columns>
+            <rows datasource="partnersDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="partnersTable.create"/>
+                <button id="editBtn"
+                        action="partnersTable.edit"/>
+                <button id="removeBtn"
+                        action="partnersTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

@@ -1,1 +1,0 @@
-alter table EKOMERP_PURCHASE_ORDER drop column INVOICE_FILE_ID ;

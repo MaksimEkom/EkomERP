@@ -19,7 +19,7 @@ import javax.persistence.Lob;
 public class Partner extends StandardEntity {
     private static final long serialVersionUID = -6811009431462172286L;
 
-    @Column(name = "NAME", nullable = false, unique = true)
+    @Column(name = "NAME", nullable = false)
     protected String name;
 
     @Column(name = "PARTNER_TYPE")
