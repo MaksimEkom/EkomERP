@@ -11,8 +11,7 @@
     <!-- Application properties config files -->
     <context-param>
         <param-name>appPropertiesConfig</param-name>
-        <param-value>classpath:cuba-web-app.properties
-            classpath:com/ekom/ekomerp/web-app.properties
+        <param-value>classpath:com/ekom/ekomerp/web-app.properties
             /WEB-INF/local.app.properties
             "file:${catalina.home}/conf/ekomerp/local.app.properties"</param-value>
     </context-param>

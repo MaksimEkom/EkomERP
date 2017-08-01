@@ -1,6 +1,6 @@
 
 buildscript {
-    ext.cubaVersion = '6.5.7'
+    ext.cubaVersion = '6.6.0'
     repositories {
         maven {
             url 'https://repo.cuba-platform.com/content/groups/work'
@@ -141,7 +141,7 @@ configure(coreModule) {
     task createDb(dependsOn: assembleDbScripts, description: 'Creates local database', type: CubaDbCreation) {
         dbms = 'mssql'
         dbmsVersion = '2012'
-        host = '192.168.0.205'
+        host = '93.84.111.77'
         dbName = 'EkomDB_copy'
         dbUser = 'sa'
         dbPassword = 'SQLadmin.1'
@@ -150,7 +150,7 @@ configure(coreModule) {
     task updateDb(dependsOn: assembleDbScripts, description: 'Updates local database', type: CubaDbUpdate) {
         dbms = 'mssql'
         dbmsVersion = '2012'
-        host = '192.168.0.205'
+        host = '93.84.111.77'
         dbName = 'EkomDB_copy'
         dbUser = 'sa'
         dbPassword = 'SQLadmin.1'
@@ -240,12 +240,15 @@ task restart(dependsOn: ['stop', ':ekomerp-core:deploy', ':ekomerp-web:deploy'],
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.1'
+    gradleVersion = '3.4'
 }
 
 apply from: 'extra.gradle'
 
 task buildUberJar(type: CubaUberJarBuilding) {
+    webPort = 8085
+    singleJar = true
+    logbackConfigurationFile = 'etc/logback.xml'
     coreJettyEnvPath = 'modules/core/web/META-INF/jetty-env.xml'
     appProperties = ['cuba.automaticDatabaseUpdate' : true]
 }

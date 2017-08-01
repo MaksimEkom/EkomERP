@@ -7,7 +7,7 @@
         <Arg>
             <New class="org.apache.commons.dbcp2.BasicDataSource">
                 <Set name="driverClassName">com.microsoft.sqlserver.jdbc.SQLServerDriver</Set>
-                <Set name="url">jdbc:sqlserver://192.168.0.205;databaseName=EkomDB_copy</Set>
+                <Set name="url">jdbc:sqlserver://192.168.100.205;databaseName=EkomDB</Set>
                 <Set name="username">sa</Set>
                 <Set name="password">SQLadmin.1</Set>
                 <Set name="maxIdle">2</Set>
