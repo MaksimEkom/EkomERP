@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.ekom.ekomerp.web.doororder.DoorOrderBrowse"
+        messagesPack="com.ekom.ekomerp.web.doororder">
+    <dsContext>
+        <groupDatasource id="doorOrdersDs"
+                         class="com.ekom.ekomerp.entity.DoorOrder"
+                         view="doorOrder-edit">
+            <query>
+                <![CDATA[select e from ekomerp$DoorOrder e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="doorOrdersDataGrid"
+            margin="true"
+            spacing="true">
+        <filter id="filter"
+                datasource="doorOrdersDs">
+            <properties include=".*"/>
+        </filter>
+        <dataGrid id="doorOrdersDataGrid"
+                  datasource="doorOrdersDs"
+                  height="7493px"
+                  width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+                <action id="refresh"/>
+            </actions>
+            <columns>
+                <column property="number"/>
+                <column property="date"/>
+                <column property="manufactureDate"/>
+                <column property="placementCategory"/>
+                <column property="price"/>
+                <column property="height"/>
+                <column property="width"/>
+                <column property="opening"/>
+                <column property="notes"/>
+                <column property="isolation"/>
+                <column property="peephole"/>
+                <column property="loopNumber"/>
+                <column property="topLock"/>
+                <column property="buttomlock"/>
+                <column property="topOnlay"/>
+                <column property="buttomOnlay"/>
+                <column property="handle"/>
+                <column property="cylinder"/>
+                <column property="internalDecoration"/>
+                <column property="externalDecoration"/>
+            </columns>
+            <buttonsPanel id="buttonsPanel">
+                <button id="createButton"
+                        action="doorOrdersDataGrid.create"
+                        caption="msg://Create"/>
+                <button id="editButton"
+                        action="doorOrdersDataGrid.edit"
+                        caption="msg://Edit"/>
+                <button id="removeButton"
+                        action="doorOrdersDataGrid.remove"
+                        caption="msg://Remove"/>
+                <button id="refreshButton"
+                        action="doorOrdersDataGrid.refresh"
+                        caption="msg://refresh"/>
+            </buttonsPanel>
+        </dataGrid>
+    </layout>
+</window>

@@ -73,4 +73,16 @@
             template="com/ekom/ekomerp/web/partner/vendor-browse.xml"/>
     <screen id="ekomerp$Customer.browse"
             template="com/ekom/ekomerp/web/partner/customer-browse.xml"/>
+    <screen id="ekomerp$DoorOrder.browse"
+            template="com/ekom/ekomerp/web/doororder/door-order-browse.xml"/>
+    <screen id="ekomerp$DoorOrder.edit"
+            template="com/ekom/ekomerp/web/doororder/door-order-edit.xml"/>
+    <screen id="ekomerp$Door.browse"
+            template="com/ekom/ekomerp/web/door/door-browse.xml"/>
+    <screen id="ekomerp$Door.edit"
+            template="com/ekom/ekomerp/web/door/door-edit.xml"/>
+    <screen id="ekomerp$Gauging.browse"
+            template="com/ekom/ekomerp/web/gauging/gauging-browse.xml"/>
+    <screen id="ekomerp$Gauging.edit"
+            template="com/ekom/ekomerp/web/gauging/gauging-edit.xml"/>
 </screen-config>

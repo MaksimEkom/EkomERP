@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="com.ekom.ekomerp.web.door.DoorEdit"
+        datasource="doorDs"
+        focusComponent="fieldGroup"
+        messagesPack="com.ekom.ekomerp.web.door">
+    <dsContext>
+        <datasource id="doorDs"
+                    class="com.ekom.ekomerp.entity.Door"
+                    view="_local"/>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="windowActions"
+            spacing="true">
+        <fieldGroup id="fieldGroup"
+                    datasource="doorDs">
+            <column width="250px">
+                <field property="doorKind"/>
+                <field property="cd"/>
+                <field property="designation"/>
+                <field property="description"
+                       rows="5"/>
+            </column>
+        </fieldGroup>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>

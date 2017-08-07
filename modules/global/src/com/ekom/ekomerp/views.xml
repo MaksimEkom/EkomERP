@@ -393,4 +393,24 @@
             <property name="type"/>
         </property>
     </view>
+    <view class="com.ekom.ekomerp.entity.DoorOrder"
+          extends="_local"
+          name="doorOrder-view"
+          systemProperties="true">
+        <property name="partner"
+                  view="_minimal">
+            <property name="phone"/>
+            <property name="street"/>
+            <property name="city"/>
+        </property>
+        <property name="door"
+                  view="_minimal"/>
+    </view>
+    <view class="com.ekom.ekomerp.entity.DoorOrder"
+          extends="doorOrder-view"
+          name="doorOrder-edit"/>
+    <view class="com.ekom.ekomerp.entity.Gauging"
+          extends="_local"
+          name="gauging-view">
+    </view>
 </views>

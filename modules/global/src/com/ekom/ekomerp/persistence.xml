@@ -29,5 +29,8 @@
         <class>com.ekom.ekomerp.entity.CalculationMaterialLine</class>
         <class>com.ekom.ekomerp.entity.CalculationLaboriousnessLine</class>
         <class>com.ekom.ekomerp.entity.Payment</class>
+        <class>com.ekom.ekomerp.entity.Door</class>
+        <class>com.ekom.ekomerp.entity.DoorOrder</class>
+        <class>com.ekom.ekomerp.entity.Gauging</class>
     </persistence-unit>
 </persistence>

@@ -79,5 +79,14 @@
         <entity class="com.ekom.ekomerp.entity.Payment">
             <include re=".*"/>
         </entity>
+        <entity class="com.ekom.ekomerp.entity.Door">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.DoorOrder">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.ekom.ekomerp.entity.Gauging">
+            <include re=".*"/>
+        </entity>
     </entities>
 </fts-config>

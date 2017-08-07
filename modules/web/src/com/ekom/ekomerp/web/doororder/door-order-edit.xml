@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="com.ekom.ekomerp.web.doororder.DoorOrderEdit"
+        datasource="doorOrderDs"
+        focusComponent="fieldGroup"
+        messagesPack="com.ekom.ekomerp.web.doororder">
+    <dsContext>
+        <datasource id="doorOrderDs"
+                    class="com.ekom.ekomerp.entity.DoorOrder"
+                    view="doorOrder-edit"/>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout spacing="true">
+        <scrollBox height="100%"
+                   scrollBars="both">
+            <fieldGroup id="fieldGroup"
+                        datasource="doorOrderDs"
+                        height="100%"
+                        width="1035px">
+                <column width="250px">
+                    <field property="number"/>
+                    <field property="partner"/>
+                    <field property="door"/>
+                    <field property="placementCategory"/>
+                    <field property="height"/>
+                    <field property="isolation"/>
+                    <field property="peephole"/>
+                    <field property="topLock"/>
+                    <field property="topOnlay"/>
+                    <field property="handle"/>
+                    <field property="internalDecoration"
+                           rows="5"/>
+                </column>
+                <column width="250px">
+                    <field property="date"/>
+                    <field property="manufactureDate"/>
+                    <field property="price"/>
+                    <field property="loopNumber"/>
+                    <field property="width"/>
+                    <field property="dismantiling"/>
+                    <field property="trim"/>
+                    <field property="buttomlock"/>
+                    <field property="buttomOnlay"/>
+                    <field property="cylinder"/>
+                    <field property="externalDecoration"
+                           rows="5"/>
+                </column>
+                <column>
+                    <field property="status"/>
+                    <field property="master"/>
+                    <field property="payed"/>
+                </column>
+            </fieldGroup>
+            <buttonsPanel>
+                <label align="MIDDLE_LEFT"
+                       value="msg://Opening direction"/>
+                <optionsGroup datasource="doorOrderDs"
+                              property="opening"/>
+                <button id="button"
+                        align="MIDDLE_CENTER"
+                        caption="msg://Gauging"
+                        invoke="onButtonClick"/>
+            </buttonsPanel>
+            <label value="msg://Notes"/>
+            <textArea id="doorOrderTextArea"
+                      datasource="doorOrderDs"
+                      property="notes"
+                      width="400px"/>
+            <label value="msg://Created By"/>
+            <label datasource="doorOrderDs"
+                   property="createdBy"/>
+            <frame screen="editWindowActions"/>
+        </scrollBox>
+    </layout>
+</window>

@@ -142,7 +142,7 @@ configure(coreModule) {
         dbms = 'mssql'
         dbmsVersion = '2012'
         host = '93.84.111.77'
-        dbName = 'EkomDB_copy'
+        dbName = 'EkomDB_copy_max'
         dbUser = 'sa'
         dbPassword = 'SQLadmin.1'
     }
@@ -151,7 +151,7 @@ configure(coreModule) {
         dbms = 'mssql'
         dbmsVersion = '2012'
         host = '93.84.111.77'
-        dbName = 'EkomDB_copy'
+        dbName = 'EkomDB_copy_max'
         dbUser = 'sa'
         dbPassword = 'SQLadmin.1'
     }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.ekom.ekomerp.web.gauging.GaugingBrowse"
+        focusComponent="gaugingsTable"
+        lookupComponent="gaugingsTable"
+        messagesPack="com.ekom.ekomerp.web.gauging">
+    <dsContext>
+        <groupDatasource id="gaugingsDs"
+                         class="com.ekom.ekomerp.entity.Gauging"
+                         view="gauging-view">
+            <query>
+                <![CDATA[select e from ekomerp$Gauging e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="gaugingsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="gaugingsTable"
+                datasource="gaugingsDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="gaugingsTable"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+            </actions>
+            <columns>
+                <column id="doorOrderNumber"/>
+                <column id="width"/>
+                <column id="height"/>
+            </columns>
+            <rows datasource="gaugingsDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="gaugingsTable.create"/>
+                <button id="editBtn"
+                        action="gaugingsTable.edit"/>
+                <button id="removeBtn"
+                        action="gaugingsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

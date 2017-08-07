@@ -2,4 +2,7 @@
 <studio>
     <screenDesigner>
     </screenDesigner>
+    <settings>
+        <showInfoOutdatedScheme>false</showInfoOutdatedScheme>
+    </settings>
 </studio>
