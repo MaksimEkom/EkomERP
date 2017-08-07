@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://schemas.haulmont.com/cuba/menu.xsd">
+    <menu id="Doors"
+          insertBefore="administration">
+        <item screen="ekomerp$Door.browse"/>
+        <item screen="ekomerp$DoorOrder.browse"/>
+        <item screen="ekomerp$Gauging.browse"/>
+    </menu>
     <menu id="registers"
           insertBefore="administration">
         <item id="ekomerp$Unit.browse"/>
