@@ -43,10 +43,10 @@ public class DoorOrderEdit extends AbstractEditor<DoorOrder> {
                 getItem().setStatus(DoorOrderStatus.measurement);
                 commit();
             } else {
-                showNotification("Бланк заказа создан!", NotificationType.HUMANIZED);
+                showNotification("Бланк замера создан!", NotificationType.HUMANIZED);
             }
         }else {
-            showNotification("Бланк заказа создан!", NotificationType.HUMANIZED);
+            showNotification("Бланк замера создан!", NotificationType.HUMANIZED);
         }
 
 
