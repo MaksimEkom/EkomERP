@@ -19,27 +19,67 @@ public class Gauging extends StandardEntity {
     protected String doorOrderNumber;
 
     @Column(name = "WIDTH")
-    protected Integer width;
+    protected BigDecimal width;
 
     @Column(name = "HEIGHT")
-    protected Integer height;
+    protected BigDecimal height;
 
-    public Integer getWidth() {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PARTNER_ID")
+    protected Partner partner;
+
+    @Column(name = "NOTES")
+    protected String notes;
+
+    @Column(name = "MASTER")
+    protected Integer master;
+
+    public void setMaster(Master master) {
+        this.master = master == null ? null : master.getId();
+    }
+
+    public Master getMaster() {
+        return master == null ? null : Master.fromId(master);
+    }
+
+
+    public BigDecimal getHeight() {
+        return height;
+    }
+
+    public void setHeight(BigDecimal height) {
+        this.height = height;
+    }
+
+
+    public BigDecimal getWidth() {
         return width;
     }
 
-    public void setWidth(Integer width) {
+    public void setWidth(BigDecimal width) {
         this.width = width;
     }
 
 
-    public Integer getHeight() {
-        return height;
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
-    public void setHeight(Integer height) {
-        this.height = height;
+    public String getNotes() {
+        return notes;
     }
+
+
+    public Partner getPartner() {
+        return partner;
+    }
+
+    public void setPartner(Partner partner) {
+        this.partner = partner;
+    }
+
+
+
 
 
 

@@ -27,10 +27,11 @@ public class GaugingServiceBean implements GaugingService {
             EntityManager em = persistence.getEntityManager();
             Gauging gauging = new Gauging();
             gauging.setDoorOrderNumber(doorOrder.getNumber());
+            gauging.setPartner(doorOrder.getPartner());
             em.persist(gauging);
             tx.commit();
-
         }
     }
+
 
 }

@@ -16,6 +16,8 @@
                        value="com.ekom.ekomerp.service.InvoiceService"/>
                 <entry key="ekomerp_GaugingService"
                        value="com.ekom.ekomerp.service.GaugingService"/>
+                <entry key="ekomerp_DoorOrderService"
+                       value="com.ekom.ekomerp.service.DoorOrderService"/>
             </map>
         </property>
     </bean>

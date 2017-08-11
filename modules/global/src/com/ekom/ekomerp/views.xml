@@ -408,9 +408,21 @@
     </view>
     <view class="com.ekom.ekomerp.entity.DoorOrder"
           extends="doorOrder-view"
-          name="doorOrder-edit"/>
+          name="doorOrder-edit">
+        <property name="partner"
+                  view="_minimal">
+            <property name="createdBy"/>
+        </property>
+    </view>
     <view class="com.ekom.ekomerp.entity.Gauging"
           extends="_local"
           name="gauging-view">
+        <property name="partner"
+                  view="_minimal">
+            <property name="phone"/>
+            <property name="mobile"/>
+            <property name="street"/>
+            <property name="city"/>
+        </property>
     </view>
 </views>

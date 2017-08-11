@@ -12,17 +12,38 @@
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="windowActions"
-            spacing="true">
-        <fieldGroup id="fieldGroup"
-                    datasource="gaugingDs">
-            <column width="250px">
-                <field property="doorOrderNumber"/>
-                <field property="width"/>
-                <field property="height"/>
-            </column>
-        </fieldGroup>
-        <frame id="windowActions"
-               screen="editWindowActions"/>
+    <layout spacing="true">
+        <scrollBox height="373px">
+            <fieldGroup id="fieldGroup"
+                        datasource="gaugingDs">
+                <column width="250px">
+                    <field property="partner"/>
+                    <field property="height"/>
+                    <field property="master"/>
+                </column>
+                <column>
+                    <field property="doorOrderNumber"/>
+                    <field property="width"/>
+                </column>
+            </fieldGroup>
+            <label value="msg://Notes"/>
+            <textArea datasource="gaugingDs"
+                      property="notes"
+                      rows="7"
+                      width="400px"/>
+            <scrollBox height="100px"
+                       orientation="horizontal"
+                       scrollBars="horizontal"
+                       width="396px">
+                <frame id="windowActions"
+                       height="100%"
+                       screen="editWindowActions"
+                       width="190px"/>
+                <button id="button"
+                        caption="msg://Gauging"
+                        invoke="onButtonClick"
+                        width="206px"/>
+            </scrollBox>
+        </scrollBox>
     </layout>
 </window>

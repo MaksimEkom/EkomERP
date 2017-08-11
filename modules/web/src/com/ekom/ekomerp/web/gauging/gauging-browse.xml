@@ -32,8 +32,11 @@
             </actions>
             <columns>
                 <column id="doorOrderNumber"/>
+                <column id="partner"/>
                 <column id="width"/>
                 <column id="height"/>
+                <column id="notes"/>
+                <column id="master"/>
             </columns>
             <rows datasource="gaugingsDs"/>
             <rowsCount/>

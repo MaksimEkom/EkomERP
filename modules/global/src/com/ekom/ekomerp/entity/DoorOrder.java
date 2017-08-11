@@ -100,7 +100,7 @@ public class DoorOrder extends StandardEntity {
     protected String externalDecoration;
 
     @Column(name = "STATUS", nullable = false)
-    protected Integer status;
+    protected Integer status = DoorOrderStatus.open.getId();
 
     @Column(name = "MASTER")
     protected Integer master;

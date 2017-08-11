@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <studio>
     <screenDesigner>
+        <screen module="web"
+                previewMode="true"
+                reference="com/ekom/ekomerp/web/gauging/gauging-edit.xml"/>
     </screenDesigner>
     <settings>
         <showInfoOutdatedScheme>false</showInfoOutdatedScheme>

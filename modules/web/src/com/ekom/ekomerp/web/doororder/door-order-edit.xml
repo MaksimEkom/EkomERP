@@ -68,7 +68,8 @@
                       datasource="doorOrderDs"
                       property="notes"
                       width="400px"/>
-            <label value="msg://Created By"/>
+            <label height="19px"
+                   value="msg://Created By"/>
             <label datasource="doorOrderDs"
                    property="createdBy"/>
             <frame screen="editWindowActions"/>

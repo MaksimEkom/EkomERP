@@ -625,8 +625,11 @@ create table EKOMERP_GAUGING (
     DELETED_BY varchar(50),
     --
     DOOR_ORDER_NUMBER varchar(20),
-    WIDTH integer,
-    HEIGHT integer,
+    WIDTH decimal(19, 2),
+    HEIGHT decimal(19, 2),
+    PARTNER_ID uniqueidentifier,
+    NOTES varchar(255),
+    MASTER integer,
     --
     primary key nonclustered (ID)
 )^
